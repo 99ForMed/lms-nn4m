@@ -1,0 +1,22 @@
+{% extends 'auth_base.html' %}
+{% block body %}
+<form action='/authentication/login/' method='POST'>
+    {% csrf_token %}
+    <input type='text' name='email' placeholder='example@email.com'/>
+    <input type='password' name='password' placeholder='unicorns123'/>
+    <input type='submit'/>
+</form>
+<ul>
+    <h2>Testing information:</h2>
+    <li>Current User - {{current_user}}</li>
+    <li>User is authenticated? - {{is_authenticated}}</li>
+    <li>Errors: 
+        <ul>
+            {% for error in errors %}
+                {{error}}
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+
+{% endblock %}
