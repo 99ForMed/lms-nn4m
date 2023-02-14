@@ -1,0 +1,1 @@
+web: gunicorn lms-nn4m.wsgi --log-file -
