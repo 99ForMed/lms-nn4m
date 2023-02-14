@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class='course-page'>
+    <div class='container'>
+        <div class='header-area'>
+            <h1>Decision Making</h1>
+            <div class='nav'>
+                <p>Dashboard <span><strong>❭❭</strong></span> Decision Making</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class='thumbnail' onclick='window.location.href="video/"'>
+                    <div class="play-button"><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class='thumbnail'>
+                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+                
+                <div class='thumbnail'>
+                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+
+                <div class='thumbnail'>
+                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+                
+            </div>
+            <div class="col-md-4">
+                <div class='thumbnail'>
+                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+
+                <div class='thumbnail'>
+                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+
+                <div class='thumbnail'>
+                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Dashboard</title>
+{% endblock %}
+{% block body %}
+<div class='dashboard container-fluid'>
+    <div class='row'>
+    
+        <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+            <h2 id='dashboard-learn-h2'>Learn:</h2>
+            <div class='main-container' onclick='window.location.href="/course-page/"'>
+                <div class='main'>
+                    <div class='section-title'>
+                        <h1>Decision Making</h2>
+                    </div>
+                    <div class='skills-mastered'>
+                        <h3 class='heading'>Skills Mastered</h3>
+                        <p class='bigger'>7</p>
+                        <p class='smaller'>out of 12</p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class='start-dates'>
+                <div class='container'>
+                    <div class='row' id='top'>
+                        <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                            <h3>Decision Making</h3>
+                            <p>Start date: January 1st 2023</p>
+                        </div>
+                        <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                            <h3>Quantitative Reasoning</h3>
+                            <p>Start date: January 1st 2023</p>
+                        </div>
+                        <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                            <h3>Abstract Reasoning</h3>
+                            <p>Start date: February 1st 2023</p>
+                        </div>
+                        <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                            <h3>Verbal Reasoning</h3>
+                            <p>Start date: March 1st 2023</p>
+                        </div>
+                        <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                            <h3>SJT + Exam Strategy</h3>
+                            <p>Start date: April 1st 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
+            <div class='sidebar-content'>
+                <div class='heading'>
+                    <h3>This week's UCAT plan:</h3>
+                </div>
+                <hr/>
+                <div class='tutor-checklist'>
+                    <h5>Tutor Checklist:</h5>
+                    <input type="checkbox">
+                    <label>Do some stuff</label><br>
+                    <input type="checkbox">
+                    <label>Do some other stuff</label><br>
+                </div>
+                <hr/>
+                <div class='student-checklist'>
+                    <h5>Student Checklist:</h5>
+                    <input type="checkbox">
+                    <label>Do some stuff</label> <span class='remove-item'>╳</span><br>
+                    <input type="checkbox">
+                    <label>Do some other stuff</label> <span class='remove-item'>╳</span><br><br>
+                    <input type='text' placeholder='Add item...'/><span class='add-item'>Add</span>
+                </div>
+                <br/>
+                
+                <p class='submit'>Submit Progress</p>
+                <div class='days-counter'>
+                    <span class='days'>
+                        31
+                    </span>
+                    <h5> days to master <i>Decision Making</i></h5>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

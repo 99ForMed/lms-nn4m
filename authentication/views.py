@@ -22,7 +22,8 @@ def login_view(request):
         # When they submit username and password
         try:
             username = User.objects.get(email = request.POST['email'])
-        except:
+        except ValueError as e:
+            print(e)
             context['errors'].append("Email not found.")
 
         password = request.POST['password']
@@ -38,7 +39,7 @@ def login_view(request):
     context['current_user'] = str(request.user),
     context['is_authenticated'] = request.user.is_authenticated
 
-    return render(request, 'login.html', context)
+    return render(request, 'login2.html', context)
 
 def login_success_view(request):
     context = {
@@ -52,10 +53,16 @@ def create_account_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('account_created/')
+            return redirect('account-created/')
         return redirect('/')
     form = NewUserForm()
     context = {
-
+        'register_form': form
     }
     return render(request, 'create_account.html', context)
+
+def account_created_view(request):
+    context = {
+
+    }
+    return render(request, 'account-created.html', context)

@@ -1,0 +1,398 @@
+@font-face {
+    font-family: 'montage';
+    src: url('../fonts/montage.otf')  format('truetype');
+  }
+
+body{
+    font-family: 'Montserrat';
+    cursor:default;
+}
+
+.dashboard{
+    background-color: #111111;
+    min-height: 100vh;
+    position: relative;
+}
+
+#dashboard-learn-h2{
+    color: white;
+}
+
+.dashboard .content{
+    color: rgb(191, 191, 191);
+    padding-top: 10vh;
+    padding-left: 0;
+    padding-right: 0;
+    position: relative;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.dashboard .content .main-container{
+    padding: 0 0;
+    margin: 0 0;
+    background-color: #1E1E1E;
+    cursor: pointer;
+    transition: transform 0.4s, background-color 0.4s;
+}
+
+.dashboard .content .main-container:hover{
+    background-color: #343434;
+    transform: translateX(10px);
+}
+
+.dashboard .content .main-container .main{
+    
+    padding: 20px 0;
+    width: 80%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.dashboard .content .section-title{
+    
+    width: fit-content;
+}
+
+.section-title h1{
+    font-size: 50px;
+    text-align: center;
+}
+
+/* .dashboard .content .main .skills-mastered{
+    
+} */
+
+.dashboard .content .main .skills-mastered .heading{
+    
+    font-size: 18px;
+    color: #ccc;
+    margin: 0 0;
+}
+
+.dashboard .content .main .skills-mastered .bigger{
+    font-size: 30px;
+    padding: 0 0;
+    margin: 0 0;
+    color: white;
+}
+
+.dashboard .content .main .skills-mastered .smaller{
+    padding: 0 0;
+    margin: 0 0;
+}
+
+.dashboard .start-dates{
+    padding: 10vh 0;
+
+}
+
+.dashboard .start-dates .container .row .card_{
+    margin: 20px 0;
+    border-left: solid #1E1E1E;
+
+}
+
+.dashboard .sidebar{
+    background-color: #1E1E1E;
+    color: rgb(191, 191, 191);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.dashboard input[type='checkbox']{
+    accent-color: darkorange;
+}
+
+.dashboard .student-checklist input[type='text']{
+    background-color: rgba(0,0,0,0);
+    border: none;
+    border-bottom: solid #343434 0.5px;
+}
+
+.dashboard .student-checklist .remove-item{
+    cursor: pointer;
+    color: darkorange;
+}
+
+.dashboard .student-checklist .add-item{
+    cursor: pointer;
+}
+
+.dashboard .sidebar .submit{
+    color: darkorange;
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #343434;
+    padding: 10px 13px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.dashboard .sidebar .days-counter .days{
+    font-size: 50px;
+}
+
+/* Start Course - Page */
+
+.course-page{
+    background-color: #111111;
+    min-height: 100vh;
+    color: #ccc;
+}
+
+.thumbnail{
+    padding: 20px 0px;
+    cursor: pointer;
+    transition: transform 0.4s;
+}
+
+.thumbnail:hover{
+    transform: translateY(-10px);
+}
+
+.thumbnail .play-button {
+    position: relative;
+    
+}
+  
+.thumbnail .play-button::after {
+    content: "";
+    background-image: url("../img/play-button.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.thumbnail .lock {
+    position: relative;
+    
+}
+  
+.thumbnail .lock::after {
+    content: "";
+    background-image: url("../img/lock-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.thumbnail .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+/* End Course - Page */
+
+/* Start Course Video */
+.course-video{
+    min-height: 100vh;
+    background-color: #111111;
+    color: #ccc;
+    padding: 30px 0;
+}
+
+.course-video .middle-content video{
+    width: 100%;
+    margin: 10px 0;
+}
+
+.course-video .task-container .task{
+    margin: 10px 0;
+    
+}
+
+.course-video .task-container .task .col-lg-8{
+    
+    padding: 30px;
+    background-color: #1E1E1E;
+}
+
+.course-video .task-container .task .col-lg-8 .submit{
+    color: darkorange;
+    background-color: #343434;
+    display: inline-block;
+    width: fit-content;
+    padding: 7px 13px;
+    border-radius: 3px;
+    margin: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.course-video .form-check-input:checked {
+    background-color: darkorange;
+    border-color: darkorange;
+}
+
+.course-video .helpful-links{
+    margin: 30px 0;
+}
+  .course-video .icon-circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #1E1E1E; /* Change to your desired background color */
+    color: white; /* Change to your desired text color */
+    margin: 0 auto 10px; /* Add some space below the circle */
+    transition: background-color 0.4s;
+    cursor: pointer;
+}
+
+  .course-video .icon-circle:hover{
+    background-color: #343434;
+  }
+
+  .course-video .icon-text {
+    text-align: center;
+  }
+
+  .course-video .helpful-links .col-lg-4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+/* Experimental */
+ /* #myVideo {
+    width: 100%;
+    height: auto;
+    background-color: #1E1E1E;
+  }
+  
+  #myVideo::-webkit-media-controls {
+   / display: none; *
+  }
+  
+  #myVideo::-webkit-media-controls-enclosure {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 8px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  #myVideo::-webkit-media-controls-play-button {
+    color: darkorange;
+    font-size: 18px;
+  }
+  
+  #myVideo::-webkit-media-controls-play-button::before {
+    content: "►";
+  }
+  
+  #myVideo::-webkit-media-controls-pause-button {
+    color: darkorange;
+    font-size: 18px;
+  }
+  
+  #myVideo::-webkit-media-controls-pause-button::before {
+    content: "❚❚";
+  }
+  
+  #myVideo::-webkit-media-controls-timeline {
+    height: 5px;
+    width: 100%;
+    background-color: #444;
+    border-radius: 4px;
+    margin: 0 8px;
+  }
+  
+  #myVideo::-webkit-media-controls-timeline::-webkit-media-slider-thumb {
+    background-color: darkorange;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: none;
+    margin-top: -6.5px;
+  }
+  
+  #myVideo::-webkit-media-controls-current-time-display,
+  #myVideo::-webkit-media-controls-time-remaining-display {
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  #myVideo::-webkit-media-controls-mute-button,
+  #myVideo::-webkit-media-controls-volume-slider,
+  #myVideo::-webkit-media-controls-fullscreen-button {
+    color: darkorange;
+  }
+  
+  #myVideo::-webkit-media-controls-mute-button::before {
+    content: "🔇";
+  }
+  
+  #myVideo::-webkit-media-controls-unmute-button::before {
+    content: "🔊";
+  }
+  
+  #myVideo::-webkit-media-controls-fullscreen-button::before {
+    content: "⛶";
+    font-size: 18px;
+  }
+  
+  #myVideo::-webkit-media-controls-volume-slider {
+    height: 5px;
+    width: 80px;
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+  
+  #myVideo::-webkit-media-controls-volume-slider::-webkit-media-slider-thumb {
+    background-color: darkorange;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: none;
+    margin-top: -6.5px;
+  } */
+
+
+/* End Experimental */
+
+/* End Course Video */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {...}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {...}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {...}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {...}

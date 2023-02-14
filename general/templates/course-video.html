@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class='course-video'>
+    <div class="container-fluid">
+        <div class='row'>
+            <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+
+            </div>
+            <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12 middle-content'>
+                <h1>Video Title</h1>
+                <p>This is a description of the video. This is a description of the video</p>
+                <video id='myVideo' width="auto" height="auto" controls>
+                    <source src="{% static 'vid/car-vid.mp4' %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+                
+            </div>
+        </div>
+        <div class='task-container container-fluid'>
+            
+            <div class='task row'>
+                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+                
+                </div>
+                
+                <div class='col-lg-8 col-md-8 col-sm-0 col-xs-0 row'>
+                    <h3>Task: Do this to do this</h3>
+                    <p>Description: This is a valid description. This is a valid description, this is also a valid description.</p>
+                    <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="completedTaskCheck">
+                        <label class="form-check-label text-white" for="completedTaskCheck">
+                          I have completed the task
+                        </label>
+                      </div>
+                    </div>
+                    <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="addToTasksCheck">
+                        <label class="form-check-label text-white" for="addToTasksCheck">
+                          Add to tasks
+                        </label>
+                      </div>
+                    </div>
+                    <br/><br/><br/>
+                    <hr/>
+                    <p class='submit'>Submit</p>
+                </div>
+                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+                
+                </div>
+            </div>
+        </div>
+       <div class='helpful-links'>
+            <div class='row'>
+                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+                
+                </div>
+                <div class='col-lg-8 col-md-8 col-sm-0 col-xs-0'>
+                    <div class='row'>
+                        <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                            <h2 style='text-align: center'>
+                                Still confused?
+                            </h2>
+                        </div>
+                        <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                            <div class="icon-circle">
+                                <i class="fab fa-discord"></i>
+                            </div>
+                            <div class="icon-text">
+                                Ask on Discord
+                            </div>
+                        </div>
+                        
+                        <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                            <div class="icon-circle">
+                                <i class="fas fa-hand-paper"></i>
+                            </div>
+                            <div class="icon-text">
+                                Raise with tutor
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+                
+                </div>
+            </div>
+            
+       </div>
+    </div>
+</div>
+
+{% endblock %}

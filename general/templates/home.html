@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<a href='/authentication/login'>Login</a>
+{% if request.user.is_authenticated %}
+
+{% else %}
+Click here to <a href='/authentication/login'>Login</a>
+{% endif %}
 {% endblock %}
