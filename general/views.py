@@ -32,8 +32,12 @@ def dashboard_view(request):
     return render(request, 'dashboard.html', context)
 
 def course_page_view(request, sectionInstanceId):
+    section = UcatSection.objects.get(id = sectionInstanceId)
+    
     context = {
-        
+        'section_name': section.name,
+        'unlocked_vids': UcatVideo.objects.filter(section = section, unlocked = True),
+        'locked_vids': UcatVideo.objects.filter(section = section, unlocked = False)
     }
     return render(request, 'course-page.html', context)
 
@@ -41,7 +45,9 @@ def course_video_view(request, sectionInstanceId, videoId):
     section = UcatSection.objects.get(id = sectionInstanceId)
     # thumbnails = UcatVideo.objects.filter(section = section).thumbnail
     context = {
-        'section-title': section.name,
-        'unlocked-vids': None
+        'section_title': section.name,
+        'unlocked_vids': None
+        
+        
     }
     return render(request, 'course-video.html', context)

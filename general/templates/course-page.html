@@ -5,44 +5,30 @@
 <div class='course-page'>
     <div class='container'>
         <div class='header-area'>
-            <h1>Decision Making</h1>
+            <h1>{{section_name}}</h1>
             <div class='nav'>
-                <p>Dashboard <span><strong>❭❭</strong></span> Decision Making</p>
+                <p>Dashboard <span><strong>❭❭</strong></span> {{section_name}}</p>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class='thumbnail' onclick='window.location.href="video/"'>
-                    <div class="play-button"><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class='thumbnail'>
-                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
-                </div>
-                
-                <div class='thumbnail'>
-                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
-                </div>
-
-                <div class='thumbnail'>
-                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
-                </div>
+            
+            <div class="col-md-4" style='padding-right: 0'>
+                {% for vid in unlocked_vids %}
+                    <div class='thumbnail' onclick='window.location.href="video/"'>
+                        <div class="play-button"><img src="{{vid.thumbnail.url}}" style='width: 100%'></div>
+                    </div>
+                {% endfor %}
                 
             </div>
-            <div class="col-md-4">
-                <div class='thumbnail'>
-                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
-                </div>
-
-                <div class='thumbnail'>
-                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
-                </div>
-
-                <div class='thumbnail'>
-                    <div class="lock"><div class='overlay'></div><img src="{% static 'img/bg-nn4m.png' %}" style='width: 100%'></div>
+            <div class="col-md-8">
+                <div class='row'>
+                    {% for vid in locked_vids %}
+                    <div class='thumbnail col-md-6'>
+                        <div class="lock"><div class='overlay'></div><img src="{{vid.thumbnail.url}}" style='width: 100%'></div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
