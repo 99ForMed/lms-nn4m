@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class UcatStudent(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE)
     enrolment_date = models.DateTimeField()
+    
 
     def __str__(self):
         return str(self.user)

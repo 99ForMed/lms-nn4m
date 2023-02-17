@@ -77,10 +77,21 @@ WSGI_APPLICATION = 'nnlms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd9g6jpjqdt1uoe',
+        'USER': 'hhlawrfjfpobso',
+        'PASSWORD': '437320c9a14c9457afa91e2ed7d0738ec45023d5e267809b740ffb03d828a2be',
+        'HOST': "ec2-34-197-84-74.compute-1.amazonaws.com",
+        'PORT':  '5432'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
