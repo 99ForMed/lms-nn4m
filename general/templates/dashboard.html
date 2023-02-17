@@ -8,14 +8,14 @@
     
         <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
             <h2 id='dashboard-learn-h2'>Learn:</h2>
-            <div class='main-container' onclick='window.location.href="/course-page/"'>
+            <div class='main-container' onclick='window.location.href="/course-page/{{current_section.id}}/"'>
                 <div class='main'>
                     <div class='section-title'>
-                        <h1>Decision Making</h2>
+                        <h1>{{current_section.section.name}}</h2>
                     </div>
                     <div class='skills-mastered'>
                         <h3 class='heading'>Skills Mastered</h3>
-                        <p class='bigger'>7</p>
+                        <p class='bigger'>{{skills_mastered}}</p>
                         <p class='smaller'>out of 12</p>
                     </div>
                 </div>

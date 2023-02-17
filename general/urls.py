@@ -6,6 +6,6 @@ from .views import course_video_view
 urlpatterns = [
     path('', home_view),
     path('dashboard/', dashboard_view),
-    path('course-page/', course_page_view),
-    path('course-page/video/', course_video_view)
+    path('course-page/<int:sectionInstanceId>/', course_page_view),
+    path('course-page/<int:sectionInstanceId>/video/<int:videoId>/', course_video_view)
 ]
