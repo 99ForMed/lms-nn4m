@@ -31,7 +31,7 @@ class UcatVideo(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField()
     thumbnail = models.ImageField(null = True)
-    url = models.URLField()
+    url = models.CharField(max_length=50)
     unlocked = models.BooleanField(default=False)
 
 

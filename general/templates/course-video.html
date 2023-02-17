@@ -9,13 +9,11 @@
 
             </div>
             <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12 middle-content'>
-                <h1>Video Title</h1>
-                <p>Dashboard <span><strong>❭❭</strong></span> Decision Making <span><strong>❭❭</strong></span> Video Title</p>
+                <h1>{{vid_name}}</h1>
+                <p>Dashboard <span><strong>❭❭</strong></span> Decision Making <span><strong>❭❭</strong></span> {{vid_name}}</p>
                 <p>This is a description of the video. This is a description of the video</p>
-                <video id='myVideo' width="auto" height="auto" controls>
-                    <source src="{% static 'vid/car-vid.mp4' %}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                
+                <iframe width="100%" height="560" src="https://www.youtube.com/embed/{{share_code}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
             <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
                 

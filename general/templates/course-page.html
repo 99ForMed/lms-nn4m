@@ -16,7 +16,7 @@
             
             <div class="col-md-4" style='padding-right: 0'>
                 {% for vid in unlocked_vids %}
-                    <div class='thumbnail' onclick='window.location.href="video/"'>
+                    <div class='thumbnail' onclick='window.location.href="video/{{vid.id}}/"'>
                         <div class="play-button"><img src="{{vid.thumbnail.url}}" style='width: 100%'></div>
                     </div>
                 {% endfor %}

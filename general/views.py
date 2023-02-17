@@ -43,11 +43,11 @@ def course_page_view(request, sectionInstanceId):
 
 def course_video_view(request, sectionInstanceId, videoId):
     section = UcatSection.objects.get(id = sectionInstanceId)
+    video = UcatVideo.objects.get(id=videoId)
     # thumbnails = UcatVideo.objects.filter(section = section).thumbnail
     context = {
-        'section_title': section.name,
-        'unlocked_vids': None
-        
-        
+        'vid_name': video.name,
+        'vid_description': video.description,
+        'share_code': video.url
     }
     return render(request, 'course-video.html', context)
