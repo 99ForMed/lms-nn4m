@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import *
+from datetime import date, timedelta
 # Create your views here.
 
 def home_view(request):
 
     if request.user.is_authenticated:
         return redirect('/dashboard')
-    
-
-    context = {
-
-    }
-    return render(request, 'home.html', context)
+    else:
+        return redirect('/authentication/login/')
 
 def dashboard_view(request):
     current_section = None
@@ -23,7 +20,13 @@ def dashboard_view(request):
             current_section = section
     context = {
         'current_section': current_section,
-        'start_dates_ordered':start_dates_ordered
+        'start_dates_ordered':start_dates_ordered,
+        'tasks': UcatStudent.objects.get(user = request.user).tasks,
+        'date1': (UcatStudent.objects.get(user=request.user).enrolment_date).date(),
+        'date2': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=30)).date(),
+        'date3': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=60)).date(),
+        'date4': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=90)).date(),
+        'date5': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=120)).date()
     }
 
     if not context['current_section'] == None:

@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_better_admin_arrayfield.models.fields import ArrayField
 # Create your models here.
 
 class UcatStudent(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE)
     enrolment_date = models.DateTimeField()
-    
+    tasks = ArrayField(
+            models.CharField(max_length=100, blank=True)
+        )
 
     def __str__(self):
         return str(self.user)

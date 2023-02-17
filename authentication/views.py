@@ -45,7 +45,7 @@ def login_success_view(request):
     context = {
 
     }
-    return render(request, 'login-success.html', context)
+    return redirect('/dashboard/')
 
 def create_account_view(request):
     if request.method == "POST":
