@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
 
+
+from general.models import UcatStudent, UcatSectionInstance, UcatSection
+import datetime
 # Create your views here.
 
 def general_auth_view(request):
@@ -52,7 +55,12 @@ def create_account_view(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            
             login(request, user)
+            new_student = UcatStudent(user = request.user, enrolment_date = datetime.datetime.now(), tasks = [])
+            new_student.save()
+            new_instance = UcatSectionInstance(student = UcatStudent.objects.get(user = request.user), section = UcatSection.objects.get(name = "Decision Making"), start_date = datetime.datetime.now().date(), current = True, skills_mastered = 0)
+            new_instance.save()
             return redirect('account-created/')
         return redirect('/')
     form = NewUserForm()
@@ -65,4 +73,4 @@ def account_created_view(request):
     context = {
 
     }
-    return render(request, 'account-created.html', context)
+    return redirect('/dashboard/')
