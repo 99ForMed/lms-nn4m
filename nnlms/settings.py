@@ -79,10 +79,10 @@ WSGI_APPLICATION = 'nnlms.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd9g6jpjqdt1uoe',
-        'USER': 'hhlawrfjfpobso',
-        'PASSWORD': '437320c9a14c9457afa91e2ed7d0738ec45023d5e267809b740ffb03d828a2be',
-        'HOST': "ec2-34-197-84-74.compute-1.amazonaws.com",
+        'NAME': 'd19tnbvs44p3fp',
+        'USER': 'qbsspjbbmnviel',
+        'PASSWORD': '00dba1e746f9345e678853304ea000f377832c025b3e09ddba2e7b83aefd0240',
+        'HOST': "ec2-3-230-87-163.compute-1.amazonaws.com",
         'PORT':  '5432'
     }
 }
