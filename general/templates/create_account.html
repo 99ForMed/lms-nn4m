@@ -65,9 +65,17 @@
 						</button>
 					</div>
 					<p>
+						<br/>
 						{% for error in errors %}
 							{{error}}
 						{% endfor %}
+						{% for field in form_errors %}
+							{% for error in field %}
+								{{error.message}}
+								<br/>
+							{% endfor %}
+						{% endfor %}
+						
 					</p>
 					<div class="text-center p-t-90">
 						<a class="txt1" href="#">
