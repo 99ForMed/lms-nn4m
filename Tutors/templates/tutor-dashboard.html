@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Dashboard</title>
+{% endblock %}
+{% block body %}
+<div class='dashboard container-fluid tutor-dashboard'>
+    
+    <div class='row'>
+    
+        <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+            <h2 id='dashboard-learn-h2'>{{time_greeting}}, {{request.user}}</h2>
+            {% comment %} <div class='main-container'>
+                <div class='main'>
+                    <div class='section-title'>
+                        <h1>{{current_section.section.name}}</h2>
+                    </div>
+                    <div class='skills-mastered'>
+                        <h3 class='heading'>Skills Mastered</h3>
+                        <p class='bigger'>{{skills_mastered}}</p>
+                        <p class='smaller'>out of 12</p>
+                    </div>
+                </div>
+                
+            </div> {% endcomment %}
+            <div class="row">
+                {% for i in '0123456789'|make_list %}
+                <div class="col-md-6 mb-4">
+                <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title">Class Name {{ i }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Student name 1</li>
+                            <li class="list-group-item">Student name 2</li>
+                            <li class="list-group-item">Student name 3</li>
+                        </ul>
+                        <br/>
+                        <p>26/09/2003</p>
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
+            <div class='sidebar-content'>
+                <div class='heading'>
+                    <h3>Mentor Resources</h3>
+                </div>
+                <div class='strategy-document-link'>
+                    <div class='redirect-box'>
+                        <h4>Strategy Document</h4>
+                        <p>Access the latest strategy document here</p>
+                    </div>
+                </div>
+                <div class='tutor-resources-link'>
+                    <div class='redirect-box'>
+                        <h4>Tutor Resources</h4>
+                        <p>Find helpful resources for tutors here</p>
+                    </div>
+                </div>
+                {% comment %} <div class='student-checklist'>
+                    <h5>Student Checklist:</h5>
+    
+                    <input type='text' placeholder='Add item...'/><span class='add-item'>Add</span>
+                </div> {% endcomment %}
+                <br/>
+                
+                <p class='submit' onclick='window.location.href="raise-issue/"'>Escalate</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

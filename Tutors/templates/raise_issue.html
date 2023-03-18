@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Raise Issue</title>
+{% endblock %}
+{% block body %}
+<div class='dashboard container-fluid tutor-dashboard'>
+    <div class='row'>
+        <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+            <h2 id='dashboard-learn-h2' style='text-align: center'>What's the issue?</h2>
+            <div class="issue-form">
+                <h4>Category</h4>
+                <select class="form-select">
+                    <option selected>Select category</option>
+                    <option value="student">Student</option>
+                    <option value="lms_function">LMS Function</option>
+                    <option value="tutor_resources">Tutor Resources</option>
+                </select>
+                <h4>Urgency</h4>
+                <select class="form-select">
+                    <option selected>Select urgency</option>
+                    <option value="now">Now</option>
+                    <option value="1-2_days">1-2 days</option>
+                    <option value="end_of_week">End of the week</option>
+                    <option value="months_in_advance">Months in Advance</option>
+                </select>
+                <h4>Description</h4>
+                <h6>Note: What do you want us to do?</h6>
+                <textarea class="form-control" rows="5" placeholder="Describe the issue here..."></textarea>
+                <br/>
+                <button type="submit" class="btn-submit">Submit Issue</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

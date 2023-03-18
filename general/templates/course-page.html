@@ -7,6 +7,45 @@
         <div class='header-area'>
             <h1>{{section_name}}</h1>
             <div class='nav'>
+                <p><span onclick='window.location.href="/"'>Dashboard</span> <span><strong>❭❭</strong></span> {{section_name}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-4" style='padding-right: 0'>
+                {% for vid in unlocked_vids %}
+                    <div class='thumbnail' onclick='window.location.href="video/{{vid.id}}/"'>
+                        <div class="play-button"><img src="https://img.youtube.com/vi/{{vid.url}}/hqdefault.jpg" style='width: 100%'></div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+            <div class="col-md-8">
+                <div class='row'>
+                    {% for vid in locked_vids %}
+                    <div class='thumbnail col-md-6'>
+                        <div class="lock"><div class='overlay'></div><img src="https://img.youtube.com/vi/{{vid.url}}/hqdefault.jpg" style='width: 100%'></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class='course-page'>
+    <div class='container'>
+        <div class='header-area'>
+            <h1>{{section_name}}</h1>
+            <div class='nav'>
                 <p>Dashboard <span><strong>❭❭</strong></span> {{section_name}}</p>
             </div>
         </div>
@@ -17,7 +56,7 @@
             <div class="col-md-4" style='padding-right: 0'>
                 {% for vid in unlocked_vids %}
                     <div class='thumbnail' onclick='window.location.href="video/{{vid.id}}/"'>
-                        <div class="play-button"><img src="{{vid.thumbnail.url}}" style='width: 100%'></div>
+                        <div class="play-button"><img src="https://img.youtube.com/vi/{{vid.url}}/hqdefault.jpg" style='width: 100%'></div>
                     </div>
                 {% endfor %}
                 
@@ -37,4 +76,4 @@
 
 
 
-{% endblock %}
+{% endblock %} {% endcomment %}

@@ -104,6 +104,32 @@ body{
     min-height: 100vh;
 }
 
+.dashboard .sidebar .redirect-box {
+  background-color: #1E1E1E;
+  color: #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+}
+
+.dashboard .sidebar .redirect-box:hover {
+  transform: translateY(-5px);
+  background-color: #343434;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard .sidebar .redirect-box h4 {
+  color: darkorange;
+  margin-bottom: 5px;
+}
+
+.dashboard .sidebar .redirect-box p {
+  font-size: 14px;
+}
+
 .dashboard input[type='checkbox']{
     accent-color: darkorange;
 }
@@ -123,25 +149,132 @@ body{
     cursor: pointer;
 }
 
+@keyframes border-race {
+  0% {
+    border-color: transparent transparent transparent #000;
+  }
+  25% {
+    border-color: #000 transparent transparent transparent;
+  }
+  50% {
+    border-color: transparent #000 transparent transparent;
+  }
+  75% {
+    border-color: transparent transparent #000 transparent;
+  }
+  100% {
+    border-color: transparent transparent transparent #000;
+  }
+}
+
 .dashboard .sidebar .submit{
     color: darkorange;
     position: relative;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    background-color: #343434;
     padding: 10px 13px;
     border-radius: 3px;
     cursor: pointer;
+    transition: background-color 0.4s, border-radius 0.4s;
+}
+
+.dashboard .sidebar .submit:hover {
+  
+  background-color: #343434;
+  
 }
 
 .dashboard .sidebar .days-counter .days{
     font-size: 50px;
 }
 
+/* Start Course - Page
+*/
+.course-page{
+  background-color: #111111;
+  min-height: 100vh;
+  color: #ccc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-area h1 {
+  color: #ccc;
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
+
+.header-area .nav {
+  font-size: 1.1rem;
+}
+
+.header-area .nav span {
+  color: darkorange;
+}
+
+.thumbnail{
+  padding: 20px 0px;
+  cursor: pointer;
+  transition: transform 0.4s;
+}
+
+.thumbnail:hover{
+  transform: translateY(-10px);
+}
+
+.thumbnail .play-button {
+  position: relative;
+}
+
+.thumbnail .play-button::after {
+  content: "";
+  background-image: url("../img/play-button.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.thumbnail .lock {
+  position: relative;
+}
+
+.thumbnail .lock::after {
+  content: "";
+  background-image: url("../img/lock-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.thumbnail .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+} 
 /* Start Course - Page */
 
-.course-page{
+/* .course-page{
     background-color: #111111;
     min-height: 100vh;
     color: #ccc;
@@ -200,7 +333,7 @@ body{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-}
+}  */
 
 
 /* End Course - Page */
@@ -257,9 +390,9 @@ body{
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #1E1E1E; /* Change to your desired background color */
-    color: white; /* Change to your desired text color */
-    margin: 0 auto 10px; /* Add some space below the circle */
+    background-color: #1E1E1E; 
+    color: white; 
+    margin: 0 auto 10px; 
     transition: background-color 0.4s;
     cursor: pointer;
 }
@@ -276,8 +409,9 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
+  } 
 
+   
 /* Experimental */
  /* #myVideo {
     width: 100%;
@@ -384,6 +518,212 @@ body{
 /* End Experimental */
 
 /* End Course Video */
+
+
+
+/* Start Tutor Dashboard */
+  
+
+    .tutor-dashboard .card {
+        background-color: #111111;
+        color: white;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+        cursor: pointer;
+    }
+
+    .tutor-dashboard .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  }
+
+    .tutor-dashboard .card-title {
+        color: darkorange;
+    }
+    .tutor-dashboard .card-subtitle {
+        color: #1E1E1E;
+    }
+    .tutor-dashboard .card-text {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    .tutor-dashboard .list-group-item {
+        background-color: #1E1E1E;
+        color: rgba(255, 255, 255, 0.8);
+        border: none;
+        transition: all 0.4s;
+    }
+
+    .tutor-dashboard .list-group-item:hover {
+      background-color: #131313;
+      color: rgba(255, 255, 255, 1);
+  }
+
+    .tutor-dashboard .card-link {
+        color: darkorange;
+        text-decoration: none;
+    }
+
+    .issue-form {
+      padding-top: 10vh;
+      padding-left: 0;
+      padding-right: 0;
+      position: relative;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .issue-form h4 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    
+    .issue-form h6 {
+      color: #ccc;
+      margin-bottom: 5px;
+    }
+    
+    .issue-form .form-select {
+      background-color: #1E1E1E;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    .issue-form .form-select:focus {
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+    
+    .issue-form .form-control {
+      background-color: #1E1E1E;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    
+    .issue-form .form-control:focus {
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+    
+    .btn-submit {
+      background-color: darkorange;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.4s;
+    }
+    
+    .btn-submit:hover {
+      background-color: #f57c00;
+    }
+
+    @media screen and (max-width: 768px) {
+      .issue-form {
+        width: 100%; /* Reduce the width of the form */
+        margin-top: 30px; /* Reduce the margin-top */
+      }
+    }
+/* End Tutor Dashboard */
+/* Tutor Strategy Documents */
+.tutor-strategy-docs{
+  background-color: #111111;
+  min-height: 100vh;
+  position: relative;
+}
+
+.tutor-strategy-docs h2{
+  color: white;
+  padding-top: 10vh;
+  text-align: center;
+}
+
+.accordion {
+  padding: 2rem;
+}
+
+.accordion-item {
+  margin-bottom: 1rem;
+}
+
+/* .accordion-header {
+  background-color: #1E1E1E;
+  color: white;
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.4s;
+}
+
+.accordion-header:hover {
+  background-color: #343434;
+}
+
+.accordion-content {
+  background-color: #111111;
+  color: rgba(255, 255, 255, 0.8);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s;
+} */
+.accordion-header {
+  cursor: pointer;
+  background-color: #1E1E1E;
+  color: white;
+  padding: 15px;
+  border-bottom: 1px solid #343434;
+  font-size: 18px;
+  position: relative;
+  width: 100%;
+}
+
+.accordion-content {
+  display: none;
+  background-color: #111111;
+  color: #ccc;
+  padding: 20px;
+  border-bottom: 1px solid #343434;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid white;
+  margin-right: 10px;
+  transform: rotate(90deg);
+  transition: transform 0.4s;
+}
+
+.triangle.toggled {
+  transform: rotate(-90deg);
+}
+
+.accordion-header::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: darkorange;
+  transition: transform 0.3s;
+}
+
+.accordion-header.active::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+/* End Tutor Strategy Documents */
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {...}

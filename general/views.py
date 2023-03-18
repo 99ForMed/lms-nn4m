@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render, redirect
 from .models import *
 from datetime import date, timedelta
@@ -11,6 +12,14 @@ def home_view(request):
         return redirect('/authentication/login/')
 
 def dashboard_view(request):
+    if Tutor.objects.filter(user = request.user).exists():
+        return redirect('/tutors/dashboard/')
+    return dashboard_view_student(request)
+
+def dashboard_view_student(request):
+    return None
+
+def dashboard_view_student(request):
     current_section = None
     user_sections = UcatSectionInstance.objects.filter(student = UcatStudent.objects.get(user = request.user))
     start_dates_ordered = []
@@ -31,12 +40,16 @@ def dashboard_view(request):
 
     if not context['current_section'] == None:
         context['skills_mastered'] = context['current_section'].skills_mastered
+        deadline = context['current_section'].start_date + timedelta(days=30)
+        current_day = datetime.datetime.now().date()
+        context['days_to_master'] = (deadline - current_day).days
 
     return render(request, 'dashboard.html', context)
 
 def course_page_view(request, sectionInstanceId):
-    section = UcatSection.objects.get(id = sectionInstanceId)
-    
+    sectionInstance = UcatSectionInstance.objects.get(id = sectionInstanceId)
+    section = sectionInstance.section
+
     context = {
         'section_name': section.name,
         'unlocked_vids': UcatVideo.objects.filter(section = section, unlocked = True),
@@ -45,10 +58,12 @@ def course_page_view(request, sectionInstanceId):
     return render(request, 'course-page.html', context)
 
 def course_video_view(request, sectionInstanceId, videoId):
-    section = UcatSection.objects.get(id = sectionInstanceId)
+    sectionInstance = UcatSectionInstance.objects.get(id = sectionInstanceId)
+    section = sectionInstance.section
     video = UcatVideo.objects.get(id=videoId)
     # thumbnails = UcatVideo.objects.filter(section = section).thumbnail
     context = {
+        'vid': video,
         'vid_name': video.name,
         'vid_description': video.description,
         'share_code': video.url

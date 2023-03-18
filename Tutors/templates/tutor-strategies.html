@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Tutor Strategy Documents</title>
+{% comment %}  integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/X+H5b7A9E0Xp8e1K/4C2Ksd6x8kIeo77Pz1dg" crossorigin="anonymous" {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+{% block body %}
+<div class='strategy-docs container-fluid tutor-strategy-docs'>
+    <div class='row'>
+        <div class='content col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+            <h2>Strategy Documents</h2>
+            <div class="accordion">
+                <div class="accordion-header">Header 1</div>
+                <div class="accordion-content">
+                    Content 1
+                </div>
+                <div class="accordion-header">Header 2</div>
+                <div class="accordion-content">
+                    Content 2
+                </div>
+                <!-- Add more accordion sections as needed -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.accordion-header').on('click', function() {
+            $(this).toggleClass('active').next('.accordion-content').slideToggle();
+        });
+    });
+</script>
+{% endblock %}
