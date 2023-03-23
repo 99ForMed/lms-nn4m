@@ -1,7 +1,12 @@
 import datetime
 from django.shortcuts import render, redirect
+
+from Forum.models import Comment, Reply
 from .models import *
 from datetime import date, timedelta
+
+from django.http import HttpResponseNotAllowed, JsonResponse
+from django.views.decorators.http import require_POST
 # Create your views here.
 
 def home_view(request):
@@ -54,10 +59,13 @@ def course_page_view(request, sectionInstanceId):
         'section_name': section.name,
         'unlocked_vids': UcatVideo.objects.filter(section = section, unlocked = True),
         'locked_vids': UcatVideo.objects.filter(section = section, unlocked = False)
+        
     }
     return render(request, 'course-page.html', context)
 
 def course_video_view(request, sectionInstanceId, videoId):
+    
+    
     sectionInstance = UcatSectionInstance.objects.get(id = sectionInstanceId)
     section = sectionInstance.section
     video = UcatVideo.objects.get(id=videoId)
@@ -66,6 +74,69 @@ def course_video_view(request, sectionInstanceId, videoId):
         'vid': video,
         'vid_name': video.name,
         'vid_description': video.description,
-        'share_code': video.url
+        'share_code': video.url,
+        'comments': Comment.objects.filter(forum = video),
+
+
     }
+
     return render(request, 'course-video.html', context)
+
+@require_POST
+def add_comment(request):
+    video_id = request.POST.get('video_id')
+    user = request.user
+    content = request.POST.get('content')
+
+    if not user.is_authenticated:
+        return JsonResponse({'error': 'Authentication required.'})
+
+    try:
+        video = UcatVideo.objects.get(id=video_id)
+    except UcatVideo.DoesNotExist:
+        return JsonResponse({'error': 'Video not found.'})
+
+    comment = Comment(forum=video, user=user, content=content, upvotes=0)
+    comment.save()
+
+    # Return the new comment as a JSON response
+    return JsonResponse({
+        'id': comment.id,
+        'username': comment.user.username,
+        'datetime': comment.datetime.strftime('%Y-%m-%d %H:%M:%S'),
+        'content': comment.content,
+        'upvotes': comment.upvotes,
+    })
+
+def add_reply(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        user = request.user
+        content = request.POST.get('reply_content')
+
+        comment = Comment.objects.get(id=comment_id)
+
+        reply = Reply(comment=comment, user=user, content=content, upvotes=0)
+        reply.save()
+
+        data = {
+            'username': user.username,
+            'datetime': reply.datetime.strftime('%Y-%m-%d %H:%M'),
+            'content': reply.content,
+            'upvotes': reply.upvotes
+        }
+        return JsonResponse(data)
+    else:
+        return HttpResponseNotAllowed(['POST'])
+    
+
+def upvote_comment(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        comment = Comment.objects.get(id=comment_id)
+        comment.upvotes += 1
+        comment.save()
+
+        return JsonResponse({'upvotes': comment.upvotes})
+    else:
+        return JsonResponse({'error': 'Invalid request method'})

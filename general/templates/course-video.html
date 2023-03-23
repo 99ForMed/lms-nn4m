@@ -26,6 +26,94 @@
                 
             </div>
         </div>
+        {% comment %} Start Comment Section {% endcomment %}
+        <div class="container-fluid mt-0 mb-5 question-forum">
+            <div class="d-flex justify-content-center row">
+                <div class="d-flex flex-column col-md-8">
+                    
+                    <div class="coment-bottom p-2 px-4">
+                        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        <form id='comments-form'>
+                            {% csrf_token %}
+                            <input type="hidden" name="video_id" value="{{ vid.id }}">
+                            <textarea class="form-control mr-3" rows="4" cols="100" name="content" placeholder="Add comment"></textarea>
+                            <button class="btn btn-primary" type="submit" id="comment-submit">
+                                Comment
+                            </button>
+                        </form>
+                        </div>
+                        {% for comment in comments %}
+                        <div class="commented-section mt-2">
+                            <div class="d-flex flex-row align-items-center commented-user">
+                                <h5 class="mr-2">
+                                    {{comment.user}}
+                                </h5>
+                                <span class="dot mb-1">
+
+                                </span>
+                                <span class="mb-1 ml-2 datetime">
+                                    {{comment.datetime}}
+                                </span>
+                            </div>
+                            <div class="comment-text-sm">
+                                <span>
+                                    {{comment.content}}
+                                </span>
+                            </div>
+                            <div class="reply-section">
+                                <div class="d-flex flex-row align-items-center voting-icons">
+                                    <i class="fa fa-sort-up fa-2x mt-3 hit-voting" data-comment-id="{{ comment.id }}">
+
+                                    </i>
+                                    <span class="ml-2">
+                                        {{comment.upvotes}}
+                                    </span>
+                                    <span class="dot ml-2">
+                                        
+                                    </span>
+                                    <h6 class="ml-2 mt-1 show-reply-form">Reply</h6>
+                                </div>
+                                <div class="replies">
+                                    {% for reply in comment.replies.all %}
+                                    <div class="reply">
+                                        <div class="d-flex flex-row align-items-center replied-user">
+                                            <h6 class="mr-2">
+                                                {{reply.user}}
+                                            </h6>
+                                            <span class="dot mb-1">
+                                            </span>
+                                            <span class="mb-1 ml-2 datetime">
+                                                {{reply.datetime}}
+                                            </span>
+                                        </div>
+                                        <div class="reply-text-sm">
+                                            <span>
+                                                {{reply.content}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="reply-form-container" style="display: none;">
+                                    <form class="reply-form">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                        <textarea class="form-control mr-3" rows="2" cols="100" name="reply_content" placeholder="Add reply"></textarea>
+                                        <button class="btn btn-primary" type="submit" id="reply-submit">
+                                            Reply
+                                        </button>
+                                    </form>
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <div id="comments-section"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
         {% comment %} <div class='task-container container-fluid'>
             
             <div class='task row'>
@@ -102,5 +190,126 @@
        </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
+
+    $(function() {
+        
+    $('#comments-form').submit(function(event) {
+        event.preventDefault();
+        var form = $(this);
+        var formData = form.serialize();
+        $.ajax({
+        url: '{% url "add_comment" %}',
+        type: 'POST',
+        data: formData,
+        success: function(data) {
+            // Add the new comment to the comments section
+            var comment = $('<div>').addClass('commented-section mt-2');
+            var commentedUser = $('<div>').addClass('d-flex flex-row align-items-center commented-user');
+            var username = $('<h5>').addClass('mr-2').text(data.username);
+            var dot = $('<span>').addClass('dot mb-1');
+            var datetime = $('<span>').addClass('mb-1 ml-2 datetime').text(data.datetime);
+            commentedUser.append(username, dot, datetime);
+            
+            var content = $('<div>').addClass('comment-text-sm').text(data.content);
+            
+            var replySection = $('<div>').addClass('reply-section');
+            var votingIcons = $('<div>').addClass('d-flex flex-row align-items-center voting-icons');
+            var upvoteIcon = $('<i>').addClass('fa fa-sort-up fa-2x mt-3 hit-voting');
+            var upvotes = $('<span>').addClass('ml-2').text(data.upvotes);
+            var reply = $('<h6>').addClass('ml-2 mt-1').text('Reply');
+            votingIcons.append(upvoteIcon, upvotes, $('<span>').addClass('dot ml-2'), reply);
+            replySection.append(votingIcons);
+            
+            comment.append(commentedUser, content, replySection);
+            $('#comments-section').append(comment);
+            // Clear the comment input field
+            form.find('textarea').val('');
+        },
+        error: function(xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+        });
+    
+    });
+
+    $('body').on('click', '.show-reply-form', function() {
+        var replyFormContainer = $(this).closest('.reply-section').find('.reply-form-container');
+        replyFormContainer.toggle();
+    });
+
+    $('body').on('submit', '.reply-form', function(event) {
+        event.preventDefault();
+        var form = $(this);
+        var formData = {
+            comment_id: form.find('input[name="comment_id"]').val(),
+            reply_content: form.find('textarea[name="reply_content"]').val(),
+            csrfmiddlewaretoken: form.find('input[name="csrfmiddlewaretoken"]').val(),
+        };
+        $.ajax({
+            url: '{% url "add_reply" %}',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+                // Add the new reply to the replies section
+                var reply = $('<div>').addClass('reply');
+                var repliedUser = $('<div>').addClass('d-flex flex-row align-items-center replied-user');
+                var username = $('<h6>').addClass('mr-2').text(data.username);
+                var dot = $('<span>').addClass('dot mb-1');
+                var datetime = $('<span>').addClass('mb-1 ml-2 datetime').text(data.datetime);
+                repliedUser.append(username, dot, datetime);
+    
+                var content = $('<div>').addClass('reply-text-sm').text(data.content);
+                
+                reply.append(repliedUser, content);
+                form.closest('.reply-section').find('.replies').append(reply);
+                // Clear the reply input field
+                form.find('textarea').val('');
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    var csrftoken = getCookie('csrftoken');
+
+    $('body').on('click', '.hit-voting', function() {
+        var commentId = $(this).data('comment-id');
+        var upvotesCount = $(this).siblings('span');
+        $.ajax({
+            url: '{% url "upvote_comment" %}',
+            type: 'POST',
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            data: {
+                'comment_id': commentId,
+            },
+            success: function(data) {
+                upvotesCount.text(data.upvotes);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+    });
+</script>
 {% endblock %}

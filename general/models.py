@@ -45,10 +45,17 @@ class UcatVideo(models.Model):
 
 class UcatClass(models.Model):
     name = models.CharField(max_length=100)
-    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE, blank=True, null=True)
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE, blank=True, null=True, related_name='classes')
     students = models.ManyToManyField('UcatStudent', through='Enrollment')
+    class_notes = models.TextField()
+
+    def __str__(self):
+        return str(self.name) + " taught by " + str(self.tutor)
 
 class Enrollment(models.Model):
     student = models.ForeignKey(UcatStudent, on_delete=models.CASCADE)
     UcatClass = models.ForeignKey(UcatClass, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.student) + " - " + str(self.UcatClass)

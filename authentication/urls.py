@@ -6,7 +6,7 @@ from .views import login_success_view, account_created_view
 
 urlpatterns = [
     path('', general_auth_view),
-    path('login/', login_view),
+    path('login/', login_view, name='login_view'),
     path('create-account/', create_account_view),
     path('login/login-success/', login_success_view),
     path('create-account/account-created/', account_created_view)

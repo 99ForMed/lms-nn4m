@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import datetime
 
+from .models import *
+
 # Create your views here.
 def dashboard_tutor_view(request):
 
@@ -14,7 +16,8 @@ def dashboard_tutor_view(request):
     else:
         time_greeting = 'Good evening'
     context = {
-        'time_greeting': time_greeting
+        'time_greeting': time_greeting,
+        'tutor': Tutor.objects.get(user = request.user)
     }
     return render(request, 'tutor-dashboard.html', context)
 

@@ -4,7 +4,9 @@
 {% endblock %}
 {% block body %}
 <div class='dashboard container-fluid tutor-dashboard'>
-    
+    <div class="logout-container">
+        <p style='display: inline; color: #ccc; font-size: 0.8rem;'>Logged in as {{request.user}}</p> <button class='logout-btn' onclick='window.location.href="{% url 'logout' %}"'>Logout</button>
+    </div>
     <div class='row'>
     
         <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
@@ -23,17 +25,17 @@
                 
             </div> {% endcomment %}
             <div class="row">
-                {% for i in '0123456789'|make_list %}
+                {% for class in tutor.classes.all %}
                 <div class="col-md-6 mb-4">
                 <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title">Class Name {{ i }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Teacher Name</h6>
+                        <h5 class="card-title">{{class.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Student name 1</li>
-                            <li class="list-group-item">Student name 2</li>
-                            <li class="list-group-item">Student name 3</li>
+                            {% for student in class.students.all%}
+                            <li class="list-group-item">{{student}}</li>
+                            {% endfor %}
                         </ul>
                         <br/>
                         <p>26/09/2003</p>
@@ -45,6 +47,7 @@
         </div>
         <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
             <div class='sidebar-content'>
+                <br/>
                 <div class='heading'>
                     <h3>Mentor Resources</h3>
                 </div>
