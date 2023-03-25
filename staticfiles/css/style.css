@@ -217,6 +217,7 @@ body{
 
 .header-area .nav span {
   color: darkorange;
+  cursor: pointer;
 }
 
 .thumbnail {
@@ -419,7 +420,158 @@ body{
     justify-content: center;
   } 
 
-   
+/* Start chat forum */
+
+/* .question-forum .d-flex .d-flex .d-flex{
+  background-color: #1E1E1E;
+} */
+
+.question-forum textarea{
+  background-color: #131313;
+  border: none;
+  outline: none;
+  color: #ccc;
+}
+
+.question-forum textarea:focus{
+  background-color: #131313;
+  border: none;
+  outline: none;
+}
+
+.question-forum .d-flex .d-flex{
+  background-color: #1E1E1E;
+}
+
+.question-forum .bdge {
+  height: 21px;
+  background-color: orange;
+  color: #fff;
+  font-size: 11px;
+  padding: 8px;
+  border-radius: 4px;
+  line-height: 3px;
+}
+
+.question-forum .comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
+
+.question-forum .commented-section .datetime{
+  color: #424242;
+}
+
+.question-forum .reply-section *{
+  padding-right: 10px;
+}
+
+.question-forum .reply-section h6{
+  color: darkorange;
+  cursor: pointer;
+}
+
+.question-forum .dot {
+  height: 7px;
+  width: 7px;
+  margin-top: 3px;
+  background-color: rgba(0,0,0,0);
+  border-radius: 50%;
+  display: inline-block;
+  visibility: hidden;
+}
+
+.question-forum .hit-voting:hover {
+  color: darkorange;
+}
+
+.question-forum .hit-voting {
+  cursor: pointer;
+}
+
+.question-forum .btn-primary{
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: darkorange;
+}
+
+.comment {
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.comment .commented-user {
+  color: #fff;
+  font-weight: normal;
+}
+
+.comment .dot {
+  margin: 0 5px;
+  background-color: #ccc;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  display: none;
+}
+
+.comment .datetime {
+  color: #ccc;
+}
+
+.comment .comment-text-sm {
+  margin-top: 5px;
+}
+
+.comment .upvotes {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.comment .hit-voting {
+  color: #ccc;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.comment .reply-section {
+  margin-top: 10px;
+  margin-top: 0;
+}
+
+.comment .reply-section h6 {
+  color: #fff;
+  cursor: pointer;
+}
+
+.comment .upvote-section {
+  display: flex;
+  align-items: center;
+}
+
+.comment .upvote-section .triangle {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #ccc;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.comment .upvote-section .upvotes {
+  color: #ccc;
+  margin-right: 10px; 
+}
+
+.reply {
+  margin-left: 15px;
+  padding-left: 15px;
+  border-left: solid #343434;
+  padding-bottom: 30px;
+}
+/* End chat forum */
 /* Experimental */
  /* #myVideo {
     width: 100%;
@@ -640,6 +792,31 @@ body{
         margin-top: 30px; /* Reduce the margin-top */
       }
     }
+
+    /* Start Logout Button */
+.logout-container {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.logout-btn {
+  background-color: rgba(0,0,0,0);
+  color: #ccc;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+.logout-btn:hover {
+  background-color: darkorange;
+  color: white;
+}
+/* End Logout Button */
 /* End Tutor Dashboard */
 /* Tutor Strategy Documents */
 .tutor-strategy-docs{
