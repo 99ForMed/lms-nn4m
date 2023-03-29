@@ -7,7 +7,7 @@
         <div class='header-area'>
             <h1>{{vid_name}}</h1>
             <div class='nav'>
-                <p><span onclick='window.location.href="/"'>Dashboard</span> <span><strong>❭❭</strong></span> {{vid_name}}</p>
+                <p><span onclick='window.location.href="/"'>Dashboard</span> <span><strong>❭❭</strong></span> <span>{{section}}</span> <span><strong>❭❭</strong></span> {{vid_name}}</p>
             </div>
         </div>
     </div>
@@ -151,11 +151,9 @@
         </div> {% endcomment %}
         <br/>
         
-       <div class='helpful-links'>
+        <div class='helpful-links'>
             <div class='row'>
-                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
-                
-                </div>
+                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'></div>
                 <div class='col-lg-8 col-md-8 col-sm-0 col-xs-0'>
                     <div class='row'>
                         <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
@@ -171,23 +169,40 @@
                                 Ask on Discord
                             </div>
                         </div>
+                        {% if raised %}
+                            <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                                <div class="icon-circle" id="raise-with-tutor">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <div class="icon-text">
+                                    Raise with tutor
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+                                <div class="icon-circle raised" id="raise-with-tutor">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <div class="icon-text">
+                                    Raised
+                                </div>
+                            </div>
+                        {% endif %}
                         
-                        <div class='col-lg-4 col-md-4 col-sm-12 col-xs-12'>
-                            <div class="icon-circle" onclick='alert("This feature is coming soon!")'>
-                                <i class="fas fa-hand-paper"></i>
-                            </div>
-                            <div class="icon-text" >
-                                Raise with tutor
-                            </div>
-                        </div>
                     </div>
+                    
+                    <form id="raise-issue-form" style="display: none;" method="post">
+                        {% csrf_token %}
+                        <textarea class="raise-issue-textarea" rows="4" cols="100" name="issue_details" placeholder="Provide further details of the issue"></textarea>
+                        <button class="raise-issue-button" type="submit" id="submit-issue">
+                          Submit
+                        </button>
+                      </form>
+                    
                 </div>
-                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
-                
-                </div>
-            </div>
-            
-       </div>
+                <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'></div>
+            </div>            
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -310,6 +325,9 @@
             }
         });
     });
+    });
+    $('#raise-with-tutor').on('click', function() {
+        $('#raise-issue-form').toggle();
     });
 </script>
 {% endblock %}

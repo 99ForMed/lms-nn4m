@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Submit Tasks</title>
+{% with form.file.auto_id as file_auto_id %}
+  <style>
+    #{{ file_auto_id }} {
+      display: none;
+    }
+  </style>
+{% endwith %}
+{% endblock %}
+{% block body %}
+<div class='submit-tasks'>
+  <div class="floating-box">
+    {% if submitted %}
+        <div class='row'>
+            <div class='content col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+                <h2>Submitted</h2>
+                <p style='color: #ccc'>Feel free to go back to the <a href="/" style='color: darkorange; text-decoration: none'>dashboard</span></h2>
+            </div>
+        </div>
+        
+    {% else %}
+    <div class='row'>
+        <a href='/' style='color: darkorange; text-decoration: none'>Submit Progress</a>
+        <div class='content col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+            <h2 style='color: #ccc'>Which tasks?</h2>
+            <p class='note'>Send visible screenshots of the completed tasks 24 hrs before class. Otherwise entrance to class will be blocked.</p>
+            <div class="example-checklists">
+              <ul>
+                {% for task in tasks %}
+                <li><input type="checkbox"> {{task}}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="slider-container">
+              <!-- Slider will be implemented here -->
+            </div>
+          </div>
+          <div class='content col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+            <div class="upload-container">
+              <form method="post" enctype="multipart/form-data" action="{% url 'submit-progress' %}">
+                  {% csrf_token %}
+                  <div class="file-upload-wrapper">
+                    <label class="custom-file-label" for="{{ form.file.auto_id }}">Choose file</label>
+                    {{ form.file }}
+                    <span class="file-name" id="file-name"></span>
+                  </div>
+                  <hr/>
+                  <button class="upload-btn" type="submit">Upload</button>
+                </form>
+            </div>
+          </div>
+    </div>
+    
+    {% endif %}
+  </div>
+</div>
+<script>
+    document.getElementById('{{ form.file.auto_id }}').addEventListener('change', function() {
+      const fileName = this.files[0].name;
+      document.getElementById('file-name').innerText = fileName;
+    });
+  </script>
+{% endblock %}

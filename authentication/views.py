@@ -25,8 +25,7 @@ def login_view(request):
         # When they submit username and password
         try:
             username = User.objects.get(email = request.POST['email'])
-        except ValueError as e:
-            print(e)
+        except:
             context['errors'].append("Email not found.")
 
         password = request.POST['password']

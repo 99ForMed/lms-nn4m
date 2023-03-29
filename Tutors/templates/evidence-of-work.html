@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>File List</title>
+{% endblock %}
+{% block body %}
+<div class='file-list'>
+  <div class="floating-box">
+    <p><span style='color: #343434; cursor: pointer' onclick='window.location.href="../"'>Go back</span>  <span onclick='window.location.href="logout/"' style='float: right;color: #343434; cursor: pointer'>Logout</span></p>
+    <p style='color: darkorange'>Submission of work</p>
+    <h2 style='color: #ccc'>Files submitted by {{student}}</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th>Upload Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+        <tr>
+          <td>{{ file.name }}</td>
+          <td>{{ file.uploaded_at|date:"F d, Y, H:i" }}</td>
+          <td><a style='color: orange; text-decoration: none' href="{{ file.url }}" target="_blank">View</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

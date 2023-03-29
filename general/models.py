@@ -34,7 +34,7 @@ class UcatSectionInstance(models.Model):
 
 class UcatVideo(models.Model):
     section = models.ForeignKey(UcatSection, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=200)
     description = models.TextField()
     url = models.CharField(max_length=50)
     unlocked = models.BooleanField(default=False)
@@ -59,3 +59,12 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return str(self.student) + " - " + str(self.UcatClass)
+    
+class UcatProblem(models.Model):
+    student = models.ForeignKey(UcatStudent, on_delete=models.CASCADE, related_name='UcatProblems')
+    video = models.ForeignKey(UcatVideo, on_delete=models.CASCADE, related_name='UcatProblems')
+    problem = models.TextField()
+    solved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.student)+ " - " + str(self.problem)

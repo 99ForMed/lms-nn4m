@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django_better_admin_arrayfield',
     'general',
     'Tutors',
-    'Forum'
+    'Forum',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -136,12 +137,60 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     '/var/www/static/',
 ]
-STATIC_ROOT = 'staticfiles'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+
+
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# if DEBUG:
+#     STATIC_URL = '/static/'
+#     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#     MEDIA_URL = '/media/'
+#     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')   
+# else:
+#     AWS_ACCESS_KEY_ID = 'AKIAX3DSKV7EVWTVN5GD'
+#     AWS_SECRET_ACCESS_KEY = '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'
+#     AWS_STORAGE_BUCKET_NAME = '99formed'
+#     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+#     AWS_S3_OBJECT_PARAMETERS = {
+#         'CacheControl': 'max-age=86400',
+#     }
+#     AWS_LOCATION = 'static'
+#     AWS_S3_REGION_NAME = 'ap-northeast-1'
+#     AWS_S3_ENDPOINT_URL = f'https://s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+#     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#     DEFAULT_FILE_STORAGE = '99formed.custom_storages.MediaStorage'
+#     MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'
+
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') 
+
+AWS_ACCESS_KEY_ID = 'AKIAX3DSKV7EVWTVN5GD'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = '99formed'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+AWS_S3_REGION_NAME = 'ap-northeast-1'
+AWS_S3_ENDPOINT_URL = f'https://s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = '99formed.custom_storages.MediaStorage'
+MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'

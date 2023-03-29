@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load formatting %}
+{% block head %}
+<title>Class Page</title>
+{% endblock %}
+{% block body %}
+<div class='class-page container-fluid tutor-dashboard'>
+    
+    <div class='row'>
+        
+        <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+            <h2 id='class-page-learn-h2'>{{class.name}}</h2>
+            <div class="row">
+                {% for student in class.students.all %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{student.user}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Assigned Tasks:</h6>
+                            {% for task in student.tasks%}
+                            <p class="card-text">- {{task}}</p>
+                            {% endfor %}
+                            <br/>
+                            <p class='assign-btn'>Assign New Task</p>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ student.id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Problems
+                                  </button>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ student.id }}">
+                                    {% for problem in unsolved_problems %}
+                                        <li>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <a class="dropdown-item" href="#" style='font-size: 10px'>{{ problem.problem | break_after_n_chars:20|linebreaks }}</a>
+                                                <button class="btn btn-outline-success btn-sm" onclick="markAsSolved({{ problem.id }})">Solved</button>
+                                            </div>
+                                        </li>
+                                    {% empty %}
+                                        <li><a class="dropdown-item" href="#">No problems reported</a></li>
+                                    {% endfor %}
+                                  </ul>
+                              </div>
+                            <p class="card-text">{{student.problems}}</p>
+                            <h6 class="card-subtitle mb-2" style='color: darkorange' onclick='window.location.href="evidence-of-work/{{student.id}}"'>See evidence of work</h6>
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
+            <div class='sidebar-content'>
+                <div class='heading'>
+                    <h3>Mentor Resources</h3>
+                </div>
+                <div class='strategy-document-link'  onclick = 'window.location.href="/tutors/dashboard/tutor-strategies/"'>
+                    <div class='redirect-box'>
+                        <h4>Strategy Document</h4>
+                        <p>Access the latest strategy document here</p>
+                    </div>
+                </div>
+                <div class='tutor-resources-link' onclick = 'window.location.href="/tutors/dashboard/tutor-resources/"'>
+                    <div class='redirect-box'>
+                        <h4>Tutor Resources</h4>
+                        <p>Find helpful resources for tutors here</p>
+                    </div>
+                </div>
+                <p class='submit' onclick='window.location.href="raise-issue/"'>Escalate</p>
+                <div class="logout-container">
+                    <p style='display: inline'>Logged in as {{request.user}}</p> <button class='logout-btn' onclick='window.location.href="{% url 'logout' %}"'>Logout</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+    function markAsSolved(problemId){
+        window.location.href="?solved="+problemId
+    }
+</script>
+{% endblock %}

@@ -9,102 +9,101 @@ body{
 }
 
 .dashboard{
-    background-color: #111111;
-    min-height: 100vh;
-    position: relative;
+  background-color: #111111;
+  min-height: 100vh;
+  position: relative;
 }
 
 #dashboard-learn-h2{
-    color: white;
+  color: white;
 }
 
 .dashboard .content{
-    color: rgb(191, 191, 191);
-    padding-top: 10vh;
-    padding-left: 0;
-    padding-right: 0;
-    position: relative;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    
+  color: rgb(191, 191, 191);
+  padding-top: 10vh;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .dashboard .content .main-container{
-    padding: 0 0;
-    margin: 0 0;
-    background-color: #1E1E1E;
-    cursor: pointer;
-    transition: transform 0.4s, background-color 0.4s;
+  padding: 0 0;
+  margin: 0 0;
+  background-color: #1E1E1E;
+  cursor: pointer;
+  transition: transform 0.4s, background-color 0.4s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
 
 .dashboard .content .main-container:hover{
-    background-color: #343434;
-    transform: translateX(10px);
+  background-color: #343434;
+  transform: translateY(-10px);
 }
 
-.dashboard .content .main-container .main{
-    
-    padding: 20px 0;
-    width: 80%;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    
+.dashboard .content .main{
+  padding: 20px 0;
+  width: 80%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .dashboard .content .section-title{
-    
-    width: fit-content;
+  width: fit-content;
 }
 
 .section-title h1{
-    font-size: 50px;
-    text-align: center;
+  font-size: 50px;
+  text-align: center;
 }
 
-/* .dashboard .content .main .skills-mastered{
-    
-} */
-
 .dashboard .content .main .skills-mastered .heading{
-    
-    font-size: 18px;
-    color: #ccc;
-    margin: 0 0;
+  font-size: 18px;
+  color: #ccc;
+  margin: 0 0;
 }
 
 .dashboard .content .main .skills-mastered .bigger{
-    font-size: 30px;
-    padding: 0 0;
-    margin: 0 0;
-    color: white;
+  font-size: 30px;
+  padding: 0 0;
+  margin: 0 0;
+  color: white;
 }
 
 .dashboard .content .main .skills-mastered .smaller{
-    padding: 0 0;
-    margin: 0 0;
+  padding: 0 0;
+  margin: 0 0;
 }
 
 .dashboard .start-dates{
-    padding: 10vh 0;
-
+  padding: 10vh 0;
 }
 
 .dashboard .start-dates .container .row .card_{
-    margin: 20px 0;
-    border-left: solid #1E1E1E;
+  margin: 20px 0;
+  border-left: solid #1E1E1E;
+  transition: border-color 0.4s;
+}
 
+.dashboard .start-dates .container .row .card_:hover {
+  border-color: #343434;
 }
 
 .dashboard .sidebar{
-    background-color: #1E1E1E;
-    color: rgb(191, 191, 191);
-    padding: 20px;
-    min-height: 100vh;
-}
-
-.dashboard .sidebar .redirect-box {
+  background: linear-gradient(to bottom, #1E1E1E 0%, #111111 100%);
+  color: rgb(191, 191, 191);
+  padding: 20px;
+  min-height: 100vh;
+  box-shadow: -4px 0px 6px rgba(0, 0, 0, 0.1);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  }
+  
+  .dashboard .sidebar .redirect-box {
   background-color: #1E1E1E;
   color: #ccc;
   padding: 20px;
@@ -113,81 +112,61 @@ body{
   cursor: pointer;
   margin-bottom: 20px;
   transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
-}
-
-.dashboard .sidebar .redirect-box:hover {
+  }
+  
+  .dashboard .sidebar .redirect-box:hover {
   transform: translateY(-5px);
   background-color: #343434;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-}
-
-.dashboard .sidebar .redirect-box h4 {
+  }
+  
+  .dashboard .sidebar .redirect-box h4 {
   color: darkorange;
   margin-bottom: 5px;
-}
-
-.dashboard .sidebar .redirect-box p {
+  }
+  
+  .dashboard .sidebar .redirect-box p {
   font-size: 14px;
-}
-
-.dashboard input[type='checkbox']{
-    accent-color: darkorange;
-}
-
-.dashboard .student-checklist input[type='text']{
-    background-color: rgba(0,0,0,0);
-    border: none;
-    border-bottom: solid #343434 0.5px;
-}
-
-.dashboard .student-checklist .remove-item{
-    cursor: pointer;
-    color: darkorange;
-}
-
-.dashboard .student-checklist .add-item{
-    cursor: pointer;
-}
-
-@keyframes border-race {
-  0% {
-    border-color: transparent transparent transparent #000;
   }
-  25% {
-    border-color: #000 transparent transparent transparent;
-  }
-  50% {
-    border-color: transparent #000 transparent transparent;
-  }
-  75% {
-    border-color: transparent transparent #000 transparent;
-  }
-  100% {
-    border-color: transparent transparent transparent #000;
-  }
-}
-
-.dashboard .sidebar .submit{
-    color: darkorange;
-    position: relative;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px 13px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.4s, border-radius 0.4s;
-}
-
-.dashboard .sidebar .submit:hover {
   
+  .dashboard input[type='checkbox']{
+  accent-color: darkorange;
+  }
+  
+  .dashboard .student-checklist input[type='text']{
+  background-color: rgba(0,0,0,0);
+  border: none;
+  border-bottom: solid #343434 0.5px;
+  }
+  
+  .dashboard .student-checklist .remove-item{
+  cursor: pointer;
+  color: darkorange;
+  }
+  
+  .dashboard .student-checklist .add-item{
+  cursor: pointer;
+  }
+  
+  .dashboard .sidebar .submit{
+  color: darkorange;
+  position: relative;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 13px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.4s, border-radius 0.4s;
+  }
+  
+  .dashboard .sidebar .submit:hover {
   background-color: #343434;
+  }
   
-}
-
-.dashboard .sidebar .days-counter .days{
-    font-size: 50px;
-}
+  .dashboard .sidebar .days-counter .days{
+  font-size: 50px;
+  }
 
 /* Start Course - Page */
 .course-page {
@@ -813,8 +792,7 @@ body{
 }
 
 .logout-btn:hover {
-  background-color: darkorange;
-  color: white;
+  color: darkorange;
 }
 /* End Logout Button */
 /* End Tutor Dashboard */
