@@ -92,17 +92,13 @@ def course_video_view(request, sectionInstanceId, videoId):
 
     }
     if request.method == 'POST':
-        problem_text = request.POST.get('issue_details')
+        problem_text = request.POST['issue_details']
         if problem_text:
             problem = UcatProblem(student=student, video=video, problem=problem_text)
             problem.save()
             context['raised'] = True
             return redirect(request.path)  # Redirect to the same page to avoid resubmission on refresh
 
-    if len(UcatProblem.objects.filter(video = UcatVideo.objects.get(id=videoId))) > 0:
-        context['raised'] = True
-
-    
 
     return render(request, 'course-video.html', context)
 

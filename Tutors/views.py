@@ -111,8 +111,12 @@ def tutors_class_view(request, classId):
         new_obj.solved = True
         new_obj.save()
     
-    student = UcatStudent.objects.get(user = request.user)
-    unsolved_problems = student.UcatProblems.filter(solved=False)  
+    student = UcatStudent.objects.get(user = User.objects.get(username = "rafiStudent"))
+    problems = student.UcatProblems
+    unsolved_problems = []
+    for problem in problems.all():
+        if not problem.solved:
+            unsolved_problems.append(problem)
 
     context = {
         'class': UcatClass.objects.get(id = classId),
