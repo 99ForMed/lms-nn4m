@@ -3,13 +3,18 @@ from django.contrib.auth.models import User
 from django_better_admin_arrayfield.models.fields import ArrayField
 
 from Tutors.models import Tutor
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import datetime
 # Create your models here.
 
 class UcatStudent(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE)
     enrolment_date = models.DateTimeField()
     tasks = ArrayField(
-            models.CharField(max_length=100, blank=True)
+            models.CharField(max_length=100, blank=True),
+            default=list,  # Add this line
         )
     ucatClass = models.ManyToManyField('UcatClass', through='Enrollment')
     def __str__(self):
@@ -68,3 +73,11 @@ class UcatProblem(models.Model):
 
     def __str__(self):
         return str(self.student)+ " - " + str(self.problem)
+    
+@receiver(post_save, sender=User)
+def create_ucat_student_and_section(sender, instance, created, **kwargs):
+    if created:  # If it's a new user
+        new_student = UcatStudent.objects.create(user=instance, enrolment_date=datetime.datetime.now())
+        # Add your logic to get the UcatSection you want to create a UcatSectionInstance for
+        ucat_section = UcatSection.objects.all()[0]  # Replace 'some_id' with the actual ID or filter conditions
+        UcatSectionInstance.objects.create(student=new_student, section=ucat_section, start_date=datetime.datetime.now().date(), current=True, skills_mastered=0)
