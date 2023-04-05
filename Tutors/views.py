@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import datetime
 
 from .models import *
@@ -72,7 +72,7 @@ def tutor_strategies_document(request):
     #     file_links = [{'name': file['Key'].split('/')[-1], 'url': generate_presigned_url(settings.AWS_STORAGE_BUCKET_NAME, file['Key'])} for file in files_in_folder if file['Key'] != folder['Prefix']]
         
     #     folder_files[folder_name] = file_links
-
+    return redirect('/under-maintenance/')
     context = {
         'folder_files': folder_files,
     }
@@ -99,8 +99,12 @@ def tutor_resources_view(request):
         
     #     folder_files[folder_name] = file_links
 
+    # context = {
+    #     'folder_files': folder_files,
+    # }
+    return redirect('/under-maintenance/')
     context = {
-        'folder_files': folder_files,
+
     }
     return render(request, "tutor-resources.html", context)
 
@@ -142,4 +146,8 @@ def evidence_of_work_view(request, classId, studentId):
     #     'student': UcatStudent.objects.get(pk=studentId),
     #     'files': files
     # }
-    return render(request, 'evidence-of-work.html', context)
+    # context = {
+
+    # }
+    # return render(request, 'evidence-of-work.html', context)
+    return redirect('/under-maintenance/')

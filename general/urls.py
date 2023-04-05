@@ -7,6 +7,7 @@ from .views import upvote_comment, submit_progress_view
 from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
 
+from .views import maintenance_view
 
 
 urlpatterns = [
@@ -18,5 +19,6 @@ urlpatterns = [
     path('add_comment/', add_comment, name='add_comment'),
     path('add_reply/', add_reply, name='add_reply'),
     path('upvote_comment/', upvote_comment, name='upvote_comment'),
-    path('dashboard/submit-progress/', submit_progress_view, name='submit-progress')
+    path('dashboard/submit-progress/', submit_progress_view, name='submit-progress'),
+    path('under-maintenance/', maintenance_view)
 ]

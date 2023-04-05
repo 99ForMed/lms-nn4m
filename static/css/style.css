@@ -86,15 +86,37 @@ body{
     margin: 0 0;
 }
 
-.dashboard .start-dates{
-    padding: 10vh 0;
-
+.dashboard .start-dates {
+  padding: 10vh 0;
 }
 
-.dashboard .start-dates .container .row .card_{
-    margin: 20px 0;
-    border-left: solid #1E1E1E;
+.dashboard .start-dates .container .row .card_ {
+  margin: 20px 0;
+}
 
+.dashboard .start-dates .redirect-box {
+  background-color: #1E1E1E;
+  color: #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+}
+
+.dashboard .start-dates .redirect-box:hover {
+  transform: translateY(-5px);
+  background-color: #343434;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard .start-dates .redirect-box h4 {
+  color: darkorange;
+  margin-bottom: 5px;
+}
+
+.dashboard .start-dates .redirect-box p {
+  font-size: 14px;
 }
 
 .dashboard .sidebar{

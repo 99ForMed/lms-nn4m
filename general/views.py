@@ -45,7 +45,12 @@ def dashboard_view_student(request):
         'date2': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=30)).date(),
         'date3': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=60)).date(),
         'date4': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=90)).date(),
-        'date5': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=120)).date()
+        'date5': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=120)).date(),
+        'sectionId1': UcatSectionInstance.objects.get(student = UcatStudent.objects.get(user = request.user), section = UcatSection.objects.get(id=1)).id,
+        'sectionId2': UcatSectionInstance.objects.get(student = UcatStudent.objects.get(user = request.user), section = UcatSection.objects.get(id=2)).id,
+        'sectionId3': UcatSectionInstance.objects.get(student = UcatStudent.objects.get(user = request.user), section = UcatSection.objects.get(id=3)).id,
+        'sectionId4': UcatSectionInstance.objects.get(student = UcatStudent.objects.get(user = request.user), section = UcatSection.objects.get(id=4)).id,
+        'sectionId5': UcatSectionInstance.objects.get(student = UcatStudent.objects.get(user = request.user), section = UcatSection.objects.get(id=5)).id
     }
 
     if not context['current_section'] == None:
@@ -163,16 +168,17 @@ def upvote_comment(request):
 
 def submit_progress_view(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = request.FILES['file']
-            s3_storage = CustomS3Storage()
-            user_fullname_dir = request.user.username.upper().replace(" ", "_")
-            upload_directory = 'static/uploads/'+user_fullname_dir+"/"
+        return redirect('/under-maintenance/')
+        # form = UploadFileForm(request.POST, request.FILES)
+        # if form.is_valid():
+        #     file = request.FILES['file']
+        #     s3_storage = CustomS3Storage()
+        #     user_fullname_dir = request.user.username.upper().replace(" ", "_")
+        #     upload_directory = 'static/uploads/'+user_fullname_dir+"/"
 
-            # You can change 'uploads/' to any other directory name you want to save the files in.
-            filename = s3_storage.save(upload_directory + file.name, file)
-            return redirect('/dashboard/submit-progress/?submitted')
+        #     # You can change 'uploads/' to any other directory name you want to save the files in.
+        #     filename = s3_storage.save(upload_directory + file.name, file)
+        #     return redirect('/dashboard/submit-progress/?submitted')
     else:
         form = UploadFileForm()
     context = {
@@ -183,4 +189,8 @@ def submit_progress_view(request):
     if 'submitted' in request.GET.keys():
         context['submitted'] = True
     return render(request, 'submit-progress.html', context)
+
+
+def maintenance_view(request):
+    return render(request, 'maintenance.html', {})
     

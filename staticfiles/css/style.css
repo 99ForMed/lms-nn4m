@@ -9,101 +9,124 @@ body{
 }
 
 .dashboard{
-  background-color: #111111;
-  min-height: 100vh;
-  position: relative;
+    background-color: #111111;
+    min-height: 100vh;
+    position: relative;
 }
 
 #dashboard-learn-h2{
-  color: white;
+    color: white;
 }
 
 .dashboard .content{
-  color: rgb(191, 191, 191);
-  padding-top: 10vh;
-  padding-left: 0;
-  padding-right: 0;
-  position: relative;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
+    color: rgb(191, 191, 191);
+    padding-top: 10vh;
+    padding-left: 0;
+    padding-right: 0;
+    position: relative;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 .dashboard .content .main-container{
-  padding: 0 0;
-  margin: 0 0;
-  background-color: #1E1E1E;
-  cursor: pointer;
-  transition: transform 0.4s, background-color 0.4s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+    padding: 0 0;
+    margin: 0 0;
+    background-color: #1E1E1E;
+    cursor: pointer;
+    transition: transform 0.4s, background-color 0.4s;
 }
 
 .dashboard .content .main-container:hover{
-  background-color: #343434;
-  transform: translateY(-10px);
+    background-color: #343434;
+    transform: translateX(10px);
 }
 
-.dashboard .content .main{
-  padding: 20px 0;
-  width: 80%;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
+.dashboard .content .main-container .main{
+    
+    padding: 20px 0;
+    width: 80%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 .dashboard .content .section-title{
-  width: fit-content;
+    
+    width: fit-content;
 }
 
 .section-title h1{
-  font-size: 50px;
-  text-align: center;
+    font-size: 50px;
+    text-align: center;
 }
 
+/* .dashboard .content .main .skills-mastered{
+    
+} */
+
 .dashboard .content .main .skills-mastered .heading{
-  font-size: 18px;
-  color: #ccc;
-  margin: 0 0;
+    
+    font-size: 18px;
+    color: #ccc;
+    margin: 0 0;
 }
 
 .dashboard .content .main .skills-mastered .bigger{
-  font-size: 30px;
-  padding: 0 0;
-  margin: 0 0;
-  color: white;
+    font-size: 30px;
+    padding: 0 0;
+    margin: 0 0;
+    color: white;
 }
 
 .dashboard .content .main .skills-mastered .smaller{
-  padding: 0 0;
-  margin: 0 0;
+    padding: 0 0;
+    margin: 0 0;
 }
 
-.dashboard .start-dates{
+.dashboard .start-dates {
   padding: 10vh 0;
 }
 
-.dashboard .start-dates .container .row .card_{
+.dashboard .start-dates .container .row .card_ {
   margin: 20px 0;
-  border-left: solid #1E1E1E;
-  transition: border-color 0.4s;
 }
 
-.dashboard .start-dates .container .row .card_:hover {
-  border-color: #343434;
+.dashboard .start-dates .redirect-box {
+  background-color: #1E1E1E;
+  color: #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+}
+
+.dashboard .start-dates .redirect-box:hover {
+  transform: translateY(-5px);
+  background-color: #343434;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard .start-dates .redirect-box h4 {
+  color: darkorange;
+  margin-bottom: 5px;
+}
+
+.dashboard .start-dates .redirect-box p {
+  font-size: 14px;
 }
 
 .dashboard .sidebar{
-  background: linear-gradient(to bottom, #1E1E1E 0%, #111111 100%);
-  color: rgb(191, 191, 191);
-  padding: 20px;
-  min-height: 100vh;
-  box-shadow: -4px 0px 6px rgba(0, 0, 0, 0.1);
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  }
-  
-  .dashboard .sidebar .redirect-box {
+    background-color: #1E1E1E;
+    color: rgb(191, 191, 191);
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.dashboard .sidebar .redirect-box {
   background-color: #1E1E1E;
   color: #ccc;
   padding: 20px;
@@ -112,61 +135,81 @@ body{
   cursor: pointer;
   margin-bottom: 20px;
   transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
-  }
-  
-  .dashboard .sidebar .redirect-box:hover {
+}
+
+.dashboard .sidebar .redirect-box:hover {
   transform: translateY(-5px);
   background-color: #343434;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-  }
-  
-  .dashboard .sidebar .redirect-box h4 {
+}
+
+.dashboard .sidebar .redirect-box h4 {
   color: darkorange;
   margin-bottom: 5px;
-  }
-  
-  .dashboard .sidebar .redirect-box p {
+}
+
+.dashboard .sidebar .redirect-box p {
   font-size: 14px;
+}
+
+input[type='checkbox']{
+    accent-color: darkorange;
+}
+
+.dashboard .student-checklist input[type='text']{
+    background-color: rgba(0,0,0,0);
+    border: none;
+    border-bottom: solid #343434 0.5px;
+}
+
+.dashboard .student-checklist .remove-item{
+    cursor: pointer;
+    color: darkorange;
+}
+
+.dashboard .student-checklist .add-item{
+    cursor: pointer;
+}
+
+@keyframes border-race {
+  0% {
+    border-color: transparent transparent transparent #000;
   }
-  
-  .dashboard input[type='checkbox']{
-  accent-color: darkorange;
+  25% {
+    border-color: #000 transparent transparent transparent;
   }
-  
-  .dashboard .student-checklist input[type='text']{
-  background-color: rgba(0,0,0,0);
-  border: none;
-  border-bottom: solid #343434 0.5px;
+  50% {
+    border-color: transparent #000 transparent transparent;
   }
-  
-  .dashboard .student-checklist .remove-item{
-  cursor: pointer;
-  color: darkorange;
+  75% {
+    border-color: transparent transparent #000 transparent;
   }
-  
-  .dashboard .student-checklist .add-item{
-  cursor: pointer;
+  100% {
+    border-color: transparent transparent transparent #000;
   }
+}
+
+.dashboard .sidebar .submit{
+    color: darkorange;
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 13px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.4s, border-radius 0.4s;
+}
+
+.dashboard .sidebar .submit:hover {
   
-  .dashboard .sidebar .submit{
-  color: darkorange;
-  position: relative;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px 13px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.4s, border-radius 0.4s;
-  }
-  
-  .dashboard .sidebar .submit:hover {
   background-color: #343434;
-  }
   
-  .dashboard .sidebar .days-counter .days{
-  font-size: 50px;
-  }
+}
+
+.dashboard .sidebar .days-counter .days{
+    font-size: 50px;
+}
 
 /* Start Course - Page */
 .course-page {
@@ -328,77 +371,128 @@ body{
 
 /* Start Course Video */
 .course-video{
-    min-height: 100vh;
-    background-color: #111111;
-    color: #ccc;
-    padding: 30px 0;
+  min-height: 100vh;
+  background-color: #111111;
+  color: #ccc;
+  padding: 30px 0;
 }
 
 .course-video .middle-content video{
-    width: 100%;
-    margin: 10px 0;
+  width: 100%;
+  margin: 10px 0;
 }
 
 .course-video .task-container .task{
-    margin: 10px 0;
-    
+  margin: 10px 0;
+  
 }
 
 .course-video .task-container .task .col-lg-8{
-    
-    padding: 30px;
-    background-color: #1E1E1E;
+  padding: 30px;
+  background-color: #1E1E1E;
 }
 
 .course-video .task-container .task .col-lg-8 .submit{
-    color: darkorange;
-    background-color: #343434;
-    display: inline-block;
-    width: fit-content;
-    padding: 7px 13px;
-    border-radius: 3px;
-    margin: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-size: 20px;
+  color: darkorange;
+  background-color: #343434;
+  display: inline-block;
+  width: fit-content;
+  padding: 7px 13px;
+  border-radius: 3px;
+  margin: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .course-video .form-check-input:checked {
-    background-color: darkorange;
-    border-color: darkorange;
+  background-color: darkorange;
+  border-color: darkorange;
 }
 
 .course-video .helpful-links{
-    margin: 30px 0;
+  margin: 30px 0;
 }
-  .course-video .icon-circle{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #1E1E1E; 
-    color: white; 
-    margin: 0 auto 10px; 
-    transition: background-color 0.4s;
-    cursor: pointer;
+.course-video .icon-circle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #1E1E1E; 
+  color: white; 
+  margin: 0 auto 10px; 
+  transition: background-color 0.4s;
+  cursor: pointer;
 }
 
-  .course-video .icon-circle:hover{
-    background-color: #343434;
-  }
+.course-video .icon-circle.raised{
+  background-color: darkorange;
+}
 
-  .course-video .icon-text {
-    text-align: center;
-  }
+.course-video .icon-circle:hover{
+  background-color: #343434;
+}
 
-  .course-video .helpful-links .col-lg-4 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  } 
+.course-video .icon-text {
+  text-align: center;
+}
 
+.course-video .helpful-links .col-lg-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} 
+
+.icon-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.icon-text {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.raise-issue-container {
+  display: none;
+  margin-top: 20px;
+}
+
+.raise-issue-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.raise-issue-textarea {
+  width: 100%;
+  resize: none;
+  background-color: #111111;
+  color: #ccc;
+  border: 1px solid #343434;
+  padding: 10px;
+  font-family: inherit;
+}
+
+.raise-issue-button {
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: darkorange;
+  transition: background-color 0.4s, color 0.4s;
+  border: none;
+}
 /* Start chat forum */
 
 /* .question-forum .d-flex .d-flex .d-flex{
@@ -775,7 +869,7 @@ body{
     /* Start Logout Button */
 .logout-container {
   position: fixed;
-  top: 10px;
+  bottom: 10px;
   right: 20px;
   z-index: 1000;
 }
@@ -887,6 +981,311 @@ body{
   transform: translateY(-50%) rotate(90deg);
 }
 /* End Tutor Strategy Documents */
+
+/* Start Submit Tasks */
+/* Start Submit Tasks */
+.submit-tasks {
+  padding: 2rem;
+  height: 100vh;
+  background-color: #111111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-tasks .floating-box {
+  background-color: #1E1E1E;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  max-width: 1200px;
+  border-radius: 5px;
+  
+}
+
+.submit-tasks h2 {
+  color: darkorange;
+  margin-bottom: 1rem;
+}
+
+.submit-tasks .note {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.submit-tasks .example-checklists ul {
+  list-style: none;
+  padding: 0;
+}
+
+.submit-tasks .example-checklists li {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.submit-tasks .example-checklists input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.submit-tasks .slider-container {
+  margin-top: 1rem;
+}
+
+.submit-tasks .upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.submit-tasks, .upload-container form p label{
+  color: #ccc;
+}
+
+.submit-tasks .upload-btn {
+  background-color: darkorange;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.submit-tasks .upload-btn:hover {
+  background-color: #f57c00;
+}
+
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  transition: background-color 0.4s;
+}
+
+.custom-file-input {
+  display: none;
+}
+
+.custom-file-label {
+  font-weight: bold;
+  padding: 1rem;
+  background-color: #1E1E1E;
+  color: white;
+  border-radius: 3px;
+  text-align: center;
+  cursor: pointer;
+  border: solid #343434;
+  transition: background-color 0.4s;
+}
+
+.custom-file-label:hover {
+  background-color: #343434;
+}
+
+.file-name {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: white;
+}
+/* End Submit Tasks */
+/* Start class page */
+.class-page{
+  background-color: #111111;
+  min-height: 100vh;
+  position: relative;
+}
+
+.class-page .logout-container {
+  
+  padding: 1rem;
+  color: #ccc;
+  font-size: 0.8rem;
+  background-color: rgba(0,0,0,0)
+}
+
+.class-page .logout-btn {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  padding: 5px 15px;
+  transition: background-color 0.4s;
+}
+
+.class-page .logout-btn:hover {
+  background-color: #f57c00;
+}
+
+#class-page-learn-h2{
+  color: white;
+  margin-top: 2vh;
+  margin-bottom: 4vh;
+}
+
+.class-page .content{
+  color: rgb(191, 191, 191);
+  padding-top: 10vh;
+  padding-left: 0;
+  padding-right: 0;
+  position: relative;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.class-page .card{
+  background-color: #1E1E1E;
+  color: rgb(191, 191, 191);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+  cursor: pointer;
+}
+
+.class-page .card:hover{
+  transform: translateY(-10px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.class-page .card-title{
+  color: darkorange;
+  margin-bottom: 10px;
+}
+
+.class-page .card-subtitle{
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.class-page .card-text{
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.class-page .assign-btn{
+  color: darkorange;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.4s;
+}
+
+.class-page .sidebar{
+  background-color: #1E1E1E;
+  color: rgb(191, 191, 191);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.class-page .sidebar .redirect-box {
+  background-color: #1E1E1E;
+  color: #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+}
+
+.class-page .sidebar .redirect-box:hover {
+  transform: translateY(-5px);
+  background-color: #343434;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.class-page .sidebar .redirect-box h4 {
+  color: darkorange;
+  margin-bottom: 5px;
+}
+
+.class-page .sidebar .redirect-box p {
+  font-size: 14px;
+}
+
+.class-page .sidebar .submit {
+  color: darkorange;
+  position: relative;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 13px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.4s, border-radius 0.4s;
+}
+
+.class-page .sidebar .submit:hover {
+  background-color: #343434;
+}
+
+.dropdown-menu {
+  background-color: #343434;
+}
+
+.dropdown-item {
+  color: #ccc;
+}
+
+.dropdown-item:hover {
+  background-color: #1E1E1E;
+  color: #fff;
+}
+
+/* End Class Page */
+
+/* Start Evidence of work Page */
+.file-list {
+  padding: 2rem;
+  height: 100vh;
+  background-color: #111111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-list .floating-box {
+  background-color: #1E1E1E;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.file-list h2 {
+  color: darkorange;
+  margin-bottom: 1rem;
+}
+
+.file-list .note {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.file-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.file-list th,
+.file-list td {
+  padding: 0.5rem;
+  text-align: left;
+  color: #ccc;
+}
+
+.file-list th {
+  background-color: rgba(0,0,0,0);
+  font-weight: normal;
+  color: #fff;
+}
+/* End Evidence of work page */
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {...}

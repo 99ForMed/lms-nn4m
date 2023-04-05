@@ -79,5 +79,6 @@ def create_ucat_student_and_section(sender, instance, created, **kwargs):
     if created:  # If it's a new user
         new_student = UcatStudent.objects.create(user=instance, enrolment_date=datetime.datetime.now())
         # Add your logic to get the UcatSection you want to create a UcatSectionInstance for
-        ucat_section = UcatSection.objects.all()[0]  # Replace 'some_id' with the actual ID or filter conditions
-        UcatSectionInstance.objects.create(student=new_student, section=ucat_section, start_date=datetime.datetime.now().date(), current=True, skills_mastered=0)
+        for ucat_section in UcatSection.objects.all():
+        
+            UcatSectionInstance.objects.create(student=new_student, section=ucat_section, start_date=datetime.datetime.now().date(), current=True, skills_mastered=0)
