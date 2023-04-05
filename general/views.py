@@ -37,6 +37,24 @@ def dashboard_view_student(request):
         start_dates_ordered.append(section.start_date)
         if section.current:
             current_section = section
+    for section in UcatSection.objects.all():
+        print()
+        if len(UcatSectionInstance.objects.filter(section = section, student=UcatStudent.objects.get(user=request.user))) == 0:
+            print('here')
+            student_instance = UcatStudent.objects.get(user=request.user)
+            section_instance = section
+
+            # Create a UcatSectionInstance object with the desired attributes
+            ucat_section_instance = UcatSectionInstance(
+                student=student_instance,
+                section=section_instance,
+                start_date = datetime.datetime.now().date(),
+                current=False,  # or False, depending on the desired value
+                skills_mastered=0  # or any other valid integer value
+            )
+
+            # Save the UcatSectionInstance object to the database
+            ucat_section_instance.save()
     context = {
         'current_section': current_section,
         'start_dates_ordered':start_dates_ordered,
