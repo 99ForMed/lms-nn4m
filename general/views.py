@@ -186,17 +186,16 @@ def upvote_comment(request):
 
 def submit_progress_view(request):
     if request.method == 'POST':
-        return redirect('/under-maintenance/')
-        # form = UploadFileForm(request.POST, request.FILES)
-        # if form.is_valid():
-        #     file = request.FILES['file']
-        #     s3_storage = CustomS3Storage()
-        #     user_fullname_dir = request.user.username.upper().replace(" ", "_")
-        #     upload_directory = 'static/uploads/'+user_fullname_dir+"/"
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            s3_storage = CustomS3Storage()
+            user_fullname_dir = request.user.username.upper().replace(" ", "_")
+            upload_directory = 'static/uploads/'+user_fullname_dir+"/"
 
-        #     # You can change 'uploads/' to any other directory name you want to save the files in.
-        #     filename = s3_storage.save(upload_directory + file.name, file)
-        #     return redirect('/dashboard/submit-progress/?submitted')
+            # You can change 'uploads/' to any other directory name you want to save the files in.
+            filename = s3_storage.save(upload_directory + file.name, file)
+            return redirect('/dashboard/submit-progress/?submitted')
     else:
         form = UploadFileForm()
     context = {
