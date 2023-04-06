@@ -111,6 +111,7 @@ def tutors_class_view(request, classId):
         new_obj.solved = True
         new_obj.save()
     
+
     student = UcatStudent.objects.get(user = User.objects.get(username = "rafiStudent"))
     problems = student.UcatProblems
     unsolved_problems = []

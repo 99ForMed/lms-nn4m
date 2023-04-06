@@ -24,7 +24,7 @@
                             <p class="card-text">- {{task}}</p>
                             {% endfor %}
                             <br/>
-                            <p class='assign-btn'>Assign New Task</p>
+                            
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ student.id }}" data-bs-toggle="dropdown" aria-expanded="false">
                                     Problems
@@ -45,8 +45,17 @@
                                   </ul>
                               </div>
                             <p class="card-text">{{student.problems}}</p>
-                            <h6 class="card-subtitle mb-2" style='color: darkorange' onclick='window.location.href="evidence-of-work/{{student.id}}"'>See evidence of work</h6>
+                            <div class='row'>
+                                <h6 class="col-lg-6 card-subtitle mb-2" style='color: darkorange' onclick='assign_task()'>Assign New Task</h6>
+                                <h6 class="col-lg-6 card-subtitle mb-2" style='color: darkorange' onclick='window.location.href="evidence-of-work/{{student.id}}"'>See evidence of work</h6>
+                            </div>
                             
+                            <script>
+                                function assign_task(){
+                                    task = prompt("New task: ");
+                                    window.location.href = "?new_task="+task;
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
