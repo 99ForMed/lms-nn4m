@@ -36,9 +36,15 @@ class UcatSectionInstance(models.Model):
     def __str__(self):
         return str(self.section) +" - "+ str(self.student)
     
+class SyllabusPoint(models.Model):
+    name = models.CharField(max_length=300)
+
+    def __str__(self):
+        return str(self.name)
 
 class UcatVideo(models.Model):
     section = models.ForeignKey(UcatSection, on_delete=models.CASCADE)
+    syllabus_point = models.ForeignKey(SyllabusPoint, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=200)
     description = models.TextField()
     url = models.CharField(max_length=50)
