@@ -1,4 +1,8 @@
 .env
 staticfiles
+<<<<<<< Updated upstream
 static
 old
+=======
+static
+>>>>>>> Stashed changes

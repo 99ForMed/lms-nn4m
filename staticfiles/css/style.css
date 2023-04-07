@@ -216,7 +216,7 @@ input[type='checkbox']{
   background-color: #1e1e1e;
   min-height: 100vh;
   color: #ccc;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat'
 }
 
 .header-area {
@@ -375,6 +375,7 @@ input[type='checkbox']{
   background-color: #111111;
   color: #ccc;
   padding: 30px 0;
+
 }
 
 .course-video .middle-content video{
@@ -483,7 +484,7 @@ input[type='checkbox']{
   color: #ccc;
   border: 1px solid #343434;
   padding: 10px;
-  font-family: inherit;
+  font-family: 'Montserrat';
 }
 
 .raise-issue-button {

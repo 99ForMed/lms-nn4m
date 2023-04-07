@@ -111,6 +111,11 @@ def tutors_class_view(request, classId):
         new_obj.solved = True
         new_obj.save()
     
+    if 'new_task' in request.GET.keys():
+        if not request.GET['new_task'] == "null":
+            new_obj = UcatStudent.objects.get(id = int(request.GET['task_student']))
+            new_obj.tasks.append(request.GET['new_task'])
+            new_obj.save()
 
     student = UcatStudent.objects.get(user = User.objects.get(username = "rafiStudent"))
     problems = student.UcatProblems

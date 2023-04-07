@@ -46,14 +46,14 @@
                               </div>
                             <p class="card-text">{{student.problems}}</p>
                             <div class='row'>
-                                <h6 class="col-lg-6 card-subtitle mb-2" style='color: darkorange' onclick='assign_task()'>Assign New Task</h6>
+                                <h6 class="col-lg-6 card-subtitle mb-2" style='color: darkorange' onclick='assign_task({{student.id}})'>Assign New Task</h6>
                                 <h6 class="col-lg-6 card-subtitle mb-2" style='color: darkorange' onclick='window.location.href="evidence-of-work/{{student.id}}"'>See evidence of work</h6>
                             </div>
                             
                             <script>
-                                function assign_task(){
-                                    task = prompt("New task: ");
-                                    window.location.href = "?new_task="+task;
+                                function assign_task(studentId){
+                                    task = prompt("New task: "+studentId);
+                                    window.location.href = "?new_task="+task+"&task_student="+studentId;
                                 }
                             </script>
                         </div>
