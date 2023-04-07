@@ -85,14 +85,19 @@ def dashboard_view_student(request):
 def course_page_view(request, sectionInstanceId):
     sectionInstance = UcatSectionInstance.objects.get(id = sectionInstanceId)
     section = sectionInstance.section
-
+    videos_dict = {}
+    videos = UcatVideo.objects.filter(section = section, unlocked = True)
+    for video in videos:
+        videos_dict[str(video.syllabus_point)] = []
+    for video in videos:
+        videos_dict[str(video.syllabus_point)].append(video)
     context = {
+        'videos_dict': videos_dict,
         'section_name': section.name,
-        'unlocked_vids': UcatVideo.objects.filter(section = section, unlocked = True),
         'locked_vids': UcatVideo.objects.filter(section = section, unlocked = False)
         
     }
-    return render(request, 'course-page.html', context)
+    return render(request, 'course-page-updated.html', context)
 
 def course_video_view(request, sectionInstanceId, videoId):
     
