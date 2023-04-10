@@ -8,7 +8,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
 
 from .views import maintenance_view
-
+from .views import sitemap_view
 
 urlpatterns = [
     path('', home_view),
@@ -20,5 +20,6 @@ urlpatterns = [
     path('add_reply/', add_reply, name='add_reply'),
     path('upvote_comment/', upvote_comment, name='upvote_comment'),
     path('dashboard/submit-progress/', submit_progress_view, name='submit-progress'),
-    path('under-maintenance/', maintenance_view)
+    path('under-maintenance/', maintenance_view),
+    path('sitemap', sitemap_view)
 ]

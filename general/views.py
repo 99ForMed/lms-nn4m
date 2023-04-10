@@ -215,3 +215,6 @@ def submit_progress_view(request):
 
 def maintenance_view(request):
     return render(request, 'maintenance.html', {})
+
+def sitemap_view(request):
+    return render(request, 'sitemap.xml', {})
