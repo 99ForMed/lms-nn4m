@@ -83,7 +83,31 @@
                 </div> {% endcomment %}
                 <br/>
                 
-                <p class='submit' onclick="window.location.href='submit-progress/'">Submit Progress</p>
+                <p class='submit' id="subBtn" onclick="window.location.href='submit-progress/'">Submit Progress</p>
+                <script>
+                    // Get all checkboxes and the submit button
+                    const checkboxes = document.querySelectorAll('.tutor-checklist input[type="checkbox"]');
+                    const submitBtn = document.getElementById("subBtn");
+                  
+                    // Function to check if any checkbox is checked
+                    function isAnyChecked() {
+                      return Array.from(checkboxes).some(checkbox => checkbox.checked);
+                    }
+                  
+                    // Function to handle checkbox change events
+                    function onCheckboxChange() {
+                      if (isAnyChecked()) {
+                        submitBtn.classList.add('flash');
+                      } else {
+                        submitBtn.classList.remove('flash');
+                      }
+                    }
+                  
+                    // Attach event listeners to checkboxes
+                    checkboxes.forEach(checkbox => {
+                      checkbox.addEventListener('change', onCheckboxChange);
+                    });
+                  </script>
                 <div class='days-counter'>
                     <span class='days'>
                         {{days_to_master}}
