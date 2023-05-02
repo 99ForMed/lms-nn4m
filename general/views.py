@@ -211,7 +211,7 @@ def submit_progress_view(request):
     # if 'submitted' in request.GET.keys():
     #     context['submitted'] = True
     # return render(request, 'submit-progress.html', context)
-    return redirect("../under-maintenance/")
+    return redirect("../../under-maintenance/")
 
 
 def maintenance_view(request):
