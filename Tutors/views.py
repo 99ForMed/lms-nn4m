@@ -7,7 +7,9 @@ from general.models import *
 from django.conf import settings
 import boto3
 from botocore.exceptions import ClientError
-
+from django.core.files.storage import default_storage
+from azure.storage.blob import generate_blob_sas, BlobClient, BlobServiceClient, BlobSasPermissions
+from urllib.parse import quote
 # s3_client = boto3.client(
 #     's3',
 #     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -78,34 +80,84 @@ def tutor_strategies_document(request):
     #     'folder_files': folder_files,
     # }
     # return render(request, "tutor-strategies.html", context)
-    return redirect('../../../under-maintenance/')
+    service = BlobServiceClient.from_connection_string(settings.AZURE_STORAGE_CONNECTION_STRING)
+    container = service.get_container_client(settings.AZURE_CONTAINER)
+
+    prefix = "uploads/tutor-strategies/"
+    blob_list = container.list_blobs(name_starts_with=prefix)
+    print(blob_list)
+
+    folder_files = {}
+
+    for blob in blob_list:
+        # split the blob.name based on '/' to simulate folders
+        parts = blob.name.split('/')
+        
+        # the second last part is the folder name
+        folder_name = parts[-2] if len(parts) > 1 else ''
+        
+        # the last part is the file name
+        file_name = parts[-1]
+        
+        # generate download url
+        blob_client = container.get_blob_client(blob)
+        sas_token = generate_blob_sas(
+            account_name=settings.AZURE_ACCOUNT_NAME,
+            account_key=settings.AZURE_ACCOUNT_KEY,
+            container_name=settings.AZURE_CONTAINER,
+            blob_name=blob.name,
+            permission=BlobSasPermissions(read=True),
+            expiry=datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+        )
+        file_url = f"https://{settings.AZURE_ACCOUNT_NAME}.blob.core.windows.net/{settings.AZURE_CONTAINER}/{quote(blob.name)}?{sas_token}"
+        
+        # append to the dictionary
+        if folder_name not in folder_files:
+            folder_files[folder_name] = []
+        folder_files[folder_name].append({'name': file_name, 'url': file_url})
+
+    return render(request, 'tutor-strategies.html', {'folder_files': folder_files})
+    
 
 def tutor_resources_view(request):
-    # result = s3_client.list_objects(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Prefix="tutor-resources/", Delimiter='/')
+    service = BlobServiceClient.from_connection_string(settings.AZURE_STORAGE_CONNECTION_STRING)
+    container = service.get_container_client(settings.AZURE_CONTAINER)
 
-    # # Extract the folders
-    # folders = result.get('CommonPrefixes')
+    prefix = "uploads/tutor-resources/"
+    blob_list = container.list_blobs(name_starts_with=prefix)
+    print(blob_list)
 
-    # # Create a dictionary to store folder-wise files
-    # folder_files = {}
+    folder_files = {}
 
-    # for folder in folders:
-    #     folder_name = folder['Prefix'].strip('/').split('/')[-1]
+    for blob in blob_list:
+        # split the blob.name based on '/' to simulate folders
+        parts = blob.name.split('/')
         
-    #     # Make an API call to get the files within the folder
-    #     folder_result = s3_client.list_objects(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Prefix=folder['Prefix'])
-    #     files_in_folder = folder_result.get('Contents')
-
-    #     # Filter out the folder itself, extract the file names and generate pre-signed URLs
-    #     file_links = [{'name': file['Key'].split('/')[-1], 'url': generate_presigned_url(settings.AWS_STORAGE_BUCKET_NAME, file['Key'])} for file in files_in_folder if file['Key'] != folder['Prefix']]
+        # the second last part is the folder name
+        folder_name = parts[-2] if len(parts) > 1 else ''
         
-    #     folder_files[folder_name] = file_links
+        # the last part is the file name
+        file_name = parts[-1]
+        
+        # generate download url
+        blob_client = container.get_blob_client(blob)
+        sas_token = generate_blob_sas(
+            account_name=settings.AZURE_ACCOUNT_NAME,
+            account_key=settings.AZURE_ACCOUNT_KEY,
+            container_name=settings.AZURE_CONTAINER,
+            blob_name=blob.name,
+            permission=BlobSasPermissions(read=True),
+            expiry=datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+        )
+        file_url = f"https://{settings.AZURE_ACCOUNT_NAME}.blob.core.windows.net/{settings.AZURE_CONTAINER}/{quote(blob.name)}?{sas_token}"
+        
+        # append to the dictionary
+        if folder_name not in folder_files:
+            folder_files[folder_name] = []
+        folder_files[folder_name].append({'name': file_name, 'url': file_url})
 
-    # context = {
-    #     'folder_files': folder_files,
-    # }
-    # return render(request, "tutor-resources.html", context)
-    return redirect('../../../under-maintenance/')
+    return render(request, 'tutor-resources.html', {'folder_files': folder_files})
+    # return redirect('../../../under-maintenance/')
 
 def tutors_class_view(request, classId):
 
@@ -138,7 +190,7 @@ def evidence_of_work_view(request, classId, studentId):
     # directory_path = 'static/uploads/'+ str(UcatStudent.objects.get(pk=studentId).user).upper().replace(" ", "_")+'/'
     # response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=directory_path)
 
-    # files = []
+    files = []
     # if 'Contents' in response:
     #     for obj in response['Contents']:
     #         file_path = obj['Key']
@@ -147,12 +199,33 @@ def evidence_of_work_view(request, classId, studentId):
     #         file_url = generate_presigned_url(bucket_name, file_path)
     #         files.append({'name': file_name, 'path': file_path, 'uploaded_at': upload_time, 'url': file_url})
 
-    # context = {
-    #     'student': UcatStudent.objects.get(pk=studentId),
-    #     'files': files
-    # }
+    
     # context = {
 
     # }
-    # return render(request, 'evidence-of-work.html', context)
-    return redirect("../../../under-maintenance/")
+    azure_storage = default_storage._wrapped
+
+    # Define the directory path in Azure Blob Storage
+    directory_path = 'uploads/'+ str(UcatStudent.objects.get(pk=studentId).user).upper().replace(" ", "_")+'/'
+
+    # List the files in the directory and get a list of file objects
+    files_strs = default_storage.listdir(directory_path)[1]
+    files = []
+
+    for file in files_strs:
+        file_path = f"{directory_path}/{file}" if directory_path else file
+        file_obj = default_storage.open(file_path)
+        file = {
+            'name': file,
+            'uploaded_at': None,
+            'url': default_storage.url(file_path),
+        }
+        files.append(file)
+    
+
+    context = {
+        'student': UcatStudent.objects.get(pk=studentId),
+        'files': files
+    }
+    return render(request, 'evidence-of-work.html', context)
+    # return redirect("../../../under-maintenance/")

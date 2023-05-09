@@ -11,7 +11,7 @@ from django.views.decorators.http import require_POST
 from .forms import UploadFileForm
 
 from custom_storages import CustomS3Storage
-
+from django.core.files.storage import default_storage
 # Create your views here.
 
 def home_view(request):
@@ -190,28 +190,29 @@ def upvote_comment(request):
         return JsonResponse({'error': 'Invalid request method'})
 
 def submit_progress_view(request):
-    # if request.method == 'POST':
-    #     form = UploadFileForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         file = request.FILES['file']
-    #         s3_storage = CustomS3Storage()
-    #         user_fullname_dir = request.user.username.upper().replace(" ", "_")
-    #         upload_directory = 'static/uploads/'+user_fullname_dir+"/"
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            # s3_storage = CustomS3Storage()
+            user_fullname_dir = request.user.username.upper().replace(" ", "_")
+            # upload_directory = 'static/uploads/'+user_fullname_dir+"/"
 
-    #         # You can change 'uploads/' to any other directory name you want to save the files in.
-    #         filename = s3_storage.save(upload_directory + file.name, file)
-    #         return redirect('/dashboard/submit-progress/?submitted')
-    # else:
-    #     form = UploadFileForm()
-    # context = {
-    #     'form': form,
-    #     'tasks': UcatStudent.objects.get(user = request.user).tasks
-    # }
+            # # You can change 'uploads/' to any other directory name you want to save the files in.
+            # filename = s3_storage.save(upload_directory + file.name, file)
+            file_name = default_storage.save('uploads/'+user_fullname_dir+"/"+file.name, file)
+            return redirect('/dashboard/submit-progress/?submitted')
+    else:
+        form = UploadFileForm()
+    context = {
+        'form': form,
+        'tasks': UcatStudent.objects.get(user = request.user).tasks
+    }
 
-    # if 'submitted' in request.GET.keys():
-    #     context['submitted'] = True
-    # return render(request, 'submit-progress.html', context)
-    return redirect("../../under-maintenance/")
+    if 'submitted' in request.GET.keys():
+        context['submitted'] = True
+    return render(request, 'submit-progress.html', context)
+    # return redirect("../../under-maintenance/")
 
 
 def maintenance_view(request):
