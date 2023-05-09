@@ -18,14 +18,20 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.generic.base import RedirectView
 
+from general.views import back
 
 urlpatterns = [
     path('', include('general.urls')),
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
-    path('tutors/', include('Tutors.urls'))
+    path('tutors/', include('Tutors.urls')),
+    path('back/', back, name='back')
+    
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+# urlpatterns += path('<path:unknown>', RedirectView.as_view(url='../', permanent=False))

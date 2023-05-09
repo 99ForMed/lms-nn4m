@@ -1,6 +1,6 @@
 
 <body>
-{% extends 'base.html' %}
+{% extends 'student-base.html' %}
 {% load static %}
 {% block head %}
 <meta charset="utf-8">
@@ -17,9 +17,6 @@
   <div class='container'>
       <div class='header-area'>
           <p style='font-size: 40px'>{{section_name}}</p>
-          <div class='nav'>
-              <p><span onclick='window.location.href="/"'>Dashboard</span> <span><strong>❭❭</strong></span> {{section_name}}</p>
-          </div>
       </div>
   </div>
   <!-- Swiper -->
@@ -30,7 +27,7 @@
       
       <div class="swiper-wrapper">
         {% for vid in videos %}
-        <div class="swiper-slide" onclick='window.location.href="video/{{vid.id}}/"'>
+        <div class="swiper-slide" title='{{vid.name}}' onclick='window.location.href="video/{{vid.id}}/"'>
             <img src="https://img.youtube.com/vi/{{vid.url}}/maxresdefault.jpg" alt="{{ vid.name }}">
             <div class="video-title">{{ vid.name }}</div> <!-- Add this line -->
         </div>

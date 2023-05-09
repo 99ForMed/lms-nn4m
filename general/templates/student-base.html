@@ -1,0 +1,142 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/png" href="{% static 'favicon-light.ico' %}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    
+    
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel='stylesheet' type='text/css' href='{% static "css/style.css"%}'/>
+    
+    <script>
+        $(document).ready(function() {
+            //$('.tab-content').hide();  // Hide all tab content divs by default
+            //$('.tab-content:first').show();  // Show the first tab content div by default
+    
+            $('.nav-link').on("click", function() {
+                console.log("testing");
+                $('.nav-link').removeClass('show active'); // Remove 'current' class from all tabs
+                $('.tab-pane').removeClass('show active'); 
+                
+                $(this).addClass('show active'); // Add 'current' class to the current tab
+                var tab_id = $(this).attr('data-tab'); // Get the data-tab attribute value to identify the tab content div to display
+                $("#"+tab_id).addClass('show active'); // Show the current tab content div
+            });
+    
+            // Add event listener to "Submit Progress" button
+            //$('#subBtn').click(function() {
+            //    window.location.href = 'submit-progress/';
+            //});
+        });
+    </script>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class='dashboard container-fluid'>
+        <div class='row'>
+            <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+                {% block body %}
+                {% endblock %}
+            </div>
+            <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
+                <div class='sidebar-content'>
+                    <nav class="flex-column">
+                        <!-- Back button -->
+                        <a class="nav-link" href="{% url 'back' %}" title="Back">
+                            <i class="fas fa-arrow-circle-left"></i>
+                        </a>
+                        <!-- Home button -->
+                        <a class="nav-link" href="/dashboard" title="Home">
+                            <i class="fas fa-home"></i>
+                        </a>
+
+                        <!-- Tab 1: My Info -->
+                        <a class="nav-link active" id="v-pills-home-tab" data-tab="v-pills-home" data-toggle="pill" title="My info">
+                            <i class="fas fa-user"></i>
+                        </a>
+            
+                        <!-- Tab 2: Tasks -->
+                        <a class="nav-link" id="v-pills-profile-tab" data-tab="v-pills-profile" data-toggle="pill" title="Checklist">
+                            <i class="fas fa-check-square"></i>
+                        </a>
+            
+                        <!-- Tab 3: Progress -->
+                        <a class="nav-link" id="v-pills-progress-tab" data-tab="v-pills-progress" data-toggle="pill" title="Progress">
+                            <i class="fas fa-chart-line"></i>
+                        </a>
+
+                       
+                        
+                        <!-- Logout Button -->
+                        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                        <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                        <hr/>
+                    </nav>
+            
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Tab 1 Content: My Info -->
+                        <div class="tab-pane fade show active" id="v-pills-home">
+                            <div class='heading'>
+                                <h2>Hi {{request.user.first_name}}!</h2>
+                            </div>
+                            <div class='logout' style='position: absolute; bottom: 0px'>
+                                
+                            </div>
+                        </div>
+            
+                        <!-- Tab 2 Content: Tasks -->
+                        <div class="tab-pane fade" id="v-pills-profile">
+                            <div class='tutor-checklist'>
+                                <h5>Mentor tasks:</h5>
+                                {% for task in tasks %}
+                                <input type="checkbox">
+                                <label>{{task}}</label><br>
+                                
+                                <p></p>
+                                {% endfor %}
+                                {% if no_tasks %}
+                                    You're all caught up.
+                                    {% else %}
+                                    <p class='submit' id="subBtn" onclick="window.location.href='{% url 'submit-progress' %}'">Submit Progress</p>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+            
+                        <!-- Tab 3 Content: Progress -->
+                        <div class="tab-pane fade" id="v-pills-progress">
+                            <h3>This week's UCAT plan:</h3>
+                                {% if plan %}
+                                {{weekly_plan}}
+                                {% else %}
+                                <p>Your tutor has not assigned you a plan, as of now.</p>
+                                {% endif %}
+                            {% comment %} <div class='days-counter'>
+                                <span class='days'>
+                                    {{days_to_master}}
+                                </span>
+                                <h5> days to master <i>Decision Making</i></h5>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
