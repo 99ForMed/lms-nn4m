@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nn4m.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com']
 
 
 # Application definition
@@ -175,3 +175,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = '99formed.custom_storages.MediaStorage'
 # MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'
+
+
+# DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# AZURE_ACCOUNT_NAME = '99formed'
+# AZURE_ACCOUNT_KEY = 'your-storage-account-key'
+# AZURE_CONTAINER = 'your-container-name'
