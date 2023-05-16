@@ -27,7 +27,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
     path('tutors/', include('Tutors.urls')),
-    path('back/', back, name='back')
+    path('interview/', include('interview.urls')),
+    path('back/', back, name='back'),
+
     
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

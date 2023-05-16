@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'general',
     'Tutors',
     'Forum',
-    'storages'
+    'storages',
+    'interview'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'nnlms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['general/templates/', 'authentication/templates/'],
+        'DIRS': ['general/templates/', 'authentication/templates/', 'interview/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -179,19 +180,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
-AZURE_ACCOUNT_NAME = '99formed'
-AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+# AZURE_ACCOUNT_NAME = '99formed'
+# AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 
-AZURE_CONTAINER = 'media'  # used by DEFAULT_FILE_STORAGE
-AZURE_STATIC_CONTAINER = 'static'  # used by STATICFILES_STORAGE
+# AZURE_CONTAINER = 'media'  # used by DEFAULT_FILE_STORAGE
+# AZURE_STATIC_CONTAINER = 'static'  # used by STATICFILES_STORAGE
 
-AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=99formed;AccountKey=cdQg1Ch7mQNu+5C/LNTWLqvYHsKmG/YDzN7feQBArCbwoXb8zvEcvh8KmxNdmwv9qs43oJSMI2Nd+ASt1sPI7g==;EndpointSuffix=core.windows.net'
-
-
+# AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=99formed;AccountKey=cdQg1Ch7mQNu+5C/LNTWLqvYHsKmG/YDzN7feQBArCbwoXb8zvEcvh8KmxNdmwv9qs43oJSMI2Nd+ASt1sPI7g==;EndpointSuffix=core.windows.net'
 
 
-# STATIC_URL = '/static/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

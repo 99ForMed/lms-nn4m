@@ -1307,14 +1307,62 @@ input[type='checkbox']{
 }
 /* End Evidence of work page */
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {...}
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {...}
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {...}
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+/***********************************************/
+/*********** Interview section start ***********/
+/* ********************************************/
+
+
+
+.interview-dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {...}
+
+.clock-container {
+  flex: 1;
+}
+
+.greeting-container {
+  flex: 1;
+  text-align: right;
+}
+
+.greeting {
+  font-size: 2em;
+}
+
+.interview-dashboard .clock {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.interview-dashboard .hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  transform: translateX(-50%);
+}
+
+.interview-dashboard .hour-hand {
+  height: 30%;
+  width: 4px;
+  background: white;
+}
+
+.interview-dashboard .minute-hand {
+  height: 40%;
+  width: 3px;
+  background: white;
+}
+
+.interview-dashboard .second-hand {
+  height: 45%;
+  width: 2px;
+  background: white;
+}
