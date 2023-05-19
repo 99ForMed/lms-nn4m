@@ -1314,31 +1314,52 @@ input[type='checkbox']{
 
 
 .interview-dashboard {
+  padding-top: 40px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+  align-items: center;  
 }
 
-.clock-container {
-  flex: 1;
+.interview-dashboard .row{
+  width: 100%;
+  
 }
 
-.greeting-container {
-  flex: 1;
-  text-align: right;
+.interview-dashboard .row .col-md-9{
+  border: solid white 2px;
 }
+
+.interview-dashboard .row .col-md-3{
+  height: 200px;
+  line-height: 200px;
+}
+
+
+.interview-dashboard .row .greeting-container .day-of-week{
+
+}
+/* .clock-container {
+  flex: 1;
+}
+*/
+.it-is {
+  flex: 1;
+  text-align: center;
+}/*
 
 .greeting {
   font-size: 2em;
-}
+} */
 
 .interview-dashboard .clock {
+  text-align: center;
   position: relative;
-  width: 200px;
-  height: 200px;
-  border: 1px solid white;
+  aspect-ratio : 1 / 1;
+  width:100%;
+  border: 1px dotted #424242;
   border-radius: 50%;
+  background-image: url("../img/clock-face.png");
+  background-size: contain;
 }
 
 .interview-dashboard .hand {
@@ -1347,22 +1368,45 @@ input[type='checkbox']{
   left: 50%;
   transform-origin: bottom;
   transform: translateX(-50%);
+
 }
 
 .interview-dashboard .hour-hand {
   height: 30%;
   width: 4px;
-  background: white;
+  background: #424242;;
 }
 
 .interview-dashboard .minute-hand {
   height: 40%;
   width: 3px;
-  background: white;
+  background: #fff;;
+  border-radius: 5px;
 }
 
 .interview-dashboard .second-hand {
   height: 45%;
   width: 2px;
-  background: white;
+  background: #424242;
+}
+
+/* Greeting */
+
+.greeting-container {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.greeting {
+  font-size: 30px;
+  color: #fff; /* Or any color you prefer */
+}
+
+.it-is {
+  font-size: small;
+  color: grey; /* This will give it a low priority look */
+}
+
+.day-of-week {
+  font-size: 40px; /* This will make it stand out a bit more */
+  color: darkgrey; /* Replace with the color you want */
 }

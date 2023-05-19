@@ -2,19 +2,25 @@
 {% load static %}
 {% block head %}
   <title>Dashboard</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 {% endblock %}
 {% block body %}
 <div class='interview-dashboard'>
-    <div class="clock-container">
-        <div class="clock">
-            <div class="hand hour-hand"></div>
-            <div class="hand minute-hand"></div>
-            <div class="hand second-hand"></div>
+    <div class="row">
+        <div class="col-md-5 clock-container">
+            <div class="clock">
+                <div class="hand hour-hand"></div>
+                <div class="hand minute-hand"></div>
+                <div class="hand second-hand"></div>
+            </div>
         </div>
-    </div>
-    <div class="greeting-container">
-        <h1 class="greeting">{{time_greeting}}, {{title}}</h1>
+        <div class="col-md-7 greeting-container">
+            <span class="greeting">{{time_greeting}}, Madam</span>
+            <div class="row">
+                <div class='col-md-3 it-is'><p>It is</p></div>
+                <div class='col-md-9 day-of-week'>{{day_of_week}}</div>
+            </div>  
+        </div>
     </div>
 </div>
 <script>

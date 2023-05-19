@@ -25,5 +25,9 @@ def interview_dashboard_view(request):
 
     interview_student = InterviewStudent.objects.get(user = user)
     title = 'Sir' if interview_student.gender == 'M' else 'Madam'
-    
-    return render(request, 'interview-dashboard.html', {'time_greeting': time_greeting, 'title': title})
+    context = {
+        'day_of_week':'wednesday',
+        'time_greeting': time_greeting, 
+        'title': title
+    }
+    return render(request, 'interview-dashboard.html', context)
