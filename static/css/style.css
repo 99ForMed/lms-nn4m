@@ -57,7 +57,6 @@ body{
     width: fit-content;
 }
 
-
 /* nav links */
 .dashboard .row .sidebar .sidebar-content .nav-link {
   color: #ccc;
@@ -77,6 +76,57 @@ body{
 
 .dashboard .row .sidebar .sidebar-content .tab-content .tab-pane {
   padding: 20px;
+}
+
+/* Progress Circle */
+.dashboard .row .sidebar .module-progress .circle {
+  display: inline-block;
+  margin: 10px;
+}
+
+.dashboard .row .sidebar .module-progress .circle svg circle {
+  width: 60px;
+  height: 60px;
+  fill: none;
+  stroke: #4CAF50;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  transform: translate(5px, 5px);
+  stroke-dasharray: 157;
+}
+
+.dashboard .row .sidebar .module-progress .circle svg circle:nth-child(1) {
+  stroke-dashoffset: 0;
+  stroke: #ccc;
+}
+
+.dashboard .row .sidebar .module-progress .circle svg circle:nth-child(2) {
+  stroke-dashoffset: 157;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.dashboard .row .sidebar .module-progress #module1 #bar1 {
+  stroke-dashoffset: 39.2; /* 75% progress */
+}
+
+/* Progress Bar */
+.dashboard .row .sidebar .week-progress .progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dashboard .row .sidebar .week-progress .progress-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%; /* This should match the data-percent attribute */
+  height: 100%;
+  background-color: #4CAF50; /* The green color you selected */
 }
 
 /* End nav links */
@@ -1315,7 +1365,8 @@ input[type='checkbox']{
 
 .interview-dashboard {
   padding-top: 40px;
-  display: flex;
+  /* display: flex;
+  flex-direction: column; */
   justify-content: space-between;
   align-items: center;  
 }
@@ -1330,8 +1381,8 @@ input[type='checkbox']{
 }
 
 .interview-dashboard .row .col-md-3{
-  height: 200px;
-  line-height: 200px;
+  /* height: 200px;
+  line-height: 200px; */
 }
 
 
@@ -1397,8 +1448,8 @@ input[type='checkbox']{
 }
 
 .greeting {
-  font-size: 30px;
-  color: #fff; /* Or any color you prefer */
+  font-size: 50px;
+  color: #9E9E9E; /* Or any color you prefer */
 }
 
 .it-is {
@@ -1410,3 +1461,140 @@ input[type='checkbox']{
   font-size: 40px; /* This will make it stand out a bit more */
   color: darkgrey; /* Replace with the color you want */
 }
+
+
+
+/* Colors for status box - you can add your own conditions for these in your JS */
+.second-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+/* Countdown Box */
+.countdown-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 0 10px;
+}
+
+/* Status Box */
+.status-box {
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  padding: 0 10px;
+}
+
+.status-box a.status {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Colors for status box - you can add your own conditions for these in your JS */
+.status-box.ongoing {
+  background-color: #367B44; /* Green */
+}
+
+.status-box.upcoming {
+  background-color: #FF9800; /* Orange */
+}
+
+.status-box.default {
+  background-color: #9E9E9E; /* Grey */
+}
+
+.status-box.ongoing #statusText {
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.status-box.upcoming #statusText {
+  content: "Starting soon";
+}
+
+.status-box.default #statusText {
+  content: "No class soon";
+}
+
+/* Video Box */
+.video-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  position: relative;
+  padding: 0 10px;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+#thumbnail {
+  src: ""; /* this is a placeholder image */
+}
+
+
+/* Third Row */
+
+/* Tasks Table */
+.tasks-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+.tasks-table thead th {
+  text-align: left;
+  padding: 10px;
+  background-color: #1E1E1E;
+  color: #fff;
+}
+
+.tasks-table tbody tr {
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.tasks-table tbody tr td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.task-done {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+
+
+
+
+
