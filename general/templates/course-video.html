@@ -1,4 +1,4 @@
-{% extends 'student-base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block body %}
 
@@ -6,18 +6,30 @@
     <div class='container'>
         <div class='header-area'>
             <h1>{{vid_name}}</h1>
+            <div class='nav'>
+                <p><span onclick='window.location.href="/"'>Dashboard</span> <span><strong>❭❭</strong></span> <span>{{section}}</span> <span><strong>❭❭</strong></span> {{vid_name}}</p>
+            </div>
         </div>
     </div>
     <div class="container-fluid">
-            <br/>
-            <p>{{vid.description}}</p>
-            <br/>
-            <iframe width="100%" height="560" src="https://www.youtube.com/embed/{{share_code}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    
+        <div class='row'>
+            <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+
+            </div>
+            <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12 middle-content'>
+                <br/>
+                <p>{{vid.description}}</p>
+                <br/>
+                <iframe width="100%" height="560" src="https://www.youtube.com/embed/{{share_code}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class='col-lg-2 col-md-2 col-sm-0 col-xs-0'>
+                
+            </div>
+        </div>
         {% comment %} Start Comment Section {% endcomment %}
         <div class="container-fluid mt-0 mb-5 question-forum">
             <div class="d-flex justify-content-center row">
-                <div class="d-flex flex-column col-md-12">
+                <div class="d-flex flex-column col-md-8">
                     
                     <div class="coment-bottom p-2 px-4">
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">

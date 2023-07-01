@@ -38,9 +38,9 @@ def dashboard_view_student(request):
         if section.current:
             current_section = section
     for section in UcatSection.objects.all():
-        
+        print()
         if len(UcatSectionInstance.objects.filter(section = section, student=UcatStudent.objects.get(user=request.user))) == 0:
-            
+            print('here')
             student_instance = UcatStudent.objects.get(user=request.user)
             section_instance = section
 
@@ -92,8 +92,6 @@ def course_page_view(request, sectionInstanceId):
     for video in videos:
         videos_dict[str(video.syllabus_point)].append(video)
     context = {
-        'tasks': UcatStudent.objects.get(user = request.user).tasks,
-        'no_tasks': len(UcatStudent.objects.get(user = request.user).tasks) == 0,
         'videos_dict': videos_dict,
         'section_name': section.name,
         'locked_vids': UcatVideo.objects.filter(section = section, unlocked = False)
@@ -111,8 +109,6 @@ def course_video_view(request, sectionInstanceId, videoId):
     
     student = UcatStudent.objects.get(user = request.user) # Assuming the user is logged in
     context = {
-        'tasks': UcatStudent.objects.get(user = request.user).tasks,
-        'no_tasks': len(UcatStudent.objects.get(user = request.user).tasks) == 0,
         'vid': video,
         'vid_name': video.name,
         'vid_description': video.description,
@@ -224,9 +220,3 @@ def maintenance_view(request):
 
 def sitemap_view(request):
     return render(request, 'sitemap.xml', {})
-
-def back(request):
-    # Use request.META.get('HTTP_REFERER') to get the previous page's URL
-    # or any other logic to determine the correct URL to redirect to
-    url = request.META.get('HTTP_REFERER', '/')
-    return redirect(url)

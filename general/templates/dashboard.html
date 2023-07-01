@@ -1,9 +1,12 @@
-{% extends 'student-base.html' %}
+{% extends 'base.html' %}
 {% block head %}
 <title>Dashboard</title>
 {% endblock %}
 {% block body %}
-            <br/>
+<div class='dashboard container-fluid'>
+    <div class='row'>
+    
+        <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
             <h2 id='dashboard-learn-h2'>Learn:</h2>
             <div class='main-container' onclick='window.location.href="/course-page/{{current_section.id}}/"'>
                 <div class='main'>
@@ -54,4 +57,69 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
+            <div class='sidebar-content'>
+                
+                <div class='heading'>
+                    <h3>This week's UCAT plan:</h3>
+                </div>
+                <hr/>
+                <div class='tutor-checklist'>
+                    <h5>Mentor tasks:</h5>
+                    {% for task in tasks %}
+                    <input type="checkbox">
+                    <label>{{task}}</label><br>
+                    {% endfor %}
+                    {% if no_tasks %}
+                        You're all caught up.
+                    {% endif %}
+                </div>
+                <hr/>
+                {% comment %} <div class='student-checklist'>
+                    <h5>Student Checklist:</h5>
+    
+                    <input type='text' placeholder='Add item...'/><span class='add-item'>Add</span>
+                </div> {% endcomment %}
+                <br/>
+                
+                <p class='submit' id="subBtn" onclick="window.location.href='submit-progress/'">Submit Progress</p>
+                <script>
+                    // Get all checkboxes and the submit button
+                    const checkboxes = document.querySelectorAll('.tutor-checklist input[type="checkbox"]');
+                    const submitBtn = document.getElementById("subBtn");
+                  
+                    // Function to check if any checkbox is checked
+                    function isAnyChecked() {
+                      return Array.from(checkboxes).some(checkbox => checkbox.checked);
+                    }
+                  
+                    // Function to handle checkbox change events
+                    function onCheckboxChange() {
+                      if (isAnyChecked()) {
+                        submitBtn.classList.add('flash');
+                      } else {
+                        submitBtn.classList.remove('flash');
+                      }
+                    }
+                  
+                    // Attach event listeners to checkboxes
+                    checkboxes.forEach(checkbox => {
+                      checkbox.addEventListener('change', onCheckboxChange);
+                    });
+                  </script>
+                <div class='days-counter'>
+                    <span class='days'>
+                        {{days_to_master}}
+                    </span>
+                    <h5> days to master <i>Decision Making</i></h5>
+                </div>
+                <div class='logout' style='position: absolute; bottom: 0px'>
+                <p>Logged in as {{request.user}}<span onclick='window.location.href="/logout/"' class='logout-btn'>Log out</span></p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
 {% endblock %}

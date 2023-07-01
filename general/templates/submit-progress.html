@@ -1,6 +1,5 @@
-{% extends 'student-base.html' %}
+{% extends 'base.html' %}
 {% block head %}
-<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 <title>Submit Tasks</title>
 {% with form.file.auto_id as file_auto_id %}
   <style>
@@ -15,7 +14,7 @@
   <div class="floating-box">
     {% if submitted %}
         <div class='row'>
-            <div class='content-fb col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+            <div class='content col-lg-6 col-md-6 col-sm-12 col-xs-12'>
                 <h2>Submitted</h2>
                 <p style='color: #ccc'>Feel free to go back to the <a href="/" style='color: darkorange; text-decoration: none'>dashboard</span></h2>
             </div>
@@ -24,7 +23,7 @@
     {% else %}
     <div class='row'>
         <a href='/' style='color: darkorange; text-decoration: none'>Submit Progress</a>
-        <div class='content-fb col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+        <div class='content col-lg-6 col-md-6 col-sm-12 col-xs-12'>
             <h2 style='color: #ccc'>Which tasks?</h2>
             <p class='note'>Send visible screenshots of the completed tasks 24 hrs before class. Otherwise entrance to class will be blocked.</p>
             <div class="example-checklists">
@@ -38,7 +37,7 @@
               <!-- Slider will be implemented here -->
             </div>
           </div>
-          <div class='conten-fb col-lg-6 col-md-6 col-sm-12 col-xs-12'>
+          <div class='content col-lg-6 col-md-6 col-sm-12 col-xs-12'>
             <div class="upload-container">
               <form method="post" enctype="multipart/form-data" action="{% url 'submit-progress' %}">
                   {% csrf_token %}
