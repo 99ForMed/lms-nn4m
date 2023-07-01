@@ -1316,5 +1316,412 @@ input[type='checkbox']{
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
 }
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {...}
+
+.interview-dashboard .row{
+  width: 100%;
+  
+}
+
+.interview-dashboard .row .col-md-9{
+  border: solid white 2px;
+}
+
+.interview-dashboard .row .col-md-3{
+  /* height: 200px;
+  line-height: 200px; */
+}
+
+
+.interview-dashboard .row .greeting-container .day-of-week{
+
+}
+/* .clock-container {
+  flex: 1;
+}
+*/
+.it-is {
+  flex: 1;
+  text-align: center;
+}/*
+
+.greeting {
+  font-size: 2em;
+} */
+
+.interview-dashboard .clock {
+  text-align: center;
+  position: relative;
+  aspect-ratio : 1 / 1;
+  width:100%;
+  border: 1px dotted #424242;
+  border-radius: 50%;
+  background-image: url("../img/clock-face.png");
+  background-size: contain;
+}
+
+.interview-dashboard .hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  transform: translateX(-50%);
+
+}
+
+.interview-dashboard .hour-hand {
+  height: 30%;
+  width: 4px;
+  background: #424242;;
+}
+
+.interview-dashboard .minute-hand {
+  height: 40%;
+  width: 3px;
+  background: #fff;;
+  border-radius: 5px;
+}
+
+.interview-dashboard .second-hand {
+  height: 45%;
+  width: 2px;
+  background: #424242;
+}
+
+/* Greeting */
+
+.greeting-container {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.greeting {
+  font-size: 50px;
+  color: #9E9E9E; /* Or any color you prefer */
+}
+
+.it-is {
+  font-size: small;
+  color: grey; /* This will give it a low priority look */
+}
+
+.day-of-week {
+  font-size: 40px; /* This will make it stand out a bit more */
+  color: darkgrey; /* Replace with the color you want */
+}
+
+
+
+/* Colors for status box - you can add your own conditions for these in your JS */
+.second-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+/* Countdown Box */
+.countdown-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 0 10px;
+}
+
+/* Status Box */
+.status-box {
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  padding: 0 10px;
+}
+
+.status-box a.status {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Colors for status box - you can add your own conditions for these in your JS */
+.status-box.ongoing {
+  background-color: #367B44; /* Green */
+}
+
+.status-box.upcoming {
+  background-color: #FF9800; /* Orange */
+}
+
+.status-box.default {
+  background-color: #9E9E9E; /* Grey */
+}
+
+.status-box.ongoing #statusText {
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.status-box.upcoming #statusText {
+  content: "Starting soon";
+}
+
+.status-box.default #statusText {
+  content: "No class soon";
+}
+
+/* Video Box */
+.video-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  position: relative;
+  padding: 0 10px;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+#thumbnail {
+  src: ""; /* this is a placeholder image */
+}
+
+
+/* Third Row */
+
+/* Tasks Table */
+.tasks-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+.tasks-table thead th {
+  text-align: left;
+  padding: 10px;
+  background-color: #1E1E1E;
+  color: #fff;
+}
+
+.tasks-table tbody tr {
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.tasks-table tbody tr td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.task-done {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+/* Class has begun overlay */
+
+.page-overlay{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-overlay .class-begun-overlay{
+  color: #ccc;
+  background-color: #111111;
+  width: 50%;
+  text-align: center;
+  padding: 20px;
+  border-radius: 3px;
+  position: relative;
+
+}
+
+.page-overlay .class-begun-overlay .fa-times{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.page-overlay .class-begun-overlay h2{
+  color: #9E9E9E;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left{
+  border-right: solid #424242 0.1px;
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock{
+  
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock p {
+  color: #343434;
+  display: flex;
+  align-items: center;
+  margin: 0 0;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock p span {
+  color: darkorange;
+  font-size: 60px;
+  padding: 0 5px
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock .time-left-instr{
+  margin: 0 0;
+  font-size: 16px;
+  color: #424242;
+  text-align: left;
+}
+
+.page-overlay .class-begun-instr{
+  color: #424242;
+  text-align: left;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button
+{
+  width: 100%;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button:hover
+{
+  
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button i, 
+.page-overlay .class-begun-overlay .col-md-6.right .action-button span{
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0 2px;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button:hover i {
+  transform: translateX(-200%);
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button:hover span {
+  transform: translateX(100%);
+  color: rgba(0,0,0,0);
+  
+}
+
+.action-button{
+  background-color: darkorange;
+  color: #333;
+  text-align: center;
+  display: inline-block;
+  margin: 0 0;
+  padding: 4px 7px;
+  border-radius: 4px;
+  font-size: 17px;
+}
+
+.action-button p{
+  margin: 0 0;
+}
+/* End section */
+/* Live class section */
+
+.live-class-section .cards-section .row .col-md-6{
+  height: 30vh;
+  font-size: 25px;
+}
+
+.live-class-section .cards-section .row .col-md-6.one .carder{
+  border: none;
+  color: #424242;
+}
+
+.live-class-section .cards-section .row .col-md-6.one .carder i{
+  padding: 0 5px;
+}
+
+.live-class-section .cards-section .row .col-md-6{
+  
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder{
+  border: solid #ccc 3px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder{
+  border: solid #424242 2px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder p{
+  margin: 0 8px;
+}
+
+
+
+
+/* End live class section */
