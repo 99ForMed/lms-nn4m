@@ -176,13 +176,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # DEFAULT_FILE_STORAGE = '99formed.custom_storages.MediaStorage'
 # MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
-AZURE_ACCOUNT_NAME = '99formed'
-AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+# AZURE_ACCOUNT_NAME = '99formed'
+# AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 
-AZURE_CONTAINER = 'media'  # used by DEFAULT_FILE_STORAGE
-AZURE_STATIC_CONTAINER = 'static'  # used by STATICFILES_STORAGE
+# AZURE_CONTAINER = 'media'  # used by DEFAULT_FILE_STORAGE
+# AZURE_STATIC_CONTAINER = 'static'  # used by STATICFILES_STORAGE
 
-AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=99formed;AccountKey=cdQg1Ch7mQNu+5C/LNTWLqvYHsKmG/YDzN7feQBArCbwoXb8zvEcvh8KmxNdmwv9qs43oJSMI2Nd+ASt1sPI7g==;EndpointSuffix=core.windows.net'
+# AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=99formed;AccountKey=cdQg1Ch7mQNu+5C/LNTWLqvYHsKmG/YDzN7feQBArCbwoXb8zvEcvh8KmxNdmwv9qs43oJSMI2Nd+ASt1sPI7g==;EndpointSuffix=core.windows.net'
