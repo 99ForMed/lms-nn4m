@@ -23,3 +23,6 @@ urlpatterns = [
     path('under-maintenance/', maintenance_view),
     path('sitemap', sitemap_view)
 ]
+
+handler404 = 'general.views.handler404'
+handler500 = 'general.views.handler500'
