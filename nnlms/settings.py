@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com']
 
@@ -44,11 +44,13 @@ INSTALLED_APPS = [
     'general',
     'Tutors',
     'Forum',
-    'storages'
+    'storages',
+    'interview'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,7 +64,7 @@ ROOT_URLCONF = 'nnlms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['general/templates/', 'authentication/templates/'],
+        'DIRS': ['general/templates/', 'authentication/templates/', 'interview/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1295,5 +1295,594 @@ input[type='checkbox']{
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
 }
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {...}
+
+.interview-dashboard .row{
+  width: 100%;
+  
+}
+
+.interview-dashboard .row .col-md-9{
+  border: solid white 2px;
+}
+
+.interview-dashboard .row .col-md-3{
+  /* height: 200px;
+  line-height: 200px; */
+}
+
+
+.interview-dashboard .row .greeting-container .day-of-week{
+
+}
+/* .clock-container {
+  flex: 1;
+}
+*/
+.it-is {
+  flex: 1;
+  text-align: center;
+}/*
+
+.greeting {
+  font-size: 2em;
+} */
+
+.interview-dashboard .clock {
+  text-align: center;
+  position: relative;
+  aspect-ratio : 1 / 1;
+  width:100%;
+  border: 1px dotted #424242;
+  border-radius: 50%;
+  background-image: url("../img/clock-face.png");
+  background-size: contain;
+}
+
+.interview-dashboard .hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom;
+  transform: translateX(-50%);
+
+}
+
+.interview-dashboard .hour-hand {
+  height: 30%;
+  width: 4px;
+  background: #424242;;
+}
+
+.interview-dashboard .minute-hand {
+  height: 40%;
+  width: 3px;
+  background: #fff;;
+  border-radius: 5px;
+}
+
+.interview-dashboard .second-hand {
+  height: 45%;
+  width: 2px;
+  background: #424242;
+}
+
+/* Greeting */
+
+.greeting-container {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.greeting {
+  font-size: 50px;
+  color: #9E9E9E; /* Or any color you prefer */
+}
+
+.it-is {
+  font-size: small;
+  color: grey; /* This will give it a low priority look */
+}
+
+.day-of-week {
+  font-size: 40px; /* This will make it stand out a bit more */
+  color: darkgrey; /* Replace with the color you want */
+}
+
+
+
+/* Colors for status box - you can add your own conditions for these in your JS */
+.second-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+/* Countdown Box */
+.countdown-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 0 10px;
+}
+
+/* Status Box */
+.status-box {
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  padding: 0 10px;
+}
+
+.status-box a.status {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Colors for status box - you can add your own conditions for these in your JS */
+.status-box.ongoing {
+  background-color: #367B44; /* Green */
+}
+
+.status-box.upcoming {
+  background-color: #FF9800; /* Orange */
+}
+
+.status-box.default {
+  background-color: #9E9E9E; /* Grey */
+}
+
+.status-box.ongoing #statusText {
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.status-box.upcoming #statusText {
+  content: "Starting soon";
+}
+
+.status-box.default #statusText {
+  content: "No class soon";
+}
+
+/* Video Box */
+.video-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  position: relative;
+  padding: 0 10px;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+#thumbnail {
+  src: ""; /* this is a placeholder image */
+}
+
+
+/* Third Row */
+
+/* Tasks Table */
+.tasks-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+.tasks-table thead th {
+  text-align: left;
+  padding: 10px;
+  background-color: #1E1E1E;
+  color: #fff;
+}
+
+.tasks-table tbody tr {
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.tasks-table tbody tr td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.task-done {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+/* Class has begun overlay */
+
+.page-overlay{
+  display: flex;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  
+  justify-content: center;
+  align-items: center;
+}
+
+.page-overlay .class-begun-overlay{
+  color: #ccc;
+  background-color: #111111;
+  width: 50%;
+  text-align: center;
+  padding: 20px;
+  border-radius: 3px;
+  position: relative;
+
+}
+
+.page-overlay .class-begun-overlay .fa-times{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.page-overlay .class-begun-overlay h2{
+  color: #9E9E9E;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left{
+  border-right: solid #424242 0.1px;
+  display: flex;
+  justify-content: center;
+
+
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock{
+  
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock p {
+  color: #343434;
+  display: flex;
+  align-items: center;
+  margin: 0 0;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock p span {
+  color: darkorange;
+  font-size: 60px;
+  padding: 0 5px
+}
+
+.page-overlay .class-begun-overlay .col-md-6.left
+.time-remaining-clock .time-left-instr{
+  margin: 0 0;
+  font-size: 16px;
+  color: #424242;
+  text-align: left;
+}
+
+.page-overlay .class-begun-instr{
+  color: #424242;
+  text-align: left;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button
+{
+  width: 100%;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button i, 
+.page-overlay .class-begun-overlay .col-md-6.right .action-button span{
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 0 2px;
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button:hover i {
+  transform: translateX(-200%);
+}
+
+.page-overlay .class-begun-overlay .col-md-6.right .action-button:hover span {
+  transform: translateX(100%);
+  color: rgba(0,0,0,0);
+  
+}
+
+.action-button{
+  background-color: darkorange;
+  color: #333;
+  text-align: center;
+  display: inline-block;
+  margin: 0 0;
+  padding: 4px 7px;
+  border-radius: 4px;
+  font-size: 17px;
+}
+
+.action-button p{
+  margin: 0 0;
+}
+/* End section */
+/* Live class section */
+
+.live-class-section .cards-section .row .col-md-6{
+  height: 30vh;
+  font-size: 25px;
+}
+
+.live-class-section .cards-section .row .col-md-6.one .carder{
+  border: none;
+  color: #424242;
+}
+
+.live-class-section .cards-section .row .col-md-6.one .carder i{
+  padding: 0 5px;
+}
+
+.live-class-section .cards-section .row .col-md-6{
+  
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder{
+  border: solid #ccc 3px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder{
+  border: solid #424242 2px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder p{
+  margin: 0 8px;
+}
+
+
+/* End live class section */
+
+/* Select Question section */
+
+.select-questions {
+  background-color: #111111;
+  min-height: 100vh;
+  color: white;
+  padding-top: 5vh;
+}
+
+.select-questions .card {
+  background-color: #1E1E1E;
+  color: #ccc;
+  border-color: #343434;
+  transition: transform 0.4s, background-color 0.4s;
+}
+
+/* .select-questions .card:hover {
+  background-color: #343434;
+  transform: scale(1.02);
+} */
+
+.select-questions .card .card-body {
+  padding: 30px;
+}
+
+.select-questions .card .card-body .card-title {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.select-questions .card .card-body .butn {
+  color: #ccc;
+  border: none;
+  background-color: #343434;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s, background-color 0.4s;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.select-questions .card .card-body .butn:before {
+  content: '';
+  background: #f39c12; /* Orange */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+}
+
+.select-questions .card .card-body .butn:hover {
+  color: #111;
+}
+
+.select-questions .card .card-body .butn:hover:before {
+  transform: scaleX(1);
+  
+}
+
+.select-questions hr {
+  border-top: 1px solid #343434;
+}
+
+.select-questions .butn-row{
+  padding: 15px 0;
+}
+
+/* End Select Question Section */
+/* View question start */
+
+.view-question {
+  color: #1e1e1e;
+  font-family: 'Roboto', sans-serif;
+}
+
+.view-question h3 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.view-question h3 {
+  color: #f39c12;
+}
+.view-question .student1-answer h5,
+.view-question .student2-answer h5,
+.view-question .student3-answer h5 {
+  color: #f39c12;
+}
+.view-question p, .view-question .student1-answer p,
+.view-question .student2-answer p, .view-question .student3-answer p {
+  color: #f5f5f5;
+  padding: 5px 0;
+}
+
+.view-question p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.view-question .q1 {
+  margin-top: 3rem;
+}
+
+.view-question .q1 > p {
+  /* font-size: 1.25rem; */
+  /* font-weight: 600; */
+  margin-bottom: 1.5rem;
+}
+
+.view-question .student1-answer,
+.view-question .student2-answer,
+.view-question .student3-answer {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.view-question .student1-answer > h5,
+.view-question .student2-answer > h5,
+.view-question .student3-answer > h5 {
+  font-size: 1.1rem;
+  /* font-weight: 700; */
+  margin-bottom: 0.5rem;
+}
+
+.view-question .student1-answer > p,
+.view-question .student2-answer > p,
+.view-question .student3-answer > p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.view-question .answer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.view-question .student-name {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+  color: #9E9E9E;
+}
+
+.view-question .student-answer {
+  flex: 4;
+  /* border: 1px solid #f39c12; */
+  background-color: #333  ;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-question .fullscreen-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  color: #f39c12;
+  cursor: pointer;
+}
+
+/* View question end */

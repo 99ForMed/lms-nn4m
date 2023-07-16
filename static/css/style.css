@@ -1521,14 +1521,15 @@ input[type='checkbox']{
 /* Class has begun overlay */
 
 .page-overlay{
-  display: none;
+  display: flex;
+  
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0);
-  display: flex;
+  
   justify-content: center;
   align-items: center;
 }
@@ -1600,11 +1601,6 @@ input[type='checkbox']{
   width: 100%;
   margin: 20px 0;
   cursor: pointer;
-}
-
-.page-overlay .class-begun-overlay .col-md-6.right .action-button:hover
-{
-  
 }
 
 .page-overlay .class-begun-overlay .col-md-6.right .action-button {
@@ -1701,6 +1697,192 @@ input[type='checkbox']{
 }
 
 
-
-
 /* End live class section */
+
+/* Select Question section */
+
+.select-questions {
+  background-color: #111111;
+  min-height: 100vh;
+  color: white;
+  padding-top: 5vh;
+}
+
+.select-questions .card {
+  background-color: #1E1E1E;
+  color: #ccc;
+  border-color: #343434;
+  transition: transform 0.4s, background-color 0.4s;
+}
+
+/* .select-questions .card:hover {
+  background-color: #343434;
+  transform: scale(1.02);
+} */
+
+.select-questions .card .card-body {
+  padding: 30px;
+}
+
+.select-questions .card .card-body .card-title {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.select-questions .card .card-body .butn {
+  color: #ccc;
+  border: none;
+  background-color: #343434;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.4s, background-color 0.4s;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.select-questions .card .card-body .butn:before {
+  content: '';
+  background: #f39c12; /* Orange */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+}
+
+.select-questions .card .card-body .butn:hover {
+  color: #111;
+}
+
+.select-questions .card .card-body .butn:hover:before {
+  transform: scaleX(1);
+  
+}
+
+.select-questions hr {
+  border-top: 1px solid #343434;
+}
+
+.select-questions .butn-row{
+  padding: 15px 0;
+}
+
+/* End Select Question Section */
+/* View question start */
+
+.view-question {
+  color: #1e1e1e;
+  font-family: 'Roboto', sans-serif;
+}
+
+.view-question h3 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.view-question h3 {
+  color: #f39c12;
+}
+.view-question .student1-answer h5,
+.view-question .student2-answer h5,
+.view-question .student3-answer h5 {
+  color: #f39c12;
+}
+.view-question p, .view-question .student1-answer p,
+.view-question .student2-answer p, .view-question .student3-answer p {
+  color: #f5f5f5;
+  padding: 5px 0;
+}
+
+.view-question p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.view-question .q1 {
+  margin-top: 3rem;
+}
+
+.view-question .q1 > p {
+  /* font-size: 1.25rem; */
+  /* font-weight: 600; */
+  margin-bottom: 1.5rem;
+}
+
+.view-question .student1-answer,
+.view-question .student2-answer,
+.view-question .student3-answer {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  background-color: #1e1e1e;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.view-question .student1-answer > h5,
+.view-question .student2-answer > h5,
+.view-question .student3-answer > h5 {
+  font-size: 1.1rem;
+  /* font-weight: 700; */
+  margin-bottom: 0.5rem;
+}
+
+.view-question .student1-answer > p,
+.view-question .student2-answer > p,
+.view-question .student3-answer > p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.view-question .answer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.view-question .student-name {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+  color: #9E9E9E;
+}
+
+.view-question .student-answer {
+  flex: 4;
+  /* border: 1px solid #f39c12; */
+  background-color: #333  ;
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-question .fullscreen-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  color: #f39c12;
+  cursor: pointer;
+}
+
+/* View question end */

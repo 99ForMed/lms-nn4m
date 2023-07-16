@@ -1,0 +1,46 @@
+{% extends 'interview-student-base.html' %}
+{% load static %}
+{% block head %}
+  <title>Question</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% block body %}
+<div class="select-questions container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Select a Question</h5>
+                    <hr/>
+                    <div class="butn-row d-flex justify-content-around">
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 1</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 2</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 3</button>
+                    </div>
+                    <div class="butn-row d-flex justify-content-around">
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 4</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 5</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 6</button>
+                    </div>
+                    <div class="butn-row d-flex justify-content-around">
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 7</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 8</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 9</button>
+                    </div>
+                    <div class="butn-row d-flex justify-content-around">
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 10</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 11</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 12</button>
+                    </div>
+                    <div class="butn-row d-flex justify-content-around">
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 13</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 14</button>
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 15</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

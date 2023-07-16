@@ -30,6 +30,7 @@ def interview_dashboard_view(request):
         'time_greeting': time_greeting, 
         'title': title
     }
+    
     return render(request, 'interview-dashboard.html', context)
 
 def live_class_view(request):
@@ -37,3 +38,16 @@ def live_class_view(request):
 
     }
     return render(request, 'live-class.html', context)
+
+
+def select_question_view(request):
+    context = {
+        'redirect_template':str(request.GET['type'])
+    }
+    return render(request, 'select_question.html', context)
+
+def view_question_view(request):
+    context = {
+        
+    }
+    return render(request, 'view_question.html', context)

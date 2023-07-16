@@ -150,32 +150,33 @@
 {% endblock %}
 
 {% block page-overlay %}
-
-<div class='class-begun-overlay'>
-    <i class="fa fa-times" aria-hidden="true"></i>
-    <h2>Class Has Begun</h2>
-    <br/>
-    <div class="row">
-        <div class = "col-md-6 left">
-            <div class="time-remaining-clock">
-                <p><span class="hours">
-                    2
-                </span>
-                hours  
-                <span class="minutes">
-                    3
-                </span>
-                minutes
-                </p>
-                <p class="time-left-instr">left until class ends.</p>
+<div class="page-overlay">
+    <div class='class-begun-overlay'>
+        <i class="fa fa-times" aria-hidden="true"></i>
+        <h2>Class Has Begun</h2>
+        <br/>
+        <div class="row">
+            <div class = "col-md-6 left">
+                <div class="time-remaining-clock">
+                    <p><span class="hours">
+                        2
+                    </span>
+                    hours  
+                    <span class="minutes">
+                        3
+                    </span>
+                    minutes
+                    </p>
+                    <p class="time-left-instr">left until class ends.</p>
+                </div>
             </div>
-        </div>
-        <div class = "col-md-6 right">
-            <div class="action-button join-button">
-                <p><span>Join Here </span> <i class="fa fa-laptop" aria-hidden="true"></i></p>
-            </div>
-            <div class="action-button discord-button">
-                <p><span>Live Updates </span> <i class="fa-brands fa-discord" aria-hidden="true"></i></p>
+            <div class = "col-md-6 right">
+                <div class="action-button join-button" onclick="window.location.href='live-class/'">
+                    <p><span>Join Here </span> <i class="fa fa-laptop" aria-hidden="true"></i></p>
+                </div>
+                <div class="action-button discord-button">
+                    <p><span>Live Updates </span> <i class="fa-brands fa-discord" aria-hidden="true"></i></p>
+                </div>
             </div>
         </div>
     </div>
