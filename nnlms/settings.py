@@ -26,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv("debug"))
+print(DEBUG)
 
 ALLOWED_HOSTS = ['nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com']
 
@@ -167,29 +168,11 @@ if os.getenv("localhost"):
 else:
     SECURE_SSL_REDIRECT = True
 
-# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = '99formed'
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_LOCATION = 'static'
-# AWS_S3_REGION_NAME = 'ap-northeast-1'
-# AWS_S3_ENDPOINT_URL = f'https://s3.{AWS_S3_REGION_NAME}.amazonaws.com'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# DEFAULT_FILE_STORAGE = '99formed.custom_storages.MediaStorage'
-# MEDIA_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/'
-
-# DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-# STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-
-# AZURE_ACCOUNT_NAME = '99formed'
-# AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
-
-# AZURE_CONTAINER = 'media'  # used by DEFAULT_FILE_STORAGE
-# AZURE_STATIC_CONTAINER = 'static'  # used by STATICFILES_STORAGE
-
-# AZURE_STORAGE_CONNECTION_STRING = 'DefaultEndpointsProtocol=https;AccountName=99formed;AccountKey=cdQg1Ch7mQNu+5C/LNTWLqvYHsKmG/YDzN7feQBArCbwoXb8zvEcvh8KmxNdmwv9qs43oJSMI2Nd+ASt1sPI7g==;EndpointSuffix=core.windows.net'
+if not DEBUG:
+    AWS_ACCESS_KEY_ID = os.getenv('BUCKETEER_AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('BUCKETEER_AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('BUCKETEER_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('BUCKETEER_AWS_REGION')
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = None
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
