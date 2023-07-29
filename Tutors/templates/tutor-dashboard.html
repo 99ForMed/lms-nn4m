@@ -11,39 +11,87 @@
     
         <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
             <h2 id='dashboard-learn-h2'>{{time_greeting}}, {{request.user}}</h2>
-            {% comment %} <div class='main-container'>
-                <div class='main'>
-                    <div class='section-title'>
-                        <h1>{{current_section.section.name}}</h2>
+
+            <h3>Ucat classes</h3>
+            
+            <div class="row class-slots ucat">
+                {% for class in classes %}
+                    {% if forloop.counter <= 3 %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card class-slot" onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'>
+                                <div class="card-body">
+                                <h5 class="card-title">{{class.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
+                                <p class="card-text">{{class.notes}}</p>
+                                <ul class="list-group list-group-flush">
+                                    {% for student in class.students.all %}
+                                        <li class="list-group-item">{{student}}</li>
+                                    {% endfor %}
+                                </ul>
+                                <br/>
+
+                                <!-- Add zoom and discord links/icons here -->
+                            <a href="zoom-link" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class='skills-mastered'>
-                        <h3 class='heading'>Skills Mastered</h3>
-                        <p class='bigger'>{{skills_mastered}}</p>
-                        <p class='smaller'>out of 12</p>
-                    </div>
-                </div>
-                
-            </div> {% endcomment %}
-            <div class="row">
-                {% for class in tutor.classes.all %}
-                <div class="col-md-6 mb-4">
-                <div class="card" onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'>
-                        <div class="card-body">
-                        <h5 class="card-title">{{class.name}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
-                        <p class="card-text">{{class.notes}}</p>
-                        <ul class="list-group list-group-flush">
-                            {% for student in class.students.all%}
-                            <li class="list-group-item">{{student}}</li>
-                            {% endfor %}
-                        </ul>
-                        <br/>
-                        {% comment %} <p>26/09/2003</p> {% endcomment %}
-                    </div>
-                </div>
-                </div>
+                    {% endif %}
+                {% endfor %}
+                {% for i in '012'|make_list %}
+                    {% if forloop.counter <= amount_of_empty_classes %}
+                        <div class="col-md-4 mb-4 class-slot">
+                            <div class="card add-class-card class-slot" onclick='window.location.href="/tutors/dashboard/add_class/"'>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">+</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
+
+            <h3>Interview classes</h3>
+            
+            <div class="row class-slots ucat">
+                {% for class in interview_classes %}
+                    {% if forloop.counter <= 3 %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card class-slot" onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'>
+                                <div class="card-body">
+                                <h5 class="card-title">{{class.name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
+                                <p class="card-text">{{class.notes}}</p>
+                                <ul class="list-group list-group-flush">
+                                    {% for student in class.students.all %}
+                                        <li class="list-group-item">{{student}}</li>
+                                    {% endfor %}
+                                </ul>
+                                <br/>
+
+                                <!-- Add zoom and discord links/icons here -->
+                            <a href="zoom-link" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                {% for i in '012'|make_list %}
+                    {% if forloop.counter <= amount_of_empty_interview_classes %}
+                        <div class="col-md-4 mb-4 class-slot">
+                            <div class="card add-class-card class-slot" onclick='window.location.href="/tutors/dashboard/add_class/"'>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">+</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+
+
         </div>
         <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
             <div class='sidebar-content'>

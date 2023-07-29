@@ -6,7 +6,7 @@
 {% endblock %}
 {% block body %}
 <div class='interview-dashboard'>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-5 clock-container">
             <div class="clock">
                 <div class="hand hour-hand"></div>
@@ -18,12 +18,12 @@
         <div class="col-md-7 greeting-container">
             <span class="greeting">{{time_greeting}}, Madam</span>
             <div class="row">
-                <!-- <div class='col-md-3 it-is'><p>It is</p></div> -->
-                <!-- <div class='col-md-9 day-of-week'><span style="color: #e1e1e1">It is </span>{{day_of_week}}</div> -->
+                <div class='col-md-3 it-is'><p>It is</p></div> 
+                <div class='col-md-9 day-of-week'><span style="color: #e1e1e1">It is </span>{{day_of_week}}</div>
             </div>  
         </div>
     </div>
-    <hr/>
+    <hr/> -->
     <div class="row second-row">
         <div class="col-md-3 countdown-box">
             <div id="countdown" class="countdown">
@@ -152,7 +152,7 @@
 {% block page-overlay %}
 <div class="page-overlay">
     <div class='class-begun-overlay'>
-        <i class="fa fa-times" aria-hidden="true"></i>
+        <i id="close-overlay" class="fa fa-times" aria-hidden="true"></i>
         <h2>Class Has Begun</h2>
         <br/>
         <div class="row">
@@ -181,6 +181,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('close-overlay').addEventListener('click', function() {
+        document.querySelector('.page-overlay').style.display = 'none';
+    });
+</script>
 
 
 {% endblock %}

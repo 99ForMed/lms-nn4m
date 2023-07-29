@@ -12,6 +12,13 @@ from .forms import UploadFileForm
 
 from custom_storages import CustomS3Storage
 from django.core.files.storage import default_storage
+
+from django.shortcuts import get_object_or_404
+from interview.models import InterviewStudent
+from pyzoom import request_tokens
+import os
+
+
 # Create your views here.
 
 def home_view(request):
@@ -239,7 +246,7 @@ def zoom_start_view(request):
     user = request.user  # Assuming you have user authentication in place
 
     # Exchange the code for a token
-    tokens = request_tokens(os.getenv("APP_CLIENT_ID"), os.getenv("APP_CLIENT_SECRET"), "YOUR_REDIRECT_URL", code)
+    tokens = request_tokens(os.getenv("APP_CLIENT_ID"), os.getenv("APP_CLIENT_SECRET"), "https://lms.99formed.com/", code)
 
     # Get the user's InterviewStudent record
     interview_student = get_object_or_404(InterviewStudent, user=user)

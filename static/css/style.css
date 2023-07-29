@@ -67,135 +67,119 @@ body{
     
 } */
 
-.dashboard .content .main .skills-mastered .heading{
-    
-    font-size: 18px;
-    color: #ccc;
-    margin: 0 0;
-}
-
-.dashboard .content .main .skills-mastered .bigger{
-    font-size: 30px;
-    padding: 0 0;
-    margin: 0 0;
-    color: white;
-}
-
-.dashboard .content .main .skills-mastered .smaller{
-    padding: 0 0;
-    margin: 0 0;
-}
-
-.dashboard .start-dates {
-  padding: 10vh 0;
-}
-
-.dashboard .start-dates .container .row .card_ {
-  margin: 20px 0;
-}
-
-.dashboard .start-dates .redirect-box {
-  background-color: #1E1E1E;
-  color: #ccc;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
-}
-
-.dashboard .start-dates .redirect-box:hover {
-  transform: translateY(-5px);
-  background-color: #343434;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-}
-
-.dashboard .start-dates .redirect-box h4 {
-  color: darkorange;
-  margin-bottom: 5px;
-}
-
-.dashboard .start-dates .redirect-box p {
-  font-size: 14px;
-}
-
 .dashboard .sidebar{
-    background-color: #1E1E1E;
-    color: rgb(191, 191, 191);
-    padding: 20px;
-    min-height: 100vh;
-}
-
-.dashboard .sidebar .redirect-box {
   background-color: #1E1E1E;
-  color: #ccc;
+  color: rgb(191, 191, 191);
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  min-height: 100vh;
+}
+
+.dashboard .sidebar-content {
+  /* flex-direction: row; */
+  /* justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap; */
+}
+
+.dashboard .sidebar .sidebar-content .flex-column-custom{
+  display: flex;
+  /* flex-direction: column; */
+}
+
+
+
+
+.dashboard .sidebar-content .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #333;
+  color: #fff;
+  /* margin-bottom: 10px;
+  margin-right: 10px; */
+  border-radius: 50%;
+  transition: transform .3s ease-in-out, background .3s ease-in-out;
   cursor: pointer;
-  margin-bottom: 20px;
-  transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
+  /* display: inline; */
 }
 
-.dashboard .sidebar .redirect-box:hover {
+.dashboard .sidebar-content .nav-link:hover {
   transform: translateY(-5px);
-  background-color: #343434;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  background-color: #f7931e;
 }
 
-.dashboard .sidebar .redirect-box h4 {
-  color: darkorange;
-  margin-bottom: 5px;
+.dashboard .sidebar-content .nav-link.active {
+  background-color: #f7931e;
 }
 
-.dashboard .sidebar .redirect-box p {
-  font-size: 14px;
+.dashboard .sidebar-content .nav-link i {
+  font-size: 12px;
+  cursor: pointer;
 }
 
-input[type='checkbox']{
-    accent-color: darkorange;
+.dashboard .sidebar-content hr {
+  width: 70%;
+  border: 1px solid #333;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.dashboard .student-checklist input[type='text']{
-    background-color: rgba(0,0,0,0);
-    border: none;
-    border-bottom: solid #343434 0.5px;
+
+.dashboard .sidebar .sidebar-content .flex-column-custom .nav-link {
+  flex: 1 0 auto;
+  margin: 0 5px;
 }
 
-.dashboard .student-checklist .remove-item{
-    cursor: pointer;
-    color: darkorange;
+.dashboard .sidebar-content .tab-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #f0f1f6; Secondary Color */
 }
 
-.dashboard .student-checklist .add-item{
-    cursor: pointer;
+.dashboard .sidebar-content .tab-content .tab-pane {
+  display: none;
 }
 
-.dashboard .sidebar .submit{
-    color: darkorange;
-    position: relative;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px 13px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.4s, border-radius 0.4s, opacity 0.4s;
+.dashboard .sidebar-content .tab-content .tab-pane.active {
+  display: block;
 }
 
-.dashboard .sidebar .submit:hover {
-  
-  background-color: #343434;
-  
+/* Card styling for each section */
+.dashboard .sidebar-content .tab-content .tab-pane .card {
+  background-color: #333; /* Light Color */
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(23, 27, 39, 0.1); /* Shadow with Dark color */
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
 }
 
-.submit.flash {
-  background-color: #343434;
+/* Slightly larger and bolder heading inside the card */
+.dashboard .sidebar-content .tab-content .tab-pane .card h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: darkorange; /* Primary color */
 }
 
-.dashboard .sidebar .days-counter .days{
-    font-size: 50px;
+/* Countdown styling */
+.dashboard .sidebar-content .tab-content .tab-pane .card .countdown-title {
+  font-size: 1.2rem;
+  color: #ff6d00; /* Tertiary Color */
+  margin-bottom: 10px;
 }
+
+.dashboard .sidebar-content .tab-content .tab-pane .card #countdown {
+  font-size: 1rem;
+  color: #888; /* This color isn't defined in the color scheme you provided. I left it as is. */
+}
+
+
 
 /* Start Course - Page */
 .course-page {
@@ -740,120 +724,148 @@ input[type='checkbox']{
 /* End Course Video */
 
 
+/* tutor dashboard */
+/* tutor dashboard */
 
-/* Start Tutor Dashboard */
-  
+.dashboard.container-fluid.tutor-dashboard {
+  background-color: #1E1E1E;
+}
 
-    .tutor-dashboard .card {
-        background-color: #111111;
-        color: white;
-        border: none;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
-        cursor: pointer;
-    }
+.dashboard .logout-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  color: #ffffff;
+}
 
-    .tutor-dashboard .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-  }
+.dashboard .logout-btn {
+  background-color: darkorange;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    .tutor-dashboard .card-title {
-        color: darkorange;
-    }
-    .tutor-dashboard .card-subtitle {
-        color: #1E1E1E;
-    }
-    .tutor-dashboard .card-text {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    .tutor-dashboard .list-group-item {
-        background-color: #1E1E1E;
-        color: rgba(255, 255, 255, 0.8);
-        border: none;
-        transition: all 0.4s;
-    }
+.dashboard .logout-btn:hover {
+  background-color: darkgoldenrod;
+}
 
-    .tutor-dashboard .list-group-item:hover {
-      background-color: #131313;
-      color: rgba(255, 255, 255, 1);
-  }
+.dashboard .content {
+  padding: 20px;
+}
 
-    .tutor-dashboard .card-link {
-        color: darkorange;
-        text-decoration: none;
-    }
+.dashboard .content h2 {
+  color: #f1f2f6; /* Light grey for header */
+  font-size: 2rem;
+}
 
-    .issue-form {
-      padding-top: 10vh;
-      padding-left: 0;
-      padding-right: 0;
-      position: relative;
-      width: 60%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .issue-form h4 {
-      color: white;
-      margin-bottom: 10px;
-    }
-    
-    .issue-form h6 {
-      color: #ccc;
-      margin-bottom: 5px;
-    }
-    
-    .issue-form .form-select {
-      background-color: #1E1E1E;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      margin-bottom: 20px;
+.dashboard .content .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard .content .card {
+  background-color: #444; /* Dark grey for cards */
+  border: none;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.dashboard .content .card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard .content .card .card-title {
+  color: #f1f2f6; /* Light grey for title */
+  font-size: 1.5rem;
+}
+
+.dashboard .card-body a {
+  color: #fff;
+  margin: 10px;
+  transition: color 0.3s ease;
+}
+
+.dashboard .card-body a:hover {
+  color: #ccc;
+}
+
+.dashboard .card-body i.fa-video-camera {
+  color: darkorange;  /* You may change the color as per your branding */
+}
+
+.dashboard .card-body i.fab.fa-discord {
+  color: darkorange;  /* You may change the color as per your branding */
+}
+
+
+.dashboard .content .card .card-subtitle,
+.dashboard .content .card .card-text,
+.dashboard .content .card .list-group-item {
+  color: #ccc; /* Slightly darker grey for text */
+  background-color: #444;
+}
+
+.tutor-dashboard .class-slot{
+  height: 100%;
+}
+
+.dashboard .sidebar {
+  background-color: #333;
+  padding: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard .sidebar .heading {
+  color: #f1f2f6; /* Light grey for header */
+  font-size: 1.5rem;
+}
+
+.dashboard .sidebar .redirect-box {
+  background-color: #444; /* Dark grey for redirect box */
+  padding: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.dashboard .sidebar .submit {
+  display: inline-block;
+  background-color: darkorange;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.dashboard .sidebar .submit:hover {
+  background-color: darkgoldenrod;
+}
+
+/* For screens smaller than 992px, make the cards and sidebar full width */
+@media (max-width: 992px) {
+  .dashboard .content .card {
       width: 100%;
-    }
-    
-    .issue-form .form-select:focus {
-      border: none;
-      outline: none;
-      box-shadow: none;
-    }
-    
-    .issue-form .form-control {
-      background-color: #1E1E1E;
-      color: white;
-      border: none;
-      border-radius: 3px;
-    }
-    
-    .issue-form .form-control:focus {
-      border: none;
-      outline: none;
-      box-shadow: none;
-    }
-    
-    .btn-submit {
-      background-color: darkorange;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: background-color 0.4s;
-    }
-    
-    .btn-submit:hover {
-      background-color: #f57c00;
-    }
+  }
+  .dashboard .sidebar {
+      width: 100%;
+  }
+}
 
-    @media screen and (max-width: 768px) {
-      .issue-form {
-        width: 100%; /* Reduce the width of the form */
-        margin-top: 30px; /* Reduce the margin-top */
-      }
-    }
+/* End Tutor Dashboard */
 
-    /* Start Logout Button */
 .logout-container {
   position: fixed;
   bottom: 10px;
@@ -875,7 +887,7 @@ input[type='checkbox']{
 .logout-btn:hover {
   color: darkorange;
 }
-/* End Logout Button */
+
 @keyframes flash {
   0%, 100% {
     background-color: #343434;
@@ -884,11 +896,8 @@ input[type='checkbox']{
     background-color: darkorange;
   }
 }
+/* End Logout Button */
 
-
-
-
-/* End Tutor Dashboard */
 /* Tutor Strategy Documents */
 .tutor-strategy-docs{
   background-color: #111111;
@@ -1528,10 +1537,14 @@ input[type='checkbox']{
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(100, 100, 100, 0.3);
   
   justify-content: center;
   align-items: center;
+}
+
+.page-overlay #close-overlay{
+  cursor: pointer;
 }
 
 .page-overlay .class-begun-overlay{

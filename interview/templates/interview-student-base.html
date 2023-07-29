@@ -2,6 +2,16 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link
+            href="{% static 'img/favicon-light.png'%}"
+            rel="icon"
+            media="(prefers-color-scheme: light)"
+            />
+            <link
+            href="{% static 'img/favicon-dark.png'%}"
+            rel="icon"
+            media="(prefers-color-scheme: dark)"
+            />
     <link rel="icon" type="image/png" href="{% static 'favicon-light.ico' %}">
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -16,7 +26,8 @@
     
     <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel='stylesheet' type='text/css' href='{% static "css/style.css"%}'/>
-    
+    <link rel='stylesheet' type='text/css' href='{% static "css/base.css"%}'/>
+
     <script>
         $(document).ready(function() {
             //$('.tab-content').hide();  // Hide all tab content divs by default
@@ -42,12 +53,12 @@
     {% endblock %}
   </head>
   <body>
-    <div class='dashboard container-fluid'>
+    <div class='dashboard container-fluid interview-student'>
         <div class='row'>
             
             <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
                 <div class='sidebar-content'>
-                    <nav class="flex-column">
+                    <nav class="flex-column-custom">
                         <!-- Back button -->
                         <a class="nav-link" onClick="window.history.back();return false;" title="Back">
                             <i class="fas fa-arrow-circle-left"></i>
@@ -83,14 +94,14 @@
                         </form>
                         <hr/>
                     </nav>
-            
+                    <br/>
                     <div class="tab-content" id="v-pills-tabContent">
                         <!-- Tab 1 Content: My Info -->
                         <div class="tab-pane fade show active" id="v-pills-home">
                             <div class='heading'>
                                 <h2>Hi {{request.user.first_name}}!</h2>
                             </div>
-                            <div class='module-progress'>
+                            <div class='module-progress card'>
                                 <h3>Module Progress</h3>
                                 <div class="circle" id="module1">
                                     <svg id="svg1" width="70" height="70" viewport="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -100,16 +111,20 @@
                                 </div>
                                 <!-- Add more circles for each module -->
                             </div>
-                            <div class='week-progress'>
+                            <div class='week-progress card'>
                                 <h3>This Week's Hours</h3>
                                 <div class="progress-bar" data-percent="60"></div>
                             </div>
-                            <div class="countdown-wrapper">
+                            <div class="countdown-wrapper card">
                                 <p class="countdown-title">Countdown to November 2:</p>
                                 <p id="countdown"></p>
                             </div>
                             <div class='logout' style='position: absolute; bottom: 0px'></div>
+                            <div class="link-to-zoom">
+                                <!-- ChatGPT please edit this area -->
+                            </div>
                         </div>
+
             
                         <!-- Tab 2 Content: Tasks -->
                         <div class="tab-pane fade" id="v-pills-profile">
@@ -157,8 +172,8 @@
         </div>
     </div>
     
-        {% block page-overlay %}
-        {% endblock %}
+        <!-- {% block page-overlay %}
+        {% endblock %} -->
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
