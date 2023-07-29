@@ -252,7 +252,7 @@ def zoom_start_view(request):
 
 
     # Exchange the code for a token
-    tokens = request_tokens("wpT5jz7rQ8W_SNbSp_13Q", "98RiygZI6ZlH26vWdc525ixKERJyTjH8", "https://lms.99formed.com/authenticate-zoom/", code)
+    tokens = request_tokens("wpT5jz7rQ8W_SNbSp_13Q", "98RiygZI6ZlH26vWdc525ixKERJyTjH8", "https://lms.99formed.com/zoom-start/", code)
 
     # Get the user's InterviewStudent record
     interview_student = get_object_or_404(InterviewStudent, user=user)
