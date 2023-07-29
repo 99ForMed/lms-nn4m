@@ -10,6 +10,10 @@ from botocore.exceptions import ClientError
 from django.core.files.storage import default_storage
 from azure.storage.blob import generate_blob_sas, BlobClient, BlobServiceClient, BlobSasPermissions
 from urllib.parse import quote
+
+from pyzoom import oauth_wizard
+
+
 # s3_client = boto3.client(
 #     's3',
 #     aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -30,6 +34,10 @@ from urllib.parse import quote
 #     return response
 
 # Create your views here.
+def zoom_start_view(request):
+    return None
+
+
 def dashboard_tutor_view(request):
 
     now = datetime.datetime.now()
@@ -43,8 +51,21 @@ def dashboard_tutor_view(request):
         time_greeting = 'Good evening'
     context = {
         'time_greeting': time_greeting,
-        'tutor': Tutor.objects.get(user = request.user)
+        'tutor': Tutor.objects.get(user = request.user),
+        'classes': Tutor.objects.get(user = request.user).classes.all()
     }
+
+    # Assuming there are only going to be 3 classes max
+    context['amount_of_classes'] = len(Tutor.objects.get(user = request.user).classes.all())
+    context['amount_of_empty_classes'] = 3 - context['amount_of_classes']
+
+    # if empty_classes >= 0:
+    #     for(i in range(0, len(Tutor.objects.get(user = request.user).classes.all()))):
+    #         context['classes'][i] = Tutor.objects.Tutor.objects.get(user = request.user).classes.all()[i]
+
+
+    context
+
     return render(request, 'tutor-dashboard.html', context)
 
 

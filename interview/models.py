@@ -19,6 +19,8 @@ class InterviewClass(models.Model):
 class InterviewStudent(models.Model):
     # InterviewClass = models.ForeignKey(InterviewClass, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    zoom_access_token = models.CharField(max_length=200, null=True, blank=True)
+    zoom_refresh_token = models.CharField(max_length=200, null=True, blank=True)
     enrolment_date = models.DateTimeField()
     tasks = ArrayField(
             models.CharField(max_length=100, blank=True),

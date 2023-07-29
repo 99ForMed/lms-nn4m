@@ -233,3 +233,21 @@ def handler500(request, *args, **argv):
                                   context_instance=RequestContext(request))
     response.status_code = 500
     return response
+
+def zoom_start_view(request):
+    code = request.GET['code']
+    user = request.user  # Assuming you have user authentication in place
+
+    # Exchange the code for a token
+    tokens = request_tokens(os.getenv("APP_CLIENT_ID"), os.getenv("APP_CLIENT_SECRET"), "YOUR_REDIRECT_URL", code)
+
+    # Get the user's InterviewStudent record
+    interview_student = get_object_or_404(InterviewStudent, user=user)
+
+    # Save the tokens to the user's InterviewStudent record
+    interview_student.zoom_access_token = tokens['access_token']
+    interview_student.zoom_refresh_token = tokens['refresh_token']
+    interview_student.save()
+
+    # Redirect the user back to the dashboard or another page
+    return redirect('interview_dashboard_view')
