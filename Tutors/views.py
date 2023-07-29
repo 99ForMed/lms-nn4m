@@ -55,7 +55,7 @@ def dashboard_tutor_view(request):
     # Assuming there are only going to be 3 classes max
     context['amount_of_classes'] = len(Tutor.objects.get(user = request.user).classes.all())
     context['amount_of_empty_classes'] = 3 - context['amount_of_classes']
-    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri=https%3A%2F%2Flms.99formed.com%2Fauthenticate-zoom%2F"
+    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauthenticate-zoom%2F"
 
     # if empty_classes >= 0:
     #     for(i in range(0, len(Tutor.objects.get(user = request.user).classes.all()))):

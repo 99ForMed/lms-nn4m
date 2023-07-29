@@ -18,6 +18,8 @@ from interview.models import InterviewStudent
 from pyzoom import request_tokens
 import os
 
+from django.http import HttpResponse
+
 
 # Create your views here.
 
@@ -241,20 +243,24 @@ def handler500(request, *args, **argv):
     response.status_code = 500
     return response
 
+def zoom_authenticated_view(request):
+    return HttpResponse("Success")
+
 def zoom_start_view(request):
     code = request.GET['code']
     user = request.user  # Assuming you have user authentication in place
 
+
     # Exchange the code for a token
-    tokens = request_tokens(os.getenv("APP_CLIENT_ID"), os.getenv("APP_CLIENT_SECRET"), "https://lms.99formed.com/", code)
+    # tokens = request_tokens("wpT5jz7rQ8W_SNbSp_13Q", "98RiygZI6ZlH26vWdc525ixKERJyTjH8", "https://lms.99formed.com/authenticate-zoom/", code)
 
-    # Get the user's InterviewStudent record
-    interview_student = get_object_or_404(InterviewStudent, user=user)
+    # # Get the user's InterviewStudent record
+    # interview_student = get_object_or_404(InterviewStudent, user=user)
 
-    # Save the tokens to the user's InterviewStudent record
-    interview_student.zoom_access_token = tokens['access_token']
-    interview_student.zoom_refresh_token = tokens['refresh_token']
-    interview_student.save()
+    # # Save the tokens to the user's InterviewStudent record
+    # interview_student.zoom_access_token = tokens['access_token']
+    # interview_student.zoom_refresh_token = tokens['refresh_token']
+    # interview_student.save()
 
-    # Redirect the user back to the dashboard or another page
-    return redirect('interview_dashboard_view')
+    # # Redirect the user back to the dashboard or another page
+    # return redirect('interview_dashboard_view')

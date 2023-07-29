@@ -10,11 +10,11 @@ from .models import InterviewStudent
 from pyzoom import request_tokens
 import os
 
-def link_zoom_view(request):
-    client_id = os.getenv("APP_CLIENT_ID")
-    redirect_uri = "https://lms.99formed.com/authenticate-zoom/"  # Replace with your redirect URL
-    auth_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}"
-    return redirect(auth_url)
+# def link_zoom_view(request):
+#     client_id = os.getenv("APP_CLIENT_ID")
+#     redirect_uri = "https://lms.99formed.com/authenticate-zoom/"  # Replace with your redirect URL
+#     auth_url = f"https://zoom.us/oauth/authorize?response_type=code&client_id={client_id}&redirect_uri={redirect_uri}"
+#     return redirect(auth_url)
 
 def zoom_callback_view(request):
     code = request.GET['code']
@@ -67,6 +67,9 @@ def interview_dashboard_view(request):
         'class_soon': False,
         'class': {}
     }
+
+    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fzoom-start%2F"
+
     
     return render(request, 'interview-dashboard.html', context)
 

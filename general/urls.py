@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 from .views import maintenance_view
 from .views import sitemap_view
-from .views import zoom_start_view
+from .views import zoom_start_view, zoom_authenticated_view
 
 urlpatterns = [
     path('', home_view),
@@ -23,7 +23,8 @@ urlpatterns = [
     path('dashboard/submit-progress/', submit_progress_view, name='submit-progress'),
     path('under-maintenance/', maintenance_view),
     path('sitemap', sitemap_view),
-    path('authenticate-zoom/', zoom_start_view)
+    path('zoom-start/', zoom_start_view),
+    path('authenticate-zoom/', zoom_authenticated_view)
 ]
 
 handler404 = 'general.views.handler404'
