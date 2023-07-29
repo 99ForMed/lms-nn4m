@@ -252,15 +252,15 @@ def zoom_start_view(request):
 
 
     # Exchange the code for a token
-    # tokens = request_tokens("wpT5jz7rQ8W_SNbSp_13Q", "98RiygZI6ZlH26vWdc525ixKERJyTjH8", "https://lms.99formed.com/authenticate-zoom/", code)
+    tokens = request_tokens("wpT5jz7rQ8W_SNbSp_13Q", "98RiygZI6ZlH26vWdc525ixKERJyTjH8", "https://lms.99formed.com/authenticate-zoom/", code)
 
-    # # Get the user's InterviewStudent record
-    # interview_student = get_object_or_404(InterviewStudent, user=user)
+    # Get the user's InterviewStudent record
+    interview_student = get_object_or_404(InterviewStudent, user=user)
 
-    # # Save the tokens to the user's InterviewStudent record
-    # interview_student.zoom_access_token = tokens['access_token']
-    # interview_student.zoom_refresh_token = tokens['refresh_token']
-    # interview_student.save()
+    # Save the tokens to the user's InterviewStudent record
+    interview_student.zoom_access_token = tokens['access_token']
+    interview_student.zoom_refresh_token = tokens['refresh_token']
+    interview_student.save()
 
-    # # Redirect the user back to the dashboard or another page
-    # return redirect('interview_dashboard_view')
+    # Redirect the user back to the dashboard or another page
+    return redirect('/')

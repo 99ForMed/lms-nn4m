@@ -68,7 +68,7 @@ def interview_dashboard_view(request):
         'class': {}
     }
 
-    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fzoom-start%2F"
+    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri=https%3A%2F%2Flms.99formed%2Fzoom-start%2F"
 
     
     return render(request, 'interview-dashboard.html', context)
