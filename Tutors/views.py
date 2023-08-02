@@ -24,6 +24,7 @@ from django.utils.decorators import method_decorator
 from live_class.models import Question
 
 from django.urls import reverse
+from interview.models import InterviewClass
 
 
 class UpdatePresenterView(View):
@@ -85,6 +86,7 @@ def dashboard_tutor_view(request):
         'tutor': Tutor.objects.get(user=request.user),
         'classes': Tutor.objects.get(user=request.user).classes.all(),
         'interview_questions': interview_questions,
+        'interview_classes': InterviewClass.objects.filter(tutor = Tutor.objects.get(user=request.user))
     }
 
     # Rest of your view...
@@ -93,6 +95,7 @@ def dashboard_tutor_view(request):
     # Assuming there are only going to be 3 classes max
     context['amount_of_classes'] = len(Tutor.objects.get(user = request.user).classes.all())
     context['amount_of_empty_classes'] = 3 - context['amount_of_classes']
+    context['amount_of_empty_interview_classes'] = 3 - len(context['interview_classes'])
 
     # if empty_classes >= 0:
     #     for(i in range(0, len(Tutor.objects.get(user = request.user).classes.all()))):

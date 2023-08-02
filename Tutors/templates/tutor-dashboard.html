@@ -18,7 +18,7 @@
                 {% for class in classes %}
                     {% if forloop.counter <= 3 %}
                         <div class="col-md-4 mb-4">
-                            <div class="card class-slot"><!--onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'-->
+                            <div class="card class-slot" onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'>
                                 <div class="card-body">
                                 <h5 class="card-title">{{class.name}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
@@ -31,8 +31,8 @@
                                 <br/>
 
                                 <!-- Add zoom and discord links/icons here -->
-                            <!-- <a href="{% url 'create-zoom-meeting' %}" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a> -->
-                            <a href="/live_class/1/1/" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            <a href="{% url 'create-zoom-meeting' %}" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            <!-- <a href="/live_class/1/1/" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a> -->
 
                             <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
                             </div>
@@ -55,11 +55,11 @@
 
             <h3>Interview classes</h3>
             
-            <div class="row class-slots ucat">
+            <div class="row class-slots interview">
                 {% for class in interview_classes %}
                     {% if forloop.counter <= 3 %}
                         <div class="col-md-4 mb-4">
-                            <div class="card class-slot" onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'>
+                            <div class="card class-slot" onclick='window.location.href="/interview/class/{{class.pk}}/"'>
                                 <div class="card-body">
                                 <h5 class="card-title">{{class.name}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
@@ -72,8 +72,8 @@
                                 <br/>
 
                                 <!-- Add zoom and discord links/icons here -->
-                            <a href="zoom-link" target="_blank" onclick="start_live_class()"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
-                            <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
+                                <a href="{% url 'create-zoom-meeting' %}" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                                <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
 
 
         </div>
-        <div class='sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12'>
+        <div class='sidebar-standard col-lg-2 col-md-2 col-sm-12 col-xs-12'>
             <div class='sidebar-content'>
                 <br/>
                 <div class='heading'>

@@ -3,41 +3,43 @@
 {% block head %}
   <title>Dashboard</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <style>
-        body{
-            color: white;
-        }
-    </style>
 {% endblock %}
 {% block body %}
-<div class="view-question container my-5">
-    <h3 class="text-center">Feedback</h3>
-    <p>As part of the continuous improvement of our services, your feedback is highly appreciated. Your opinions and suggestions are an integral part of our growth and development as an institution.</p>
+<div class="container my-5">
+    <h3 class="text-center mb-4">Feedback</h3>
+    <h5 class="text-center mb-4 text-success">Currently presenting: {{ currently_presenting }}</h5>
+    <p class="text-muted">As part of the continuous improvement of our services, your feedback is highly appreciated. Your opinions and suggestions are an integral part of our growth and development as an institution.</p>
 
     <div class="question-section my-5">
         {% if not question.locked %}
-            <h4 class="text-center">{{ question.text }}</h4>
+            <h4 class="text-center mb-4">{{ question.text }}</h4>
         {% endif %}
 
         {% for feedback in feedbacks %}
-            <div class="feedback-box" style="color: white">
-                <h5>{{ feedback.sender }}'s Feedback</h5>
-                <div id="feedbackArea-{{ student.receiver}}">
-                    {{feedback.text}}
+            <div class="card feedback-box mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ feedback.sender }}'s Feedback</h5>
+                    <div id="feedbackArea-{{ student.receiver }}">
+                        <p class="card-text">{{feedback.text}}</p>
+                    </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-</div>
-<div class="new-feedback my-5">
-    <form id="addFeedbackForm" method="POST" action="{% url 'add_feedback' live_class_info.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="author" value="{{ request.user.username }}">
-        <input type="hidden" name="receiver" value="{{ receiver_username }}">
-        <input type="hidden" name="question_id" value="{{ question.id }}">
-        <textarea name="content"></textarea>
-        <button type="submit">Submit Feedback</button>
-    </form>
+
+    <div class="new-feedback my-5">
+        <h4 class="mb-3">Add New Feedback</h4>
+        <form id="addFeedbackForm" method="POST" action="{% url 'add_feedback' live_class_info.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="author" value="{{ request.user.username }}">
+            <input type="hidden" name="receiver" value="{{ currently_presenting }}">
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            <div class="form-group">
+                <textarea class="form-control" name="content"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </form>
+    </div>
 </div>
 <!-- This is the fullscreen div that will be toggled. -->
 <div id="fullscreenDiv" class="fullscreen-view"></div>
@@ -62,7 +64,5 @@
 <script id="feedbacks" type="application/json">
   {{ students_feedbacks|safe }}
 </script>
-
-
 
 {% endblock %}

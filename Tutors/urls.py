@@ -15,7 +15,7 @@ urlpatterns = [
     path('dashboard/tutor-resources/', tutor_resources_view),
     path('dashboard/class/<int:classId>/', tutors_class_view),
     path('dashboard/class/<int:classId>/evidence-of-work/<int:studentId>', evidence_of_work_view),
-    path('live-class/<str:class_id>/', tutors_live_class_view),
+    path('live-class/<str:class_id>/<str:lesson_plan_id>', tutors_live_class_view),
     
 
 ]

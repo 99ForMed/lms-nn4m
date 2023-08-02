@@ -12,11 +12,14 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Select a Question</h5>
                     <hr/>
-                    {% for question_index, question in questions %}
-                    <div class="butn-row d-flex justify-content-around">
-
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='{% url 'question_view' live_class_info.id question_index %}'" {% if question.locked %} disabled {% endif %}>{{ question.text }}</button>
-                    </div>
+                    {% for group in live_class_info.get_grouped_questions %}
+                        <!-- <h5 class="card-title text-center">{{ group.scenario }}</h5> -->
+                        {% for question in group.questions %}
+                        <div class="butn-row d-flex justify-content-around">
+                            <button class="butn btn btn-outline-primary" onclick="window.location.href='{% url 'view_question' live_class_info.id forloop.parentloop.counter0 forloop.counter0 %}'" {% if question.locked %} disabled {% endif %}>{{ question.label }}</button>
+                        </div>
+                        {% endfor %}
+                        <hr/>
                     {% endfor %}
                 </div>
             </div>

@@ -1,17 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'interview-student-base.html' %}
+{% load static %}
 {% load formatting %}
 {% block head %}
 <title>Class Page</title>
+<link rel="stylesheet" href="{% static 'css/interview-class.css' %}" type="text/css"/>
 {% endblock %}
 {% block body %}
 <script>
     document.querySelector('body')[0].style.backgroundColor = "black"
 </script>
-<div class='class-page container-fluid tutor-dashboard'>
+<div class='class-page container-fluid tutor-dashboard interview-class'>
     
     <div class='row'>
         
-        <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
+        <div style="margin: 0 0" class='content col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <h2 id='class-page-learn-h2'>{{class.name}}</h2>
             <div class="row">
                 {% for student in class.students.all %}
@@ -61,30 +63,18 @@
                 </div>
                 {% endfor %}
             </div>
+            {% for lesson_plan in lesson_plans %}
+            <tr>
+                <td>{{ lesson_plan.name }}</td>
+                <td>{{ lesson_plan.description }}</td>
+                <td>
+                    <a href="{% url 'live_class' class_id=class.id lesson_plan_id=lesson_plan.id %}" class="btn btn-primary">Launch</a>
+                </td>
+            </tr>
+            {% endfor %}
+
         </div>
-        <div class='sidebar-standard col-lg-2 col-md-2 col-sm-12 col-xs-12'>
-            <div class='sidebar-content'>
-                <div class='heading'>
-                    <h3>Mentor Resources</h3>
-                </div>
-                <div class='strategy-document-link'  onclick = 'window.location.href="/tutors/dashboard/tutor-strategies/"'>
-                    <div class='redirect-box'>
-                        <h4>Strategy Document</h4>
-                        <p>Access the latest strategy document here</p>
-                    </div>
-                </div>
-                <div class='tutor-resources-link' onclick = 'window.location.href="/tutors/dashboard/tutor-resources/"'>
-                    <div class='redirect-box'>
-                        <h4>Tutor Resources</h4>
-                        <p>Find helpful resources for tutors here</p>
-                    </div>
-                </div>
-                <p class='submit' onclick='window.location.href="raise-issue/"'>Escalate</p>
-                <div class="logout-container">
-                    <p style='display: inline'>Logged in as {{request.user}}</p> <button class='logout-btn' onclick='window.location.href="{% url 'logout' %}"'>Logout</button>
-                </div>
-            </div>
-        </div>
+        
         
     </div>
 </div>

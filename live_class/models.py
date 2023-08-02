@@ -52,6 +52,38 @@ class LiveClass(models.Model):
         self.end_time = timezone.now()
         self.is_active = False
         self.save()
+    
+    def get_grouped_questions(self):
+        # Initialize an empty list to hold the processed scenarios and questions.
+        grouped_questions = []
+
+        # Iterate over the items in lesson_data. Each item is a scenario with its associated questions.
+        for scenario, questions in self.lesson_data.items():
+            # Initialize an empty list to hold the processed questions for this scenario.
+            scenario_questions = []
+
+            # Iterate over the questions in this scenario.
+            for question_data in questions:
+                # Each question_data item is a dictionary with a single key-value pair.
+                # The key is the question text and the value is the question's status.
+                for question_text, question_status in question_data.items():
+                    # Append the processed question to scenario_questions.
+                    scenario_questions.append({
+                        'text': question_text,
+                        'status': question_status,
+                        'locked': question_status != 'unlocked',
+                        'label': f'Question {len(scenario_questions) + 1}',
+                    })
+
+            # Append the processed scenario and its associated questions to grouped_questions.
+            grouped_questions.append({
+                'scenario': scenario,
+                'questions': scenario_questions,
+            })
+
+        # Return the processed scenarios and questions.
+        return grouped_questions
+
 
 
 

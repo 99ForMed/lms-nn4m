@@ -194,7 +194,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # else:
 #     SECURE_SSL_REDIRECT = True
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if os.getenv("localhost"):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # This supposedly tells django that the incoming HTTPS request is from a trusted origin
 # Let's see if it works
 # 

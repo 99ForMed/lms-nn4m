@@ -12,14 +12,26 @@ from django.core.exceptions import ValidationError
 
 from django.http import HttpResponseRedirect
 
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 @login_required
 def tutors_live_class_view(request, class_id, lesson_plan_id):
-    # Fetch the live class information for the current class
-    live_class = get_object_or_404(LiveClass, interview_class__id=class_id, is_active=True)
-
-    # Fetch the lesson plan for the tutor
-    lesson_plan = LessonPlan.objects.get(id=lesson_plan_id)
+    try:
+        # Try to get the live class
+        live_class = LiveClass.objects.get(interview_class__id=class_id, is_active=True)
+        # Check if the live class is older than 1 hour and 40 minutes
+        if timezone.now() - live_class.start_time > timedelta(minutes=100):
+            raise LiveClass.DoesNotExist
+    except LiveClass.DoesNotExist:
+        # If the live class does not exist or is older than 1 hour and 40 minutes, create a new one
+        lesson_plan = LessonPlan.objects.get(id=lesson_plan_id)
+        live_class = LiveClass.objects.create(
+            initiator=request.user, 
+            interview_class=InterviewClass.objects.get(id=class_id),
+            lesson_plan=lesson_plan,
+            is_active=True
+        )
     
     context = {
         'live_class': live_class,
@@ -31,8 +43,8 @@ def tutors_live_class_view(request, class_id, lesson_plan_id):
     return render(request, 'tutors-live-class.html', context)
 
 @login_required
-def end_class_view(request, class_id):
-    live_class = get_object_or_404(LiveClass, interview_class__id=class_id, is_active=True)
+def end_class_view(request, live_class_id):
+    live_class = get_object_or_404(LiveClass, id=live_class_id, is_active=True)
     live_class.end_class()
     return redirect('/')
 
