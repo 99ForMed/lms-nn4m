@@ -122,7 +122,7 @@ def interview_dashboard_view(request):
         print("Live class doesn't exist")
         # Handle the case when there is no active live class for the interview class
         pass
-    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri="+os.getenv("ZOOM_INITIAL_REDIRECT_SECURE")+"%3A%2F%2F"+os.getenv("host")+"%2Fzoom-start%2F"
+    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id="+os.getenv('ZOOM_CLIENT_ID')+"Q&redirect_uri="+os.getenv("ZOOM_INITIAL_REDIRECT_SECURE")+"%3A%2F%2F"+os.getenv("host")+"%2Fzoom-start%2F"
 
     print(context['live_class'])
     
