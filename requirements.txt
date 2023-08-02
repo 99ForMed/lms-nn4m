@@ -19,6 +19,7 @@ Django==4.1.7
 django-better-admin-arrayfield==1.4.2
 django-storages==1.13.2
 gunicorn==20.1.0
+heroku==0.1.4
 hyperlink==21.0.0
 idna==3.4
 incremental==22.10.0
@@ -32,7 +33,7 @@ pyasn1-modules==0.3.0
 pycparser==2.21
 pydantic==1.10.12
 pyOpenSSL==23.2.0
-python-dateutil==2.8.2
+python-dateutil==1.5
 python-dotenv==1.0.0
 pytz==2023.3
 pyzoom==1.0.3
