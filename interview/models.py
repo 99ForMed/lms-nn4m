@@ -12,19 +12,21 @@ import datetime
 
 class InterviewClass(models.Model):
     name = models.CharField(max_length=200)
-
+    tutor = models.ForeignKey(Tutor, on_delete=models.SET_NULL, null=True, blank=True)  # Added tutor field
     def __str__(self):    
         return self.name
 
 class InterviewStudent(models.Model):
-    # InterviewClass = models.ForeignKey(InterviewClass, on_delete=models.CASCADE, null=True, blank=True)
+
+    interview_class = models.ForeignKey(InterviewClass, on_delete=models.CASCADE, related_name='students', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    zoom_access_token = models.CharField(max_length=200, null=True, blank=True)
-    zoom_refresh_token = models.CharField(max_length=200, null=True, blank=True)
-    enrolment_date = models.DateTimeField()
+    zoom_access_token = models.TextField(null=True, blank=True)
+    zoom_refresh_token = models.TextField(null=True, blank=True)
+    zoom_token_expiration = models.DateTimeField(null=True, blank=True)
+    enrolment_date = models.DateTimeField(null=True, blank=True)
     tasks = ArrayField(
             models.CharField(max_length=100, blank=True),
-            default=list,  # Add this line
+            default=list,
         )
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -32,13 +34,6 @@ class InterviewStudent(models.Model):
     ]
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    # ucatClass = models.ManyToManyField('UcatClass', through='Enrollment')
+
     def __str__(self):
         return str(self.user)
-    
-# class LiveClass(models.Model):
-#     interview_class_obj = models.ForeignKey(InterviewClass, on_delete = models.CASCADE, null = True, default = None)
-#     zoom_link = models.URLField(max_length = 500)
-
-#     def __str__(self):
-#         return "live - "+str(self.InterviewClass)

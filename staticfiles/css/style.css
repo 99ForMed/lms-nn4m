@@ -724,120 +724,148 @@ body{
 /* End Course Video */
 
 
+/* tutor dashboard */
+/* tutor dashboard */
 
-/* Start Tutor Dashboard */
-  
+.dashboard.container-fluid.tutor-dashboard {
+  background-color: #1E1E1E;
+}
 
-    .tutor-dashboard .card {
-        background-color: #111111;
-        color: white;
-        border: none;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s;
-        cursor: pointer;
-    }
+.dashboard .logout-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  color: #ffffff;
+}
 
-    .tutor-dashboard .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-  }
+.dashboard .logout-btn {
+  background-color: darkorange;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    .tutor-dashboard .card-title {
-        color: darkorange;
-    }
-    .tutor-dashboard .card-subtitle {
-        color: #1E1E1E;
-    }
-    .tutor-dashboard .card-text {
-        color: rgba(255, 255, 255, 0.8);
-    }
-    .tutor-dashboard .list-group-item {
-        background-color: #1E1E1E;
-        color: rgba(255, 255, 255, 0.8);
-        border: none;
-        transition: all 0.4s;
-    }
+.dashboard .logout-btn:hover {
+  background-color: darkgoldenrod;
+}
 
-    .tutor-dashboard .list-group-item:hover {
-      background-color: #131313;
-      color: rgba(255, 255, 255, 1);
-  }
+.dashboard .content {
+  padding: 20px;
+}
 
-    .tutor-dashboard .card-link {
-        color: darkorange;
-        text-decoration: none;
-    }
+.dashboard .content h2 {
+  color: #f1f2f6; /* Light grey for header */
+  font-size: 2rem;
+}
 
-    .issue-form {
-      padding-top: 10vh;
-      padding-left: 0;
-      padding-right: 0;
-      position: relative;
-      width: 60%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .issue-form h4 {
-      color: white;
-      margin-bottom: 10px;
-    }
-    
-    .issue-form h6 {
-      color: #ccc;
-      margin-bottom: 5px;
-    }
-    
-    .issue-form .form-select {
-      background-color: #1E1E1E;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      margin-bottom: 20px;
+.dashboard .content .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard .content .card {
+  background-color: #444; /* Dark grey for cards */
+  border: none;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.dashboard .content .card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard .content .card .card-title {
+  color: #f1f2f6; /* Light grey for title */
+  font-size: 1.5rem;
+}
+
+.dashboard .card-body a {
+  color: #fff;
+  margin: 10px;
+  transition: color 0.3s ease;
+}
+
+.dashboard .card-body a:hover {
+  color: #ccc;
+}
+
+.dashboard .card-body i.fa-video-camera {
+  color: darkorange;  /* You may change the color as per your branding */
+}
+
+.dashboard .card-body i.fab.fa-discord {
+  color: darkorange;  /* You may change the color as per your branding */
+}
+
+
+.dashboard .content .card .card-subtitle,
+.dashboard .content .card .card-text,
+.dashboard .content .card .list-group-item {
+  color: #ccc; /* Slightly darker grey for text */
+  background-color: #444;
+}
+
+.tutor-dashboard .class-slot{
+  height: 100%;
+}
+
+.dashboard .sidebar {
+  background-color: #333;
+  padding: 20px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard .sidebar .heading {
+  color: #f1f2f6; /* Light grey for header */
+  font-size: 1.5rem;
+}
+
+.dashboard .sidebar .redirect-box {
+  background-color: #444; /* Dark grey for redirect box */
+  padding: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.dashboard .sidebar .submit {
+  display: inline-block;
+  background-color: darkorange;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.dashboard .sidebar .submit:hover {
+  background-color: darkgoldenrod;
+}
+
+/* For screens smaller than 992px, make the cards and sidebar full width */
+@media (max-width: 992px) {
+  .dashboard .content .card {
       width: 100%;
-    }
-    
-    .issue-form .form-select:focus {
-      border: none;
-      outline: none;
-      box-shadow: none;
-    }
-    
-    .issue-form .form-control {
-      background-color: #1E1E1E;
-      color: white;
-      border: none;
-      border-radius: 3px;
-    }
-    
-    .issue-form .form-control:focus {
-      border: none;
-      outline: none;
-      box-shadow: none;
-    }
-    
-    .btn-submit {
-      background-color: darkorange;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: background-color 0.4s;
-    }
-    
-    .btn-submit:hover {
-      background-color: #f57c00;
-    }
+  }
+  .dashboard .sidebar {
+      width: 100%;
+  }
+}
 
-    @media screen and (max-width: 768px) {
-      .issue-form {
-        width: 100%; /* Reduce the width of the form */
-        margin-top: 30px; /* Reduce the margin-top */
-      }
-    }
+/* End Tutor Dashboard */
 
-    /* Start Logout Button */
 .logout-container {
   position: fixed;
   bottom: 10px;
@@ -859,7 +887,7 @@ body{
 .logout-btn:hover {
   color: darkorange;
 }
-/* End Logout Button */
+
 @keyframes flash {
   0%, 100% {
     background-color: #343434;
@@ -868,11 +896,8 @@ body{
     background-color: darkorange;
   }
 }
+/* End Logout Button */
 
-
-
-
-/* End Tutor Dashboard */
 /* Tutor Strategy Documents */
 .tutor-strategy-docs{
   background-color: #111111;

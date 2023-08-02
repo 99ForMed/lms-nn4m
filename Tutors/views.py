@@ -12,6 +12,30 @@ from azure.storage.blob import generate_blob_sas, BlobClient, BlobServiceClient,
 from urllib.parse import quote
 
 from pyzoom import oauth_wizard
+import os
+
+from django.views import View
+from django.http import JsonResponse
+from live_class.models import LiveClass
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
+from live_class.models import Question
+
+from django.urls import reverse
+
+
+class UpdatePresenterView(View):
+    def post(self, request, *args, **kwargs):
+        live_class_id = request.POST.get('live_class_id')
+        presenter_username = request.POST.get('presenter_username')
+
+        live_class = LiveClass.objects.get(id=live_class_id)
+        live_class.currently_presenting = User.objects.get(username=presenter_username)
+        live_class.save()
+
+        return JsonResponse({"status": "success"})
 
 
 # s3_client = boto3.client(
@@ -36,7 +60,6 @@ from pyzoom import oauth_wizard
 # Create your views here.
 
 def dashboard_tutor_view(request):
-
     now = datetime.datetime.now()
     current_time = now.time()
 
@@ -46,23 +69,38 @@ def dashboard_tutor_view(request):
         time_greeting = 'Good afternoon'
     else:
         time_greeting = 'Good evening'
+
+    # Get all questions and organize them in a dict by scenario
+    questions_queryset = Question.objects.all()
+    interview_questions = {}
+
+    for question in questions_queryset:
+        scenario_description = question.scenario.description if question.scenario else None
+        if scenario_description not in interview_questions:
+            interview_questions[scenario_description] = []
+        interview_questions[scenario_description].append(question.question_text)
+    
     context = {
         'time_greeting': time_greeting,
-        'tutor': Tutor.objects.get(user = request.user),
-        'classes': Tutor.objects.get(user = request.user).classes.all()
+        'tutor': Tutor.objects.get(user=request.user),
+        'classes': Tutor.objects.get(user=request.user).classes.all(),
+        'interview_questions': interview_questions,
     }
+
+    # Rest of your view...
+
 
     # Assuming there are only going to be 3 classes max
     context['amount_of_classes'] = len(Tutor.objects.get(user = request.user).classes.all())
     context['amount_of_empty_classes'] = 3 - context['amount_of_classes']
-    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauthenticate-zoom%2F"
 
     # if empty_classes >= 0:
     #     for(i in range(0, len(Tutor.objects.get(user = request.user).classes.all()))):
     #         context['classes'][i] = Tutor.objects.Tutor.objects.get(user = request.user).classes.all()[i]
 
 
-    context
+    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id=wpT5jz7rQ8W_SNbSp_13Q&redirect_uri="+os.getenv("ZOOM_INITIAL_REDIRECT_SECURE")+"%3A%2F%2F"+os.getenv("host")+"%2Fzoom-start%2F"
+
 
     return render(request, 'tutor-dashboard.html', context)
 
@@ -248,3 +286,40 @@ def evidence_of_work_view(request, classId, studentId):
     }
     return render(request, 'evidence-of-work.html', context)
     # return redirect("../../../under-maintenance/")
+
+
+
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UpdateCurrentQuestionView(View):
+    def post(self, request, *args, **kwargs):
+        live_class_id = request.POST.get('live_class_id')
+        question_text = request.POST.get('question_text')
+        scenario_desc = request.POST.get('scenario_desc')
+        is_current = request.POST.get('is_current') == 'on'
+
+        # Find the LiveClass object
+        live_class = LiveClass.objects.get(id=live_class_id)
+        lesson_data = live_class.lesson_data
+
+        # Find the scenario
+        for scenario, questions in lesson_data.items():
+            if scenario == scenario_desc:
+                # Find the question
+                for question in questions:
+                    if question.get(question_text):
+                        if is_current:
+                            # If the checkbox is checked, set this question as the current question
+                            question[question_text] = 'current'
+                        else:
+                            # If the checkbox is unchecked, set this question as not the current question
+                            question[question_text] = 'unlocked'
+                        break
+
+        # Save the changes to the lesson data
+        live_class.lesson_data = lesson_data
+        live_class.save()
+
+        # Redirect to tutors live class view
+        return redirect('tutors_live_class_view', live_class.id)

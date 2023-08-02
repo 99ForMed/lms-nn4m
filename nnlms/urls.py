@@ -25,6 +25,7 @@ urlpatterns = [
     path('authentication/', include('authentication.urls')),
     path('tutors/', include('Tutors.urls')),
     path('interview/', include('interview.urls')),
+    path('live_class/', include('live_class.urls'))
     
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

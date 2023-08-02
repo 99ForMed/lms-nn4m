@@ -18,7 +18,7 @@
                 {% for class in classes %}
                     {% if forloop.counter <= 3 %}
                         <div class="col-md-4 mb-4">
-                            <div class="card class-slot" onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'>
+                            <div class="card class-slot"><!--onclick='window.location.href="/tutors/dashboard/class/{{class.pk}}"'-->
                                 <div class="card-body">
                                 <h5 class="card-title">{{class.name}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{class.tutor}}</h6>
@@ -31,7 +31,9 @@
                                 <br/>
 
                                 <!-- Add zoom and discord links/icons here -->
-                            <a href="zoom-link" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            <!-- <a href="{% url 'create-zoom-meeting' %}" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a> -->
+                            <a href="/live_class/1/1/" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+
                             <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
@@ -70,7 +72,7 @@
                                 <br/>
 
                                 <!-- Add zoom and discord links/icons here -->
-                            <a href="zoom-link" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+                            <a href="zoom-link" target="_blank" onclick="start_live_class()"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
                             <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
@@ -111,12 +113,11 @@
                         <p>Find helpful resources for tutors here</p>
                     </div>
                 </div>
-                {% comment %} <div class='student-checklist'>
-                    <h5>Student Checklist:</h5>
-    
-                    <input type='text' placeholder='Add item...'/><span class='add-item'>Add</span>
-                </div> {% endcomment %}
+                
                 <br/>
+
+                <a href="{{link_zoom_uri}}">Connect to Zoom</a>
+
                 
                 <p class='submit' onclick='window.location.href="raise-issue/"'>Escalate</p>
             </div>
@@ -124,4 +125,24 @@
         </div>
     </div>
 </div>
+<script>
+    // document.getElementById("page-overlay").style.display = 'none'
+    const chatSocket = new WebSocket(
+        'ws://'
+        + '192.168.8.112:8001'
+        + '/ws/tutors/dashboard/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if(data.signal == "LCST"){
+            overLay()
+        }
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+    
+</script>
 {% endblock %}

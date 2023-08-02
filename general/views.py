@@ -33,6 +33,10 @@ def home_view(request):
 def dashboard_view(request):
     if Tutor.objects.filter(user = request.user).exists():
         return redirect('/tutors/dashboard/')
+
+    if InterviewStudent.objects.filter(user = request.user).exists():
+        return redirect('/interview')
+
     return dashboard_view_student(request)
 
 def dashboard_view_student(request):
@@ -246,13 +250,14 @@ def handler500(request, *args, **argv):
 def zoom_authenticated_view(request):
     return HttpResponse("Success")
 
+from Tutors.models import Tutor  # Import the Tutor model
+
 def zoom_start_view(request):
     code = request.GET['code']
     user = request.user  # Assuming you have user authentication in place
 
-
     # Exchange the code for a token
-    tokens = request_tokens("wpT5jz7rQ8W_SNbSp_13Q", "98RiygZI6ZlH26vWdc525ixKERJyTjH8", "https://lms.99formed.com/zoom-start/", code)
+    tokens = request_tokens(os.getenv("ZOOM_CLIENT_ID"), os.getenv("ZOOM_CLIENT_SECRET"), "http://localhost:8000/zoom-start/", code)
 
     # Get the user's InterviewStudent record
     interview_student = get_object_or_404(InterviewStudent, user=user)
@@ -261,6 +266,17 @@ def zoom_start_view(request):
     interview_student.zoom_access_token = tokens['access_token']
     interview_student.zoom_refresh_token = tokens['refresh_token']
     interview_student.save()
+
+    # Check if the user is also a tutor
+    try:
+        tutor = Tutor.objects.get(user=user)
+        # Save the tokens to the Tutor record
+        tutor.zoom_access_token = tokens['access_token']
+        tutor.zoom_refresh_token = tokens['refresh_token']
+        tutor.save()
+    except Tutor.DoesNotExist:
+        # If the user is not a tutor, do nothing
+        pass
 
     # Redirect the user back to the dashboard or another page
     return redirect('/')

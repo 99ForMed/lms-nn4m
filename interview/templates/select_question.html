@@ -12,35 +12,15 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Select a Question</h5>
                     <hr/>
+                    {% for question_index, question in questions %}
                     <div class="butn-row d-flex justify-content-around">
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 1</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 2</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 3</button>
+
+                        <button class="butn btn btn-outline-primary" onclick="window.location.href='{% url 'question_view' live_class_info.id question_index %}'" {% if question.locked %} disabled {% endif %}>{{ question.text }}</button>
                     </div>
-                    <div class="butn-row d-flex justify-content-around">
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 4</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 5</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 6</button>
-                    </div>
-                    <div class="butn-row d-flex justify-content-around">
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 7</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 8</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 9</button>
-                    </div>
-                    <div class="butn-row d-flex justify-content-around">
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 10</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 11</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 12</button>
-                    </div>
-                    <div class="butn-row d-flex justify-content-around">
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 13</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 14</button>
-                        <button class="butn btn btn-outline-primary" onclick="window.location.href='../{{redirect_template}}/'">Question 15</button>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

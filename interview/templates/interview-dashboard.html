@@ -70,27 +70,27 @@
     </div>
     
 </div>
-
+<!-- 
 <script>
-    function setDate() {
-        const now = new Date();
+    // function setDate() {
+    //     const now = new Date();
       
-        const seconds = now.getSeconds();
-        const secondsDegrees = ((seconds / 60) * 360) + 90;
-        document.querySelector('.second-hand').style.transform = `rotate(${secondsDegrees}deg)`;
+    //     const seconds = now.getSeconds();
+    //     const secondsDegrees = ((seconds / 60) * 360) + 90;
+    //     document.querySelector('.second-hand').style.transform = `rotate(${secondsDegrees}deg)`;
       
-        const mins = now.getMinutes();
-        const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
-        document.querySelector('.minute-hand').style.transform = `rotate(${minsDegrees}deg)`;
+    //     const mins = now.getMinutes();
+    //     const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
+    //     document.querySelector('.minute-hand').style.transform = `rotate(${minsDegrees}deg)`;
       
-        const hour = now.getHours();
-        const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
-        document.querySelector('.hour-hand').style.transform = `rotate(${hourDegrees}deg)`;
-      }
+    //     const hour = now.getHours();
+    //     const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
+    //     document.querySelector('.hour-hand').style.transform = `rotate(${hourDegrees}deg)`;
+    //   }
       
-      setInterval(setDate, 1000);
+    //   setInterval(setDate, 1000);
       
-      setDate();
+    //   setDate();
 </script>
 <script>
     // Countdown
@@ -146,11 +146,11 @@
         const thumbnail = document.querySelector('#thumbnail');
         thumbnail.src = "{% static 'img/new_thumbnail.jpg' %}"; // Update with the new thumbnail source
     }
-</script>
+</script> -->
 {% endblock %}
 
 {% block page-overlay %}
-<div class="page-overlay">
+<div class="page-overlay" id="page-overlay">
     <div class='class-begun-overlay'>
         <i id="close-overlay" class="fa fa-times" aria-hidden="true"></i>
         <h2>Class Has Begun</h2>
@@ -171,7 +171,7 @@
                 </div>
             </div>
             <div class = "col-md-6 right">
-                <div class="action-button join-button" onclick="window.location.href='live-class/'">
+                <div class="action-button join-button" id="join-live-class-button-overlay">
                     <p><span>Join Here </span> <i class="fa fa-laptop" aria-hidden="true"></i></p>
                 </div>
                 <div class="action-button discord-button">
@@ -187,6 +187,49 @@
         document.querySelector('.page-overlay').style.display = 'none';
     });
 </script>
+<script>
+    document.getElementById("page-overlay").style.display = 'none'
+
+    function join_live_class_overLay(url){
+        document.getElementById("page-overlay").style.display = ''
+        document.getElementById('join-live-class-button-overlay').onclick=function(){
+            window.open(url, "_blank");
+            window.location.href='live-class/';
+            
+        }
+        document.getElementById('join-live-class-button-home').onclick=function(){
+            window.open(url, "_blank");
+            window.location.href='live-class/';
+            
+        }
+        
+        
+    }
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + '192.168.8.112:8001'
+        + '/ws/interview/dashboard/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log(data)
+        if(data.type == "signal"){
+            console.log(data.meeting_join_url)
+            if(data.message == "LCST"){
+                join_live_class_overLay(data.meeting_join_url)
+            }
+        }
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    
+</script>
+
 
 
 {% endblock %}

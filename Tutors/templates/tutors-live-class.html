@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #f5f5f5;
+    }
+    .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+    }
+    h2, h3 {
+        color: darkorange;
+    }
+    .btn {
+        padding: 10px 20px;
+        background-color: darkorange;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+    .question {
+        background-color: #e1e1e1;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+        color: #333;
+    }
+    .question p {
+        margin-bottom: 10px;
+    }
+    .lock-form, .current-form {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .select-wrapper {
+        margin: 20px 0;
+    }
+    .select-wrapper select {
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<link rel="stylesheet" href="{% static 'css/tutors-live-class.css' %}" type="text/css"/>
+<div class="container">
+    <h2>Live Class - Tutor Panel</h2>
+
+    {% if live_class %}
+        <h3>Current Live Class: {{ live_class.interview_class.name }}</h3>
+        <p>Start Time: {{ live_class.start_time }}</p>
+        <p>Scheduled End Time: {{ live_class.scheduled_end_time }}</p>
+        <p>Time Left: {{ live_class.time_left }}</p>
+        <a href="{% url 'end_class' live_class.id %}" class="btn">End Class</a>
+    {% else %}
+        <a href="{% url 'start_class' %}" class="btn">Start New Class</a>
+    {% endif %}
+
+    {% if live_class %}
+        <h2>Questions</h2>
+        {% for scenario, questions in lesson_data.items %}
+            {% for question in questions %}
+                {% for question_text, lock_status in question.items %}
+                    <div class="question">
+                        <p>{{ question_text }}</p>
+                        <form class="lock-form" action="/live_class/update-question-status/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="live_class_id" value="{{ live_class.id }}">
+                            <input type="hidden" name="scenario_desc" value="{{ scenario }}">
+                            <input type="hidden" name="question_text" value="{{ question_text }}">
+                            <label>
+                                <input type="checkbox" name="is_locked" {% if lock_status == "locked" %} checked {% endif %} onchange="this.form.submit()"> Lock</input>
+                            </label>
+                        </form>
+                        <form class="current-form" action="/live_class/update-current-question/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="live_class_id" value="{{ live_class.id }}">
+                            <input type="hidden" name="scenario_desc" value="{{ scenario }}">
+                            <input type="hidden" name="question_text" value="{{ question_text }}">
+                            <label>
+                                <input type="checkbox" name="is_current" {% if current_question == question_text %} checked {% endif %} onchange="this.form.submit()"> Current</input>
+                            </label>
+                        </form>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        {% if live_class.current_question %}
+        <h2>Current Question:</h2>
+        <p>{{ current_question }}</p>
+        {% endif %}
+
+
+        <div class="select-wrapper">
+            <label for="presentingPerson">Who's presenting?</label>
+            <form id="presenter-form">
+                {% csrf_token %}
+                <select id="presentingPerson" name="presenter_username">
+                    {% for student in students %}
+                        <option value="{{ student.user.username }}" {% if student.user == live_class.currently_presenting %} selected {% endif %}> {{ student.user.username }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="live_class_id" value="{{ live_class.id }}">
+            </form>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            var csrftoken = getCookie('csrftoken');
+
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            $(document).ready(function(){
+                $('#presentingPerson').on('change', function(){
+                    var live_class_id = $('#presenter-form input[name="live_class_id"]').val();
+                    var presenter_username = $(this).val();
+
+                    $.ajax({
+                        url: "/live_class/update-presenter/",
+                        type: "POST",
+                        data: {
+                            'live_class_id': live_class_id,
+                            'presenter_username': presenter_username,
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data.message);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    {% endif %}
+</div>
+{% endblock %}

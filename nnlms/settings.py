@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp
 DEBUG = bool(os.getenv("debug"))
 
 
-ALLOWED_HOSTS = ['nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com']
+ALLOWED_HOSTS = ['192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1']
 
 
 # Application definition
@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'Tutors',
     'Forum',
     'storages',
-    'interview'
+    'interview', 
+    'channels',
+    'live_class'
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'general.middleware.ZoomTokenMiddleware',
+    'Tutors.middleware.TutorsZoomTokenMiddleware'
 ]
 
 ROOT_URLCONF = 'nnlms.urls'
@@ -78,7 +82,9 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'nnlms.asgi.application'
 WSGI_APPLICATION = 'nnlms.wsgi.application'
+
 
 
 # Database
@@ -156,6 +162,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 
 STATIC_URL = '/static/'
