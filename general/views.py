@@ -26,7 +26,7 @@ from django.http import HttpResponse
 def home_view(request):
 
     if request.user.is_authenticated:
-        return redirect('/dashboard')
+        return redirect('/dashboard/')
     else:
         return redirect('/authentication/login/')
 
@@ -35,7 +35,7 @@ def dashboard_view(request):
         return redirect('/tutors/dashboard/')
 
     if InterviewStudent.objects.filter(user = request.user).exists():
-        return redirect('/interview')
+        return redirect('/interview/')
 
     return dashboard_view_student(request)
 

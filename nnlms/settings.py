@@ -172,6 +172,16 @@ CHANNEL_LAYERS = {
     },
 }
 
+if not os.getenv('localhost'):
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
+                "hosts": [os.getenv('REDIS_URL')],
+            },
+        },
+    }
+
 
 
 STATIC_URL = '/static/'
@@ -179,16 +189,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') 
 
-if os.getenv("localhost"):
-    SECURE_SSL_REDIRECT = False
-else:
-    SECURE_SSL_REDIRECT = True
+# if os.getenv("localhost"):
+#     SECURE_SSL_REDIRECT = False
+# else:
+#     SECURE_SSL_REDIRECT = True
 
-if not DEBUG:
-    AWS_ACCESS_KEY_ID = os.getenv('BUCKETEER_AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('BUCKETEER_AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('BUCKETEER_BUCKET_NAME')
-    AWS_S3_REGION_NAME = os.getenv('BUCKETEER_AWS_REGION')
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# if not DEBUG:
+#     AWS_ACCESS_KEY_ID = os.getenv('BUCKETEER_AWS_ACCESS_KEY_ID')
+#     AWS_SECRET_ACCESS_KEY = os.getenv('BUCKETEER_AWS_SECRET_ACCESS_KEY')
+#     AWS_STORAGE_BUCKET_NAME = os.getenv('BUCKETEER_BUCKET_NAME')
+#     AWS_S3_REGION_NAME = os.getenv('BUCKETEER_AWS_REGION')
+#     AWS_S3_FILE_OVERWRITE = False
+#     AWS_DEFAULT_ACL = None
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
