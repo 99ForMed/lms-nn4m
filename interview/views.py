@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-
+from django.conf import settings
 
 
 
@@ -103,7 +103,8 @@ def interview_dashboard_view(request):
         'time_greeting': time_greeting, 
         'title': title,
         'class_soon': False,
-        'class': {}
+        'class': {},
+        'REDIS_URL': os.getenv('REDIS_URL')
     }
 
     context['live_class'] = None

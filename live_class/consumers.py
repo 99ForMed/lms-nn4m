@@ -18,6 +18,7 @@ class LiveClassConsumer(AsyncWebsocketConsumer):
         # This method is called when the WebSocket receives a message
         text_data_json = json.loads(text_data)
         response = ''
+        print(text_data_json)
         # message = text_data_json['message']
         signal = text_data_json.get('signal', None)
         if not signal == None:
