@@ -19,6 +19,7 @@ from pyzoom import request_tokens
 import os
 
 from django.http import HttpResponse
+from Tutors.models import Tutor
 
 
 # Create your views here.
