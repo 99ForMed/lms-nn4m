@@ -195,20 +195,17 @@
         document.getElementById('join-live-class-button-overlay').onclick=function(){
             window.open(url, "_blank");
             window.location.href='live-class/';
-            
         }
         document.getElementById('join-live-class-button-home').onclick=function(){
             window.open(url, "_blank");
             window.location.href='live-class/';
-            
         }
-        
-        
     }
 
+    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
     const chatSocket = new WebSocket(
-        'ws://'
-        + '{{REDIS_URL}}'
+        protocol
+        + window.location.host
         + '/ws/interview/dashboard/'
     );
 
@@ -227,9 +224,8 @@
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
-
-    
 </script>
+
 
 
 
