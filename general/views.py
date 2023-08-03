@@ -258,6 +258,9 @@ def zoom_start_view(request):
     user = request.user  # Assuming you have user authentication in place
 
     # Exchange the code for a token
+    print(os.getenv("ZOOM_CLIENT_ID"))
+    print(os.getenv("ZOOM_CLIENT_SECRET"))
+    print(os.getenv('ZOOM_INITIAL_REDIRECT_SECURE')+"://"+os.getenv('host')+"/zoom-start/")
     tokens = request_tokens(os.getenv("ZOOM_CLIENT_ID"), os.getenv("ZOOM_CLIENT_SECRET"), os.getenv('ZOOM_INITIAL_REDIRECT_SECURE')+"://"+os.getenv('host')+"/zoom-start/", code)
 
     # Get the user's InterviewStudent record
