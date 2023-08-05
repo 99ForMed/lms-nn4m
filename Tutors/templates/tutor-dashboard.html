@@ -115,9 +115,6 @@
                 </div>
                 
                 <br/>
-
-                <a href="{{link_zoom_uri}}">Connect to Zoom</a>
-
                 
                 <p class='submit' onclick='window.location.href="raise-issue/"'>Escalate</p>
             </div>
@@ -128,10 +125,19 @@
 <script>
     // document.getElementById("page-overlay").style.display = 'none'
 
+    var wsHost = "{{ ws_host }}"; 
+
+    if (!wsHost) {
+        wsHost = window.location.host;
+    }
+
+    console.log(wsHost);
+
     const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+
     const chatSocket = new WebSocket(
         protocol
-        + window.location.host
+        + wsHost
         + '/ws/tutors/dashboard/'
     );
 

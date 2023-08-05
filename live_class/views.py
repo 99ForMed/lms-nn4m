@@ -15,24 +15,45 @@ from django.http import HttpResponseRedirect
 from datetime import datetime, timedelta
 from django.utils import timezone
 
+import os
+
 @login_required
 def tutors_live_class_view(request, class_id, lesson_plan_id):
-    try:
-        # Try to get the live class
-        live_class = LiveClass.objects.get(interview_class__id=class_id, is_active=True)
-        # Check if the live class is older than 1 hour and 40 minutes
+    # Try to get all active live classes for the class_id
+    active_live_classes = list(LiveClass.objects.filter(interview_class__id=class_id, is_active=True).order_by('start_time'))
+
+    if active_live_classes:
+        # If multiple active live classes exist, deactivate all but the most recent one
+        if len(active_live_classes) > 1:
+            for live_class in active_live_classes[:-1]:
+                live_class.is_active = False
+                live_class.save()
+        
+        # Check if the most recent live class is older than 1 hour and 40 minutes
+        live_class = active_live_classes[-1]
         if timezone.now() - live_class.start_time > timedelta(minutes=100):
-            raise LiveClass.DoesNotExist
-    except LiveClass.DoesNotExist:
-        # If the live class does not exist or is older than 1 hour and 40 minutes, create a new one
-        lesson_plan = LessonPlan.objects.get(id=lesson_plan_id)
-        live_class = LiveClass.objects.create(
-            initiator=request.user, 
-            interview_class=InterviewClass.objects.get(id=class_id),
-            lesson_plan=lesson_plan,
-            is_active=True
-        )
+            live_class.is_active = False
+            live_class.save()
+        else:
+            # If the most recent live class is not older than 1 hour and 40 minutes, use it
+            context = {
+                'live_class': live_class,
+                'students': InterviewStudent.objects.filter(interview_class=live_class.interview_class),
+                'lesson_data': live_class.lesson_data, 
+                'current_question': live_class.current_question,  # current question being answered
+                'ws_host': os.getenv('WS_HOST', '')
+            }
+            return render(request, 'tutors-live-class.html', context)
     
+    # If no suitable live class was found, create a new one
+    lesson_plan = LessonPlan.objects.get(id=lesson_plan_id)
+    live_class = LiveClass.objects.create(
+        initiator=request.user, 
+        interview_class=InterviewClass.objects.get(id=class_id),
+        lesson_plan=lesson_plan,
+        is_active=True
+    )
+
     context = {
         'live_class': live_class,
         'students': InterviewStudent.objects.filter(interview_class=live_class.interview_class),
@@ -41,6 +62,8 @@ def tutors_live_class_view(request, class_id, lesson_plan_id):
     }
 
     return render(request, 'tutors-live-class.html', context)
+
+
 
 @login_required
 def end_class_view(request, live_class_id):

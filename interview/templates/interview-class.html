@@ -4,7 +4,37 @@
 {% block head %}
 <title>Class Page</title>
 <link rel="stylesheet" href="{% static 'css/interview-class.css' %}" type="text/css"/>
+<style>
+    .lesson-plan-row {
+        border: 1px solid #ddd;
+        transition: all 0.3s;
+    }
+
+    .lesson-plan-row:hover {
+        background-color: #f6f6f6;
+    }
+
+    .launch-btn {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    .launch-btn:hover {
+        background-color: #45a049;
+        color: white;
+    }
+</style>
+
 {% endblock %}
+
+
 {% block body %}
 <script>
     document.querySelector('body')[0].style.backgroundColor = "black"
@@ -64,14 +94,22 @@
                 {% endfor %}
             </div>
             {% for lesson_plan in lesson_plans %}
-            <tr>
+            <tr class="lesson-plan-row">
                 <td>{{ lesson_plan.name }}</td>
                 <td>{{ lesson_plan.description }}</td>
                 <td>
-                    <a href="{% url 'live_class' class_id=class.id lesson_plan_id=lesson_plan.id %}" class="btn btn-primary">Launch</a>
+                    {% if lesson_plan.has_active_class %}
+                    <a class="btn btn-success">In Progress</a>
+                    {% else %}
+                    <a href="{% url 'live_class' class_id=class.id lesson_plan_id=lesson_plan.id %}" class="btn btn-primary launch-btn">Launch</a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
+            {% if active_class %}
+            <a href="{{active_class_url}}">Re join</a>
+            {% endif %}
+
 
         </div>
         

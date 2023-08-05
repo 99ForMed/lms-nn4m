@@ -3,230 +3,334 @@
 {% block head %}
   <title>Dashboard</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/clock.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/upcoming-class-table.css' %}"/>
+  <style>
+    /* ... (your previous styles) ... */
+
+    .welcome-section {
+        text-align: center;
+        padding: 60px 0;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: welcomeFadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes welcomeFadeIn {
+        0% { opacity: 0; transform: translateY(10%); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .welcome-section h1 {
+        color: #444;
+        font-size: 32px;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .welcome-section p {
+        color: #444;
+        font-size: 20px;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+</style>
+
+
+
+  <script>
+    $(document).ready(function(){
+    var secHandPosDeg = 360/60;
+    var minHandPosDeg = 360/60;
+    var hourHandPosDeg = 360/12;
+    
+    var time = new Date();
+    var currentSecHand = time.getSeconds();
+    var currentMinHand = time.getMinutes();
+    var currentHouHand = time.getHours();
+  
+    setHandPosition(currentSecHand, currentMinHand, currentHouHand );
+    startMoving();
+    
+    function setHandPosition(secDeg, minDeg, hovDeg){
+        var remainHovDeg = (hourHandPosDeg * hovDeg) + (minDeg * 0.5);
+        $('.clock-hands-box .sec-hand').css('transform','rotate('+secHandPosDeg * secDeg+'deg)');
+        $('.clock-hands-box .min-hand').css('transform','rotate('+minHandPosDeg * minDeg+'deg)');
+        $('.clock-hands-box .hour-hand').css('transform','rotate('+remainHovDeg +'deg)');
+    }
+    
+    function startMoving(){
+        var currentSec = currentSecHand;
+        var currentMin = currentMinHand;
+        var currentHov = currentHouHand * hourHandPosDeg + (currentMinHand * 0.5);
+        setInterval(function(){
+        var nowTime = new Date();
+
+        currentSec += 1;
+        $('.clock-hands-box .sec-hand').css('transform','rotate('+currentSec * secHandPosDeg+'deg)');
+        
+        if(nowTime.getSeconds() == 0){
+            currentMin += 1;
+            $('.clock-hands-box .min-hand').css('transform','rotate('+currentMin * minHandPosDeg+'deg)');
+            
+            currentHov += 0.5;
+            $('.clock-hands-box .hour-hand').css('transform','rotate('+currentHov+'deg)');
+        }            
+        },1000);
+    }  
+    });
+  </script>
 {% endblock %}
 {% block body %}
 <div class='interview-dashboard'>
-    <!-- <div class="row">
-        <div class="col-md-5 clock-container">
+    <div class="welcome-section">
+        <h1>Welcome Back, {{request.user.first_name}}!</h1>
+        <p>“The impediment to action advances action. What stands in the way becomes the way.”</p>
+    </div>
+    
+    
+    <!-- Create a container to hold all cards -->
+    <div class="container">
+        <div class="card">
             <div class="clock">
-                <div class="hand hour-hand"></div>
-                <div class="hand minute-hand"></div>
-                <div class="hand second-hand"></div>
+                <div class="clock-outer">
+                    <div class="clock-inner">
+                    <div class="mins-box">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="clock-hands-box">
+                        <span class="hour-hand"></span>
+                        <span class="min-hand"></span>
+                        <span class="sec-hand"></span>
+                    </div>
+                    <div class="center-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add a card for tasks -->
+        <div class="card" id="task-card">
+            <div class="card-header" it="task-card-header">
+                Tasks
+            </div>
+            <div class="card-body">
+                <table class="tasks-table">
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{task}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <!-- Add a card for upcoming interviews -->
+        <div class="card">
+            <div class="card-header">
+                Upcoming Classes
+            </div>
+            <div class="card-body">
+                <table class="interviews-table">
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Topic
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>1st August 2023</td>
+                        <td>Rakin's Beard</td>
+                        <td>Join here</td>
+                    </tr>
+                    <tr>
+                        <td>8th August 2023</td>
+                        <td>Rakin's Left Ear</td>
+                        <td>Scheduled</td>
+                    </tr>
+                    <tr>
+                        <td>9th August 2023</td>
+                        <td>Rakin's Right Ear</td>
+                        <td>Scheduled</td>
+                    </tr>
+                </table>
             </div>
         </div>
         
-        <div class="col-md-7 greeting-container">
-            <span class="greeting">{{time_greeting}}, Madam</span>
+        <!-- Add a card for past interview performance -->
+        <div class="card">
+            <div class="card-header">
+                Past Interviews Performance
+            </div>
+            <div class="card-body">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Add a card for skills progress -->
+        <div class="card">
+            <div class="card-header">
+                Skills Progress
+            </div>
+            <div class="card-body">
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="page-overlay" id="page-overlay">
+        <div class='class-begun-overlay'>
+            <i id="close-overlay" class="fa fa-times" aria-hidden="true"></i>
+            <h2>Class Has Begun</h2>
+            <br/>
             <div class="row">
-                <div class='col-md-3 it-is'><p>It is</p></div> 
-                <div class='col-md-9 day-of-week'><span style="color: #e1e1e1">It is </span>{{day_of_week}}</div>
-            </div>  
-        </div>
-    </div>
-    <hr/> -->
-    <div class="row second-row">
-        <div class="col-md-3 countdown-box">
-            <div id="countdown" class="countdown">
-                <p>Next class:</p>
-                <span id="days">0</span> : <span id="hours">0</span> : <span id="minutes">0</span> : <span id="seconds">0</span>
+                <div class = "col-md-6 left">
+                    <div class="time-remaining-clock">
+                        <p><span class="hours">
+                            2
+                        </span>
+                        hours  
+                        <span class="minutes">
+                            3
+                        </span>
+                        minutes
+                        </p>
+                        <p class="time-left-instr">left until class ends.</p>
+                    </div>
+                </div>
+                <div class = "col-md-6 right">
+                    <div class="action-button join-button" id="join-live-class-button-overlay">
+                        <p><span>Join Here </span> <i class="fa fa-laptop" aria-hidden="true"></i></p>
+                    </div>
+                    <div class="action-button discord-button">
+                        <p><span>Live Updates </span> <i class="fa-brands fa-discord" aria-hidden="true"></i></p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="statusBox" class="col-md-3 status-box default">
-            <a href="#" class="status">
-                <span id="statusText">No class soon</span>
-            </a>
-        </div>
-        <div class="col-md-6 video-box">
-            <!-- <img id="thumbnail" class="video-thumbnail" src="https://via.placeholder.com/720"> -->
-        </div>
     </div>
-    <div class="row third-row">
-        <table class="tasks-table">
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Source</th>
-                    <th>Estimated Time</th>
-                    <th>Done</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Interview practise</td>
-                    <td>Tutor</td>
-                    <td>3 hours</td>
-                    <td><input type="checkbox" class="task-done"></td>
-                    
-                </tr>
-                <tr>
-                    <td>Interview practise</td>
-                    <td>Self</td>
-                    <td>1 hours</td>
-                    <td><input type="checkbox" class="task-done"></td>
-                </tr>
-                <!-- Add more rows as necessary -->
-            </tbody>
-        </table>
-    </div>
+    <script>
+        // Create the performance chart
+        var ctx = document.getElementById('performanceChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Interview 1', 'Interview 2', 'Interview 3', 'Interview 4', 'Interview 5'],
+                datasets: [{
+                    label: 'Score',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: 'rgba(255, 140, 0, 1)', // Dark grey
+                    borderColor: 'rgba(255, 140, 0, 1)', // Dark grey
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     
-</div>
-<!-- 
-<script>
-    // function setDate() {
-    //     const now = new Date();
-      
-    //     const seconds = now.getSeconds();
-    //     const secondsDegrees = ((seconds / 60) * 360) + 90;
-    //     document.querySelector('.second-hand').style.transform = `rotate(${secondsDegrees}deg)`;
-      
-    //     const mins = now.getMinutes();
-    //     const minsDegrees = ((mins / 60) * 360) + ((seconds/60)*6) + 90;
-    //     document.querySelector('.minute-hand').style.transform = `rotate(${minsDegrees}deg)`;
-      
-    //     const hour = now.getHours();
-    //     const hourDegrees = ((hour / 12) * 360) + ((mins/60)*30) + 90;
-    //     document.querySelector('.hour-hand').style.transform = `rotate(${hourDegrees}deg)`;
-    //   }
-      
-    //   setInterval(setDate, 1000);
-      
-    //   setDate();
-</script>
-<script>
-    // Countdown
-    function updateCountdown() {
-        // Replace this with your own logic
-        const targetTime = new Date('2023-12-31T00:00:00');
-        const currentTime = new Date();
+        // Create the skills chart
+        var ctx = document.getElementById('skillsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Skill 1', 'Skill 2', 'Skill 3'],
+                datasets: [{
+                    data: [12, 19, 3],
+                    backgroundColor: [
+                        'rgba(255, 140, 0, 1)', // Dark orange
+                        'rgba(255, 140, 0, 0.8)', // Dark grey
+                        'rgba(255, 140, 0, 0.5)' // Light grey
+                    ],
+                    borderColor: [
+                        'rgba(255, 140, 0, 0.2)', // Dark orange
+                        'rgba(255, 140, 0, 0.1)', // Dark grey
+                        'rgba(255, 140, 0, 0.7)' // Light grey
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+        document.getElementById("page-overlay").style.display = 'none'
 
-        const timeRemaining = targetTime - currentTime; // Time remaining in milliseconds
-
-        const seconds = Math.floor((timeRemaining / 1000) % 60);
-        const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
-        const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-
-        document.querySelector('#days').innerText = days;
-        document.querySelector('#hours').innerText = hours;
-        document.querySelector('#minutes').innerText = minutes;
-        document.querySelector('#seconds').innerText = seconds;
-    }
-
-    setInterval(updateCountdown, 1000);
-
-    // Status Box
-    function updateStatus() {
-        // Replace this with your own logic
-        const statusBox = document.querySelector('#statusBox');
-        const statusText = document.querySelector('#statusText');
-        const currentTime = new Date();
-        const classStartTime = new Date('2023-05-20T10:00:00');
-        const classEndTime = new Date('2023-05-20T11:00:00');
-
-        if (currentTime >= classStartTime && currentTime <= classEndTime) {
-            statusBox.classList.remove('default', 'upcoming');
-            statusBox.classList.add('ongoing');
-            statusText.innerText = 'Ongoing';
-        } else if (currentTime < classStartTime && (classStartTime - currentTime) <= 3600000) { // Less than 1 hour until class
-            statusBox.classList.remove('default', 'ongoing');
-            statusBox.classList.add('upcoming');
-            statusText.innerText = 'Starting soon';
-        } else {
-            statusBox.classList.remove('ongoing', 'upcoming');
-            statusBox.classList.add('default');
-            statusText.innerText = 'No class soon';
-        }
-    }
-
-    setInterval(updateStatus, 1000);
-
-    // Video Thumbnail
-    function updateVideoThumbnail() {
-        // Replace this with your own logic
-        const thumbnail = document.querySelector('#thumbnail');
-        thumbnail.src = "{% static 'img/new_thumbnail.jpg' %}"; // Update with the new thumbnail source
-    }
-</script> -->
-{% endblock %}
-
-{% block page-overlay %}
-<div class="page-overlay" id="page-overlay">
-    <div class='class-begun-overlay'>
-        <i id="close-overlay" class="fa fa-times" aria-hidden="true"></i>
-        <h2>Class Has Begun</h2>
-        <br/>
-        <div class="row">
-            <div class = "col-md-6 left">
-                <div class="time-remaining-clock">
-                    <p><span class="hours">
-                        2
-                    </span>
-                    hours  
-                    <span class="minutes">
-                        3
-                    </span>
-                    minutes
-                    </p>
-                    <p class="time-left-instr">left until class ends.</p>
-                </div>
-            </div>
-            <div class = "col-md-6 right">
-                <div class="action-button join-button" id="join-live-class-button-overlay">
-                    <p><span>Join Here </span> <i class="fa fa-laptop" aria-hidden="true"></i></p>
-                </div>
-                <div class="action-button discord-button">
-                    <p><span>Live Updates </span> <i class="fa-brands fa-discord" aria-hidden="true"></i></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.getElementById('close-overlay').addEventListener('click', function() {
-        document.querySelector('.page-overlay').style.display = 'none';
-    });
-</script>
-<script>
-    document.getElementById("page-overlay").style.display = 'none'
-
-    function join_live_class_overLay(url){
-        document.getElementById("page-overlay").style.display = ''
-        document.getElementById('join-live-class-button-overlay').onclick=function(){
-            window.open(url, "_blank");
-            window.location.href='live-class/';
-        }
-        document.getElementById('join-live-class-button-home').onclick=function(){
-            window.open(url, "_blank");
-            window.location.href='live-class/';
-        }
-    }
-
-    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-    const chatSocket = new WebSocket(
-        protocol
-        + window.location.host
-        + '/ws/interview/dashboard/'
-    );
-
-    chatSocket.onmessage = function(e) {
-        console.log("Message Receieved")
-        const data = JSON.parse(e.data);
-        console.log(data)
-        if(data.type == "signal"){
-            console.log(data.meeting_join_url)
-            if(data.message == "LCST"){
-                join_live_class_overLay(data.meeting_join_url)
+        function join_live_class_overLay(url){
+            document.getElementById("page-overlay").style.display = ''
+            document.getElementById('join-live-class-button-overlay').onclick=function(){
+                window.open(url, "_blank");
+                window.location.href='live-class/';
+            }
+            document.getElementById('join-live-class-button-home').onclick=function(){
+                window.open(url, "_blank");
+                window.location.href='live-class/';
             }
         }
-    };
 
-    chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-    };
-</script>
+        const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+        const chatSocket = new WebSocket(
+            protocol
+            + '{{ws_host}}'
+            + '/ws/interview/dashboard/'
+        );
 
+        chatSocket.onmessage = function(e) {
+            console.log("Message Receieved")
+            const data = JSON.parse(e.data);
+            console.log(data)
+            if(data.type == "signal"){
+                console.log(data.meeting_join_url)
+                if(data.message == "LCST"){
+                    join_live_class_overLay(data.meeting_join_url)
+                }
+            }
+        }
 
+    </script>
+    
 
-
+</div>
 {% endblock %}

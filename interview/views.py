@@ -19,6 +19,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from django.conf import settings
+from django.urls import reverse
+
 
 
 
@@ -104,10 +106,13 @@ def interview_dashboard_view(request):
         'title': title,
         'class_soon': False,
         'class': {},
-        'REDIS_URL': os.getenv('REDIS_URL')
+        'REDIS_URL': os.getenv('REDIS_URL'),
+        'ws_host': os.getenv('WS_HOST', ''),
+        'tasks': interview_student.tasks
     }
 
     context['live_class'] = None
+    print(context['tasks'])
 
     try:
         # Get the interview class associated with the user
@@ -153,10 +158,9 @@ def live_class_view(request, live_class_id):
     return render(request, 'live-class.html', context)
 
 def interview_class_view(request, class_id):
-
     interview_class = get_object_or_404(InterviewClass, id=class_id)
     students = InterviewStudent.objects.filter(interview_class=interview_class)
-    lesson_plans = LessonPlan.objects.filter(tutors=Tutor.objects.get(user = request.user))
+    lesson_plans = LessonPlan.objects.filter(tutors=Tutor.objects.get(user=request.user))
 
     new_task = request.GET.get('new_task')
     task_student_id = request.GET.get('task_student')
@@ -168,21 +172,26 @@ def interview_class_view(request, class_id):
         student.tasks = current_tasks
         student.save()
 
+    # Check if a LiveClass object exists where the tutor field is request.user and is_active is True
+    active_live_class = LiveClass.objects.filter(interview_class=interview_class, initiator=request.user, is_active=True).first()
+
+    # Construct the active_class_url based on the provided path if active_live_class exists, otherwise set to None
+    if active_live_class:
+        active_class = True
+        active_class_url = reverse('live_class', args=[interview_class.id, active_live_class.lesson_plan.id])
+    else:
+        active_class = False
+        active_class_url = None
+    
     context = {
         'class': interview_class,
         'students': students,
-        'lesson_plans': lesson_plans
+        'lesson_plans': lesson_plans,
+        'active_class': active_class,
+        'active_class_url': active_class_url,
     }
 
     return render(request, 'interview-class.html', context)
-
-
-
-
-
-
-
-
 
 def select_question_view(request, live_class_id):
 
@@ -254,9 +263,15 @@ def view_question_view(request, live_class_id, group_index, question_index):
 
 
 def active_live_class_view(request):
-    # Retrieve the single active LiveClass object. If no such object exists or there's more than one,
-    # a Http404 exception will be raised.
-    active_class = get_object_or_404(LiveClass, is_active=True)
+    # Retrieve all active LiveClass objects
+    active_classes = LiveClass.objects.filter(is_active=True)
+
+    if not active_classes.exists():
+        # If no active classes, raise a 404 error.
+        raise Http404("No active live classes found.")
+
+    # If there are one or more active classes, fetch the first one.
+    active_class = active_classes.first()
     
     # Redirect to the URL for this active class.
     return redirect('live_class', live_class_id=active_class.id)

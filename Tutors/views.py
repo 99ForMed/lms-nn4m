@@ -86,7 +86,8 @@ def dashboard_tutor_view(request):
         'tutor': Tutor.objects.get(user=request.user),
         'classes': Tutor.objects.get(user=request.user).classes.all(),
         'interview_questions': interview_questions,
-        'interview_classes': InterviewClass.objects.filter(tutor = Tutor.objects.get(user=request.user))
+        'interview_classes': InterviewClass.objects.filter(tutor = Tutor.objects.get(user=request.user)),
+        'ws_host': os.getenv('WS_HOST', '')
     }
 
     # Rest of your view...
