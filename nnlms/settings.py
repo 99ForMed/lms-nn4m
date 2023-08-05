@@ -199,7 +199,7 @@ if os.getenv("localhost"):
 # This supposedly tells django that the incoming HTTPS request is from a trusted origin
 # Let's see if it works
 # 
-
+CSRF_TRUSTED_ORIGINS = ['https://lms.99formed.com']
 # if not DEBUG:
 #     AWS_ACCESS_KEY_ID = os.getenv('BUCKETEER_AWS_ACCESS_KEY_ID')
 #     AWS_SECRET_ACCESS_KEY = os.getenv('BUCKETEER_AWS_SECRET_ACCESS_KEY')
