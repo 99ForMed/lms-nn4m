@@ -180,6 +180,11 @@ body{
 }
 
 
+.dashboard .sidebar-interview-student{
+  width: min-content;
+}
+
+
 
 /* Start Course - Page */
 .course-page {
@@ -779,6 +784,7 @@ body{
   padding: 20px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  
 }
 
 .dashboard .content .card:hover {
@@ -1305,6 +1311,38 @@ body{
 @media only screen and (min-width: 992px) {
 }
 
+.interview-dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.interview-dashboard .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.interview-dashboard .clock {
+  grid-column: 1;
+}
+
+.interview-dashboard #task-card {
+  grid-column: 2;
+}
+
+.interview-dashboard #task-card-header {
+  font-weight: bold;
+}
+
+.interview-dashboard .tasks-table {
+  width: 100%;
+}
+
+.interview-dashboard .clock {
+  width: 200px; /* You may need to adjust this value */
+  height: 200px; /* You may need to adjust this value */
+}
+
 .interview-dashboard .row{
   width: 100%;
   
@@ -1335,45 +1373,6 @@ body{
 .greeting {
   font-size: 2em;
 } */
-
-.interview-dashboard .clock {
-  text-align: center;
-  position: relative;
-  aspect-ratio : 1 / 1;
-  width:100%;
-  border: 1px dotted #424242;
-  border-radius: 50%;
-  background-image: url("../img/clock-face.png");
-  background-size: contain;
-}
-
-.interview-dashboard .hand {
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform-origin: bottom;
-  transform: translateX(-50%);
-
-}
-
-.interview-dashboard .hour-hand {
-  height: 30%;
-  width: 4px;
-  background: #424242;;
-}
-
-.interview-dashboard .minute-hand {
-  height: 40%;
-  width: 3px;
-  background: #fff;;
-  border-radius: 5px;
-}
-
-.interview-dashboard .second-hand {
-  height: 45%;
-  width: 2px;
-  background: #424242;
-}
 
 /* Greeting */
 
@@ -2034,7 +2033,7 @@ body{
 }
 
 .sidebar-standard .sidebar-content .tab-content .tab-pane {
-  display: none;
+  /* display: none; */
 }
 
 .sidebar-standard .sidebar-content .tab-content .tab-pane.fade.show.active {
