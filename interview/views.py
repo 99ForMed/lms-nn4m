@@ -20,37 +20,63 @@ from django.http import JsonResponse
 import json
 from django.conf import settings
 from django.urls import reverse
-
+from .decorators import check_live_class_active
 
 
 
 @csrf_exempt
-def add_feedback_view(request, live_class_id):
+def add_feedback_view(request, live_class_id, question_id, receiver_id):
     if request.method == "POST":
         author_username = request.POST.get('author')
-        receiver_username = request.POST.get('receiver')
+        receiver_username = User.objects.get(id=receiver_id).username
         content = request.POST.get('content')
-        question_id = request.POST.get('question_id')
+        question_id = question_id
 
         author = get_object_or_404(User, username=author_username)
         receiver = get_object_or_404(User, username=receiver_username)
-        question = Question.objects.all()[0]
+        question = Question.objects.get(id=question_id)
 
         # create feedback
         feedback = Feedback(
             sender=author,
             receiver=receiver,
             Question=question,
+            LiveClass = LiveClass.objects.get(id = live_class_id),
             text=content,
         )
         feedback.save()
 
-        return JsonResponse({'status': 'success'})
+        # Use HTTP_REFERER to get the previous URL, or default to your home page.
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
     return JsonResponse({'status': 'error', 'message': 'This view only accepts POST requests.'})
 
 
+@check_live_class_active
+def view_feedback_view(request, live_class_id):
+    # Get the logged in user
+    user = request.user
 
+    # Retrieve all the feedback this user has received, and sort it by question.
+    user_feedback = Feedback.objects.filter(receiver=user, LiveClass=LiveClass.objects.get(id=live_class_id)).order_by('Question__question_text').values('sender__username', 'Question__question_text', 'text')
+
+    # Group feedback by question. The result will be a dict where each key is a question and the value is a list of feedback.
+    grouped_feedback = {}
+    for feedback in user_feedback:
+        question_text = feedback.pop('Question__question_text')
+
+        if question_text not in grouped_feedback:
+            grouped_feedback[question_text] = []
+        grouped_feedback[question_text].append(feedback)
+
+    context = {
+        'user_feedback': grouped_feedback,
+        'ws_host': os.getenv("WS_HOST"),
+        'ws_route': 'interview/live-class/view_feedback/'
+    }
+
+    # Render the page.
+    return render(request, 'view_feedback.html', context)
 
 
 
@@ -108,7 +134,8 @@ def interview_dashboard_view(request):
         'class': {},
         'REDIS_URL': os.getenv('REDIS_URL'),
         'ws_host': os.getenv('WS_HOST', ''),
-        'tasks': interview_student.tasks
+        'tasks': interview_student.tasks,
+        'ws_route': 'interview/dashboard/'
     }
 
     context['live_class'] = None
@@ -137,6 +164,7 @@ def interview_dashboard_view(request):
     
     return render(request, 'interview-dashboard.html', context)
 
+@check_live_class_active
 def live_class_view(request, live_class_id):
     live_class = LiveClass.objects.get(id=live_class_id)
 
@@ -153,6 +181,9 @@ def live_class_view(request, live_class_id):
     context = {
         'live_class_info': live_class,
         'questions': questions,
+        'live_class': live_class,
+        'ws_host': os.getenv('WS_HOST'),
+        'ws_route': 'interview/live-class/'
     }
 
     return render(request, 'live-class.html', context)
@@ -189,6 +220,8 @@ def interview_class_view(request, class_id):
         'lesson_plans': lesson_plans,
         'active_class': active_class,
         'active_class_url': active_class_url,
+        'ws_host': os.getenv("WS_HOST"),
+        'ws_route': 'tutors/interview-class/'
     }
 
     return render(request, 'interview-class.html', context)
@@ -203,17 +236,21 @@ def select_question_view(request, live_class_id):
     for group_index, (scenario, scenario_questions) in enumerate(live_class.lesson_data.items()):
         for question_index, question in enumerate(scenario_questions):
             question_info = {
+                
                 'group_index': group_index,
                 'question_index': question_index,
                 'text': 'Question {}'.format(question_number),
-                'locked': list(question.values())[0] == 'locked'
+                'locked': list(question.values())[0] == 'locked',
+                
             }
             questions.append(question_info)
             question_number += 1
 
     context = {
         'live_class_info': live_class,
-        'questions': questions
+        'questions': questions,
+        'ws_host': os.getenv("WS_HOST"),
+        'ws_route': 'interview/live-class/select_question/'
     }
     
     return render(request, 'select_question.html', context)
@@ -236,7 +273,9 @@ def view_question_view(request, live_class_id, group_index, question_index):
     students = InterviewStudent.objects.filter(interview_class=live_class.interview_class)
 
     # Fetch all feedbacks related to the question
-    feedbacks = Feedback.objects.filter(Question=Question.objects.all()[0])
+    feedback_receiver = live_class.currently_presenting
+
+    feedbacks = Feedback.objects.filter(Question=Question.objects.get(question_text = question['text']), LiveClass = LiveClass.objects.get(id=live_class_id), receiver = feedback_receiver)
     
     # Prepare students_feedbacks dict
     students_feedbacks = {student.user.username: [] for student in students}
@@ -256,7 +295,11 @@ def view_question_view(request, live_class_id, group_index, question_index):
         'receiver_username': live_class.currently_presenting,
         'question_text': question['text'],
         'scenario': group['scenario'],
-        'currently_presenting': live_class.currently_presenting 
+        'currently_presenting': live_class.currently_presenting,
+        'questionObject': Question.objects.get(question_text = question['text']),
+        'receiverObject': live_class.currently_presenting,
+        'ws_host': os.getenv("WS_HOST"),
+        'ws_route': 'interview/live-class/view_question/'
     }
 
     return render(request, 'view_question.html', context)
@@ -300,7 +343,7 @@ def create_zoom_meeting(request):
         zoom_url = f"https://zoom.us/j/{meeting.id}/"
 
         async_to_sync(channel_layer.group_send)(
-            "live_class_1", 
+            f"live_class", 
             {
                 "type": "signal", 
                 "message": "LCST",

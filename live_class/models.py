@@ -12,6 +12,10 @@ from django.db.models.signals import pre_save
 
 from django.db.models import JSONField
 from django.dispatch import receiver
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
+channel_layer = get_channel_layer()
 
 class LessonPlan(models.Model):
     title = models.CharField(max_length=255)
@@ -51,6 +55,13 @@ class LiveClass(models.Model):
         """ This method sets the actual end time of the class and sets the class as inactive """
         self.end_time = timezone.now()
         self.is_active = False
+        # Send message to the group
+        async_to_sync(channel_layer.group_send)(
+            "live_class",  # group name
+            {
+                "type": "class.ended",
+            }
+        )
         self.save()
     
     def get_grouped_questions(self):
@@ -137,6 +148,7 @@ class Feedback(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_feedbacks')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_feedbacks')
     Question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_feedbacks', blank=True, null=True)
+    LiveClass = models.ForeignKey(LiveClass, on_delete=models.CASCADE, related_name='live_class', blank=True, null=True)
     text = models.TextField()
     creation_time = models.DateTimeField(auto_now_add=True)
 

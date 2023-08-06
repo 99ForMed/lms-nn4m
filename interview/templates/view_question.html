@@ -28,18 +28,19 @@
     </div>
 
     <div class="new-feedback my-5">
-        <h4 class="mb-3">Add New Feedback</h4>
-        <form id="addFeedbackForm" method="POST" action="{% url 'add_feedback' live_class_info.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="author" value="{{ request.user.username }}">
-            <input type="hidden" name="receiver" value="{{ currently_presenting }}">
-            <input type="hidden" name="question_id" value="{{ question.id }}">
-            <div class="form-group">
-                <textarea class="form-control" name="content"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Feedback</button>
-        </form>
-    </div>
+      <h4 class="mb-3">Add New Feedback</h4>
+      <form id="addFeedbackForm" method="POST" action="{% url 'add_feedback' live_class_info.id questionObject.id receiverObject.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="author" value="{{ request.user.username }}">
+          <input type="hidden" name="receiver" value="{{ currently_presenting }}">
+          <input type="hidden" name="question_id" value="{{ question.id }}">
+          <div class="form-group">
+              <textarea class="form-control" name="content"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+      </form>
+  </div>
+  
 </div>
 <!-- This is the fullscreen div that will be toggled. -->
 <div id="fullscreenDiv" class="fullscreen-view"></div>

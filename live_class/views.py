@@ -19,9 +19,13 @@ import os
 
 @login_required
 def tutors_live_class_view(request, class_id, lesson_plan_id):
+
+    
+
     # Try to get all active live classes for the class_id
     active_live_classes = list(LiveClass.objects.filter(interview_class__id=class_id, is_active=True).order_by('start_time'))
-
+    new_class = True
+    
     if active_live_classes:
         # If multiple active live classes exist, deactivate all but the most recent one
         if len(active_live_classes) > 1:
@@ -31,6 +35,8 @@ def tutors_live_class_view(request, class_id, lesson_plan_id):
         
         # Check if the most recent live class is older than 1 hour and 40 minutes
         live_class = active_live_classes[-1]
+        new_class = False
+        
         if timezone.now() - live_class.start_time > timedelta(minutes=100):
             live_class.is_active = False
             live_class.save()
@@ -41,7 +47,9 @@ def tutors_live_class_view(request, class_id, lesson_plan_id):
                 'students': InterviewStudent.objects.filter(interview_class=live_class.interview_class),
                 'lesson_data': live_class.lesson_data, 
                 'current_question': live_class.current_question,  # current question being answered
-                'ws_host': os.getenv('WS_HOST', '')
+                'ws_host': os.getenv('WS_HOST', ''),
+                'new_class': new_class,
+                'scheduled_end_time': live_class.scheduled_end_time.isoformat(),
             }
             return render(request, 'tutors-live-class.html', context)
     
@@ -59,6 +67,8 @@ def tutors_live_class_view(request, class_id, lesson_plan_id):
         'students': InterviewStudent.objects.filter(interview_class=live_class.interview_class),
         'lesson_data': live_class.lesson_data, 
         'current_question': live_class.current_question,  # current question being answered
+        'scheduled_end_time': live_class.scheduled_end_time.isoformat(),
+        'new_class': new_class
     }
 
     return render(request, 'tutors-live-class.html', context)

@@ -55,14 +55,41 @@
 
 <link rel="stylesheet" href="{% static 'css/tutors-live-class.css' %}" type="text/css"/>
 <div class="container">
+    {% if new_class %}
+    <script>
+        window.open('/interview/live-class/create-meeting/')
+    </script>
+    {% endif %}
     <h2>Live Class - Tutor Panel</h2>
 
     {% if live_class %}
-        <h3>Current Live Class: {{ live_class.interview_class.name }}</h3>
+        
+        <h3>Current Live Class: {{ live_class.interview_class.name }} - {{live_class.id}}</h3>
         <p>Start Time: {{ live_class.start_time }}</p>
-        <p>Scheduled End Time: {{ live_class.scheduled_end_time }}</p>
-        <p>Time Left: {{ live_class.time_left }}</p>
+        <p>Scheduled End Time: {{ live_class.scheduled_end_time|date:"c" }}</p>
+        <p id="countdown">Time Left: </p>
         <a href="{% url 'end_class' live_class.id %}" class="btn">End Class</a>
+        <script>
+            var endTime = new Date("{{ live_class.scheduled_end_time|date:'c' }}");
+            var countdown = document.getElementById('countdown');
+
+            function updateCountdown() {
+                var now = new Date();
+                var diff = endTime - now;
+
+                if (diff < 0) {
+                    countdown.innerHTML = "Time Left: Class has ended";
+                } else {
+                    var seconds = Math.floor((diff / 1000) % 60);
+                    var minutes = Math.floor((diff / 1000 / 60) % 60);
+                    var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+                    countdown.innerHTML = "Time Left: " + hours + "h " + minutes + "m " + seconds + "s ";
+                }
+            }
+
+            setInterval(updateCountdown, 1000);
+    </script>
     {% else %}
         <a href="{% url 'start_class' %}" class="btn">Start New Class</a>
     {% endif %}
@@ -80,9 +107,10 @@
                             <input type="hidden" name="scenario_desc" value="{{ scenario }}">
                             <input type="hidden" name="question_text" value="{{ question_text }}">
                             <label>
-                                <input type="checkbox" name="is_locked" {% if lock_status == "locked" %} checked {% endif %} onchange="this.form.submit()"> Lock</input>
+                                <input type="checkbox" name="is_locked" {% if lock_status == "locked" %} checked {% endif %} onchange="this.form.submit(); sendUnlockSignal('{{ question_text }}')"> Lock</input>
                             </label>
                         </form>
+                        
                         <form class="current-form" action="/live_class/update-current-question/" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="live_class_id" value="{{ live_class.id }}">
@@ -117,6 +145,21 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
+            const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+            const chatSocket = new WebSocket(
+                        protocol
+                        + '{{ws_host}}'
+                        + '/ws/live-class/tutors/'
+            );
+
+                    
+            function sendUnlockSignal(question) {
+                chatSocket.send(JSON.stringify({
+                    'signal': 'unlock_question',
+                    'question': question
+                }));
+            }
+
             function getCookie(name) {
                 let cookieValue = null;
                 if (document.cookie && document.cookie !== '') {
@@ -161,6 +204,8 @@
                     });
                 });
             });
+
+            
         </script>
 
     {% endif %}

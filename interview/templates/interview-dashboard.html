@@ -310,25 +310,6 @@
             }
         }
 
-        const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-        const chatSocket = new WebSocket(
-            protocol
-            + '{{ws_host}}'
-            + '/ws/interview/dashboard/'
-        );
-
-        chatSocket.onmessage = function(e) {
-            console.log("Message Receieved")
-            const data = JSON.parse(e.data);
-            console.log(data)
-            if(data.type == "signal"){
-                console.log(data.meeting_join_url)
-                if(data.message == "LCST"){
-                    join_live_class_overLay(data.meeting_join_url)
-                }
-            }
-        }
-
     </script>
     
 

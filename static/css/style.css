@@ -1692,6 +1692,8 @@ body{
   align-items: center;
   justify-content: center;
   border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.4s
 }
 
 .live-class-section .cards-section .row .col-md-6 .carder{
@@ -1702,6 +1704,10 @@ body{
   align-items: center;
   justify-content: center;
   border-radius: 7px;
+}
+
+.live-class-section .cards-section .row .col-md-6 .carder:hover{
+  background-color: #424242;
 }
 
 .live-class-section .cards-section .row .col-md-6 .carder p{

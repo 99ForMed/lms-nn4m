@@ -198,13 +198,66 @@
                     </div>
                 </div>
             </div>
+            
             <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
                 {% block body %}
                 {% endblock %}
-                
+                <script>
+                    function join_live_class_overLay(url){
+                        document.getElementById("page-overlay").style.display = ''
+                        document.getElementById('join-live-class-button-overlay').onclick=function(){
+                            window.open(url, "_blank");
+                            window.location.href='live-class/';
+                        }
+                        document.getElementById('join-live-class-button-home').onclick=function(){
+                            window.open(url, "_blank");
+                            window.location.href='live-class/';
+                        }
+                    }
+
+                    function updateQuestionButton(questionId) {
+                        location.reload() 
+                    }
+
+                    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+                    const chatSocket = new WebSocket(
+                        protocol
+                        + '{{ws_host}}'
+                        + '/ws/{{ws_route}}'
+                    );
+
+
+                    chatSocket.onmessage = function(e) {
+                        console.log("Message Receieved")
+                        const data = JSON.parse(e.data);
+                        console.log(data)
+                        if(data.type == "signal"){
+                            console.log(data.meeting_join_url)
+                            if(data.message == "LCST"){
+                                join_live_class_overLay(data.meeting_join_url)
+                            }
+                        }
+
+                        document.querySelector('.message-log').innerText += (data.message + '\n');
+                        
+                        if (data.message === 'The live class has ended.') {
+                            window.location.href = '/dashboard/';
+                        }
+
+                        if (data.type == 'question_unlocked') {
+                            updateQuestionButton(data.question);
+                        }
+                    }
+
+                    
+                    
+                </script>
             </div>
             
         </div>
+    </div>
+    <div class="message-log">
+
     </div>
     
         {% block page-overlay %}

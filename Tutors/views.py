@@ -61,6 +61,7 @@ class UpdatePresenterView(View):
 # Create your views here.
 
 def dashboard_tutor_view(request):
+    
     now = datetime.datetime.now()
     current_time = now.time()
 
@@ -87,7 +88,8 @@ def dashboard_tutor_view(request):
         'classes': Tutor.objects.get(user=request.user).classes.all(),
         'interview_questions': interview_questions,
         'interview_classes': InterviewClass.objects.filter(tutor = Tutor.objects.get(user=request.user)),
-        'ws_host': os.getenv('WS_HOST', '')
+        'ws_host': os.getenv('WS_HOST', ''),
+        'route': 'interview/dashboard/'
     }
 
     # Rest of your view...

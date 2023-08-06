@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="col-md-6 four">
-                <div class="carder" onclick="window.location.href='select-question?type=feedback'">
+                <div class="carder" onclick="window.location.href='{% url 'view_feedback' live_class.id %}'">
                     <i class="fas fa-clipboard"></i><p>View Feedback</p>
                 </div>
             </div>
@@ -40,15 +40,20 @@
 </div>
 
 <script>
-    const chatSocket = new WebSocket(
-        'ws://'
-        + '192.168.8.112:8001'
-        + '/ws/interview/live-class/'
-    );
-
+    
+    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+        const chatSocket = new WebSocket(
+            protocol
+            + '{{ws_host}}'
+            + '/ws/interview/live-class/'
+        );
+    
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
         document.querySelector('.message-log').innerText += (data.message + '\n');
+        if (data.message === 'The live class has ended.') {
+            window.location.href = '/dashboard/';
+        }
     };
 
     chatSocket.onclose = function(e) {

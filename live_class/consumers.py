@@ -5,7 +5,7 @@ class LiveClassConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # This method is called when the websocket is handshaking as part of the connection process.
         await self.channel_layer.group_add(
-            "live_class_1",
+            "live_class",
             self.channel_name
         )
         await self.accept()
@@ -31,10 +31,33 @@ class LiveClassConsumer(AsyncWebsocketConsumer):
                     'presentingPerson': text_data_json['presentingPerson'],
                     'feedback': text_data_json['feedback']
                 }
+            
+            if text_data_json.get('signal') == 'unlock_question':
+                await self.channel_layer.group_send(
+                    "live_class",
+                    {
+                        'type': 'question.unlocked',
+                        'question': text_data_json['question']
+                    }
+                )
+                response = 'Question Unlocked Signal Sent'
+
         
         # Send a message to the WebSocket
         await self.send(text_data=json.dumps({
             'signal': response
+        }))
+
+    async def question_unlocked(self, event):
+        await self.send(text_data=json.dumps({
+            'type': 'question_unlocked',
+            'question': event['question']
+        }))
+    
+    async def class_ended(self, event):
+        # Send a message to the WebSocket
+        await self.send(text_data=json.dumps({
+            'message': 'The live class has ended.'
         }))
     
     async def signal(self, event):
