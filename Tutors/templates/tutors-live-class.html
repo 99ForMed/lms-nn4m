@@ -186,6 +186,22 @@
             });
 
             $(document).ready(function(){
+                var live_class_id = $('#presenter-form input[name="live_class_id"]').val();
+                var presenter_username = $('#presentingPerson').val();
+
+                $.ajax({
+                    url: "/live_class/update-presenter/",
+                    type: "POST",
+                    data: {
+                        'live_class_id': live_class_id,
+                        'presenter_username': presenter_username,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data.message);
+                    }
+                });
+                
                 $('#presentingPerson').on('change', function(){
                     var live_class_id = $('#presenter-form input[name="live_class_id"]').val();
                     var presenter_username = $(this).val();
