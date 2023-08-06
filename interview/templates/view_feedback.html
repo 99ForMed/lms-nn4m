@@ -16,7 +16,7 @@
             {% for feedback in feedbacks %}
                 <div class="card feedback-box mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">{{ feedback.sender }}'s Feedback</h5>
+                        <h5 class="card-title">{{ feedback.sender__username }}'s Feedback</h5>
                         <p class="card-text">{{ feedback.text }}</p>
                     </div>
                 </div>

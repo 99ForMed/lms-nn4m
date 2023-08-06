@@ -59,7 +59,7 @@ def view_feedback_view(request, live_class_id):
 
     # Retrieve all the feedback this user has received, and sort it by question.
     user_feedback = Feedback.objects.filter(receiver=user, LiveClass=LiveClass.objects.get(id=live_class_id)).order_by('Question__question_text').values('sender__username', 'Question__question_text', 'text')
-
+    print(user_feedback)
     # Group feedback by question. The result will be a dict where each key is a question and the value is a list of feedback.
     grouped_feedback = {}
     for feedback in user_feedback:
@@ -301,6 +301,7 @@ def view_question_view(request, live_class_id, group_index, question_index):
         'ws_host': os.getenv("WS_HOST"),
         'ws_route': 'interview/live-class/view_question/'
     }
+
 
     return render(request, 'view_question.html', context)
 
