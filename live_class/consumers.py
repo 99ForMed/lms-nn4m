@@ -69,6 +69,13 @@ class LiveClassConsumer(AsyncWebsocketConsumer):
             'message': event['message'],
             'meeting_join_url': event['meeting_join_url']
         }))
+    
+    async def new_feedback(self, event):
+        message = event['message']
+        print(message)
+        await self.send(text_data=json.dumps({
+            'message': message
+        }))
 
 class DashboardConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -88,3 +95,25 @@ class DashboardConsumer(AsyncWebsocketConsumer):
     # Handles messages from WebSocket
     async def receive(self, text_data):
         pass  # No messages are expected from WebSocket in this example
+
+class FeedbackConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        # Add user to feedback group
+        await self.channel_layer.group_add(
+            'feedback',
+            self.channel_name
+        )
+        await self.accept()
+
+    async def disconnect(self, close_code):
+        # Remove user from feedback group
+        await self.channel_layer.group_discard(
+            'feedback',
+            self.channel_name
+        )
+
+    async def receive(self, text_data):
+        # The method when data is received from WebSocket
+        pass
+    
+    

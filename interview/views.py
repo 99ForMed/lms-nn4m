@@ -45,6 +45,13 @@ def add_feedback_view(request, live_class_id, question_id, receiver_id):
             text=content,
         )
         feedback.save()
+        async_to_sync(channel_layer.group_send)(
+            'live_class',
+            {
+                'type': 'new_feedback',
+                'message': 'New feedback added!'
+            }
+        )
 
         # Use HTTP_REFERER to get the previous URL, or default to your home page.
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -75,7 +82,8 @@ def view_feedback_view(request, live_class_id):
         'ws_route': 'interview/live-class/view_feedback/'
     }
 
-    # Render the page.
+
+
     return render(request, 'view_feedback.html', context)
 
 
@@ -167,7 +175,7 @@ def interview_dashboard_view(request):
 @check_live_class_active
 def live_class_view(request, live_class_id):
     live_class = LiveClass.objects.get(id=live_class_id)
-
+    
     # Extract the questions and their locked status from the lesson_data field
     questions = []
     for scenario in live_class.lesson_data.values():
@@ -234,9 +242,10 @@ def select_question_view(request, live_class_id):
     questions = []
     question_number = 1
     for group_index, (scenario, scenario_questions) in enumerate(live_class.lesson_data.items()):
+        
         for question_index, question in enumerate(scenario_questions):
             question_info = {
-                
+                'scenario': scenario,
                 'group_index': group_index,
                 'question_index': question_index,
                 'text': 'Question {}'.format(question_number),
@@ -254,6 +263,50 @@ def select_question_view(request, live_class_id):
     }
     
     return render(request, 'select_question.html', context)
+
+def select_question_view(request, live_class_id):
+
+    live_class = LiveClass.objects.get(id=live_class_id)
+
+    # Flatten scenario and non-scenario questions
+    questions = []
+    question_number = 1
+    for group_index, (scenario, scenario_questions) in enumerate(live_class.lesson_data.items()):
+        
+        for question_index, question in enumerate(scenario_questions):
+            question_info = {
+                'scenario': scenario,
+                'group_index': group_index,
+                'question_index': question_index,
+                'text': 'Question {}'.format(question_number),
+                'locked': list(question.values())[0] == 'locked',
+                
+            }
+            questions.append(question_info)
+            question_number += 1
+
+    context = {
+        'live_class_info': live_class,
+        'questions': questions,
+        'ws_host': os.getenv("WS_HOST"),
+        'ws_route': 'interview/live-class/select_question/'
+    }
+    
+    return render(request, 'select_question.html', context)
+
+def lesson_plan_view(request, live_class_id):
+    
+    live_class = LiveClass.objects.get(id=live_class_id)
+    lesson_data = live_class.lesson_plan.lesson_data  # Get the lesson data which is in HTML format
+    print(lesson_data)
+    context = {
+        'live_class_info': live_class,
+        'lesson_data': lesson_data,
+        'ws_host': os.getenv("WS_HOST"),
+        'ws_route': 'interview/live-class/lesson_plan/'  # change this if the route changes
+    }
+    
+    return render(request, 'lesson_plan.html', context)
 
 
 
@@ -343,15 +396,15 @@ def create_zoom_meeting(request):
         # Convert the meeting to a dictionary
         zoom_url = f"https://zoom.us/j/{meeting.id}/"
 
-        async_to_sync(channel_layer.group_send)(
-            f"live_class", 
-            {
-                "type": "signal", 
-                "message": "LCST",
-                "meeting_join_url": zoom_url,
+        # async_to_sync(channel_layer.group_send)(
+        #     f"live_class", 
+        #     {
+        #         "type": "signal", 
+        #         "message": "LCST",
+        #         "meeting_join_url": zoom_url,
                  
-            }
-        )
+        #     }
+        # )
 
         return HttpResponseRedirect(zoom_url)
     except ValueError as e:
@@ -367,3 +420,20 @@ def create_zoom_meeting(request):
 
     
     # return HttpResponseRedirect(request.META.get('HTTP_REFERER'))    
+
+def start_group_session_view(request):
+
+    return render('nothing.html')
+
+
+def module_plan_view(request):
+    lesson_plans = LessonPlan.objects.all()
+    
+    context = {
+        'lesson_plans': lesson_plans,
+    }
+    return render(request, 'module_plan.html', context)
+
+
+
+    

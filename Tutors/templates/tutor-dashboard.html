@@ -142,6 +142,7 @@
     );
 
     chatSocket.onmessage = function(e) {
+        location.reload()
         const data = JSON.parse(e.data);
         if(data.signal == "LCST"){
             overLay()

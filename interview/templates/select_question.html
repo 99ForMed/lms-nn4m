@@ -3,7 +3,17 @@
 {% block head %}
   <title>Question</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-{% endblock %}
+  <style>
+    .scenario-text {
+        color: #1e1e1e;
+        padding: 5px 10px;
+        border-radius: 5px;
+        max-width: 200px;
+    }
+    </style>
+    
+
+  {% endblock %}
 {% block body %}
 <div class="select-questions container my-5">
     <div class="row">
@@ -12,14 +22,17 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Select a Question</h5>
                     <hr/>
-                    {% for group in live_class_info.get_grouped_questions %}
-                        {% for question in group.questions %}
-                        <div class="butn-row d-flex justify-content-around">
-                            <button id="question-button-{{question.id}}" class="butn btn btn-outline-primary" onclick="window.location.href='{% url 'view_question' live_class_info.id forloop.parentloop.counter0 forloop.counter0 %}'" {% if question.locked %} disabled {% endif %}>{{ question.label }}</button>
+                        {% for question in questions %}
+                        <div class="butn-row d-flex justify-content-around align-items-center">
+                            <button id="question-button-{{ question.group_index }}-{{ question.question_index }}" class="butn btn btn-outline-primary" onclick="window.location.href='{% url 'view_question' live_class_info.id question.group_index question.question_index %}'" {% if question.locked %} disabled {% endif %}>{{ question.text }}</button>
+                            <i class="fas fa-info-circle ml-2" onclick="showScenario('{{ question.group_index }}-{{ question.question_index }}', '{{ question.scenario }}')"></i>
+                            <div id="scenario-{{ question.group_index }}-{{ question.question_index }}" class="scenario-text ml-3 d-none">
+                                {{ question.scenario }}
+                            </div>
                         </div>
                         {% endfor %}
+                    
                         <hr/>
-                    {% endfor %}
 
                 </div>
             </div>
@@ -27,6 +40,30 @@
     </div>
 </div>
 <script>
+    let scenarioTimeouts = {};
     
-</script>
+    function showScenario(id, scenario) {
+        const scenarioDiv = document.getElementById(`scenario-${id}`);
+        
+        if (scenarioDiv.classList.contains("d-none")) {
+            // If the scenario is hidden, show it
+            scenarioDiv.innerHTML = scenario;
+            scenarioDiv.classList.remove("d-none");
+    
+            // Set a timeout to hide the scenario after 40 seconds
+            scenarioTimeouts[id] = setTimeout(() => {
+                scenarioDiv.classList.add("d-none");
+            }, 40000);
+        } else {
+            // If the scenario is already shown, hide it
+            scenarioDiv.classList.add("d-none");
+    
+            // Clear the timeout if there is one set for this scenario
+            if (scenarioTimeouts[id]) {
+                clearTimeout(scenarioTimeouts[id]);
+            }
+        }
+    }
+    </script>
+    
 {% endblock %}

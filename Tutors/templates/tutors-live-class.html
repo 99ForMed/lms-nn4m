@@ -51,16 +51,69 @@
         border-radius: 5px;
         border: 1px solid #ccc;
     }
+    .table-content {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .table-content th, .table-content td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .table-content th {
+        background-color: darkorange;
+        color: white;
+    }
+
+    .table-content ul {
+        list-style-type: none;
+        padding: 0;
+    }
 </style>
 
 <link rel="stylesheet" href="{% static 'css/tutors-live-class.css' %}" type="text/css"/>
 <div class="container">
     {% if new_class %}
     <script>
-        window.open('/interview/live-class/create-meeting/')
+        // window.open('/interview/live-class/create-meeting/')
     </script>
     {% endif %}
     <h2>Live Class - Tutor Panel</h2>
+    {% if live_class.lesson_plan.lesson_data %}
+    <h2>Lesson Plan</h2>
+    <!-- <table class="table-content">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Tasks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for module, tasks in live_class.lesson_plan.lesson_data.items %}
+            <tr>
+                <td>{{ module }}</td>
+                <td>
+                    <ul>
+                        {% for task, subtasks in tasks.items %}
+                        <li>{{ task }}
+                            {% if subtasks %}
+                            <ul>
+                                {% for subtask in subtasks %}
+                                <li>{{ subtask }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> -->
+    {% endif %}
 
     {% if live_class %}
         
@@ -107,7 +160,7 @@
                             <input type="hidden" name="scenario_desc" value="{{ scenario }}">
                             <input type="hidden" name="question_text" value="{{ question_text }}">
                             <label>
-                                <input type="checkbox" name="is_locked" {% if lock_status == "locked" %} checked {% endif %} onchange="this.form.submit(); sendUnlockSignal('{{ question_text }}')"> Lock</input>
+                                <input type="checkbox" name="is_locked" {% if lock_status == "locked" %} checked {% endif %} onchange="logAndSubmit(this.form); sendUnlockSignal('{{ question_text }}')"> Lock</input>
                             </label>
                         </form>
                         
@@ -117,7 +170,7 @@
                             <input type="hidden" name="scenario_desc" value="{{ scenario }}">
                             <input type="hidden" name="question_text" value="{{ question_text }}">
                             <label>
-                                <input type="checkbox" name="is_current" {% if current_question == question_text %} checked {% endif %} onchange="this.form.submit()"> Current</input>
+                                <input type="checkbox" name="is_current" {% if current_question == question_text %} checked {% endif %} onchange="logAndSubmit(this.form)"> Current</input>
                             </label>
                         </form>
                     </div>
@@ -142,6 +195,15 @@
                 <input type="hidden" name="live_class_id" value="{{ live_class.id }}">
             </form>
         </div>
+        <script>
+            function logAndSubmit(form) {
+                var formData = new FormData(form);
+                for (var [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
+                form.submit();
+            }
+            </script>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>

@@ -17,13 +17,24 @@ from channels.layers import get_channel_layer
 
 channel_layer = get_channel_layer()
 
+
+
 class LessonPlan(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     tutors = models.ManyToManyField(Tutor, related_name="tutors")
+    lesson_data = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return str(self.title)
+
+class InterviewVideo(models.Model):
+    lesson_plan = models.ForeignKey(LessonPlan, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    embed_link = models.CharField(max_length=400)
+
+    def __str__(self):
+        return self.title
 
 class LiveClass(models.Model):
     initiator = models.ForeignKey(User, on_delete=models.CASCADE)

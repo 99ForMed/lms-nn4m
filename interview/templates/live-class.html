@@ -11,7 +11,7 @@
         <div class="row one">
             <div class="col-md-6 one">
                 <div class="carder">
-                    Lessons 3/8
+                    {{live_class.lesson_plan}}
                 </div>
             </div>
             <div class="col-md-6 two">
@@ -22,8 +22,8 @@
         </div>
         <div class="row two">
             <div class="col-md-6 three">
-                <div class="carder" onclick="window.location.href='select-question?type=lesson'">
-                    <i class="fas fa-clipboard"></i><p>Lessons 3/8</p> 
+                <div class="carder" onclick="window.location.href='{% url 'lesson-plan-info' live_class.id %}'">
+                    <i class="fas fa-clipboard"></i><p>{{live_class.lesson_plan}}</p> 
                 </div>
             </div>
             <div class="col-md-6 four">
@@ -49,6 +49,7 @@
         );
     
     chatSocket.onmessage = function(e) {
+        location.reload()
         const data = JSON.parse(e.data);
         document.querySelector('.message-log').innerText += (data.message + '\n');
         if (data.message === 'The live class has ended.') {

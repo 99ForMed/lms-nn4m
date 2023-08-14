@@ -8,7 +8,7 @@
 <div class="container my-5">
     <h3 class="text-center mb-4">Feedback</h3>
     <h5 class="text-center mb-4 text-success">Currently presenting: {{ currently_presenting }}</h5>
-    <p class="text-muted">As part of the continuous improvement of our services, your feedback is highly appreciated. Your opinions and suggestions are an integral part of our growth and development as an institution.</p>
+    <p class="text-muted">Leave feedback for your peers.</p>
 
     <div class="question-section my-5">
         {% if not question.locked %}
@@ -66,4 +66,9 @@
   {{ students_feedbacks|safe }}
 </script>
 
+{% endblock %}
+{% block individualSocketIfStatements %}
+    if (data.message === 'New feedback added!') {
+            location.reload();  // Reload the page
+        }
 {% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'interview-student-base.html' %}
+{% load static %}
+{% block head %}
+  <title>Module Plan</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% block body %}
+<div class="module-plan container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Module Plan</h5>
+                    <hr/>
+                    {% for lesson_plan in lesson_plans %}
+                        <div class="lesson-content mb-3">
+                            <h1>{{ lesson_plan.title }}</h1>
+                            <!-- <>{{ lesson_plan.description }}</p> -->
+                            {{ lesson_plan.lesson_data|safe }}
+                            
+                            {% for video in lesson_plan.interviewvideo_set.all %}
+                                <div class="video-content">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.embed_link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

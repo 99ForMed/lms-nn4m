@@ -17,9 +17,13 @@ from django.utils import timezone
 
 import os
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+channel_layer = get_channel_layer()
+
 @login_required
 def tutors_live_class_view(request, class_id, lesson_plan_id):
-
     
 
     # Try to get all active live classes for the class_id
@@ -55,12 +59,25 @@ def tutors_live_class_view(request, class_id, lesson_plan_id):
     
     # If no suitable live class was found, create a new one
     lesson_plan = LessonPlan.objects.get(id=lesson_plan_id)
+
+    
     live_class = LiveClass.objects.create(
         initiator=request.user, 
         interview_class=InterviewClass.objects.get(id=class_id),
         lesson_plan=lesson_plan,
-        is_active=True
+        is_active=True,
+        url = request.GET.get('zoom_link', '')
     )
+
+    async_to_sync(channel_layer.group_send)(
+            f"live_class", 
+            {
+                "type": "signal", 
+                "message": "LCST",
+                "meeting_join_url": request.GET.get('zoom_link', ''),
+                 
+            }
+        )
 
     context = {
         'live_class': live_class,
@@ -86,17 +103,26 @@ class UpdateLockStatusView(View):
         live_class_id = request.POST.get('live_class_id')
         scenario_desc = request.POST.get('scenario_desc')
         question_text = request.POST.get('question_text')
-        is_locked = request.POST.get('is_locked') == 'true'
+        is_locked = request.POST.get('is_locked') == 'on'
+
+        print(is_locked)
         
         live_class = get_object_or_404(LiveClass, id=live_class_id)
         
         try:
-            if scenario_desc not in live_class.lesson_data:
+            if scenario_desc not in live_class.lesson_data and scenario_desc != None:
                 raise ValidationError('Scenario not found.')
             for question in live_class.lesson_data[scenario_desc]:
                 if question_text in question:
                     question[question_text] = 'locked' if is_locked else 'unlocked'
                     live_class.save()
+                    async_to_sync(channel_layer.group_send)(
+                        'live_class',
+                        {
+                            'type': 'question_unlocked',
+                            'question': question_text
+                        }
+                    )
                     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
             raise ValidationError('Question not found.')
         except ValidationError as e:
