@@ -208,3 +208,6 @@ CSRF_TRUSTED_ORIGINS = ['https://lms.99formed.com']
 #     AWS_S3_FILE_OVERWRITE = False
 #     AWS_DEFAULT_ACL = None
 #     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
