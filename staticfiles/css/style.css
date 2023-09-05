@@ -8,72 +8,96 @@ body{
   cursor:default;
 }
 
-.dashboard{
+.ucat-dashboard {
   background-color: #111111;
   min-height: 100vh;
-  position: relative;
+  padding: 1em;
 }
 
-#dashboard-learn-h2{
-  color: white;
+#dashboard-learn-h2 {
+  color: #343a40;
+  text-align: center;
+  margin-bottom: 2em;
 }
 
-.ucat-dashboard .redirect-box{
-  display: flex;
-  align-items: center;
-  background-color: #333;
+.ucat-dashboard .redirect-box {
+  background-color: #1e1e1e;
   min-height: 150px;
+  border: 1px solid #ccc;
   border-radius: 7px;
-  padding: 7px 5px;
+  padding: 7px 15px;
   cursor: pointer;
   margin: 15px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s;
+  text-align: center;
 }
 
+.ucat-dashboard .redirect-box:hover {
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
 
-
-.dashboard .content{
-  color: rgb(191, 191, 191);
-  padding-top: 10vh;
+.ucat-dashboard .content {
+  color: #ccc;
+  padding-top: 5vh;
   padding-left: 0;
   padding-right: 0;
-  position: relative;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-  
+  margin: 0 auto;
 }
 
-.dashboard .content .main-container{
-  padding: 0 0;
-  margin: 0 0;
-  background-color: #1E1E1E;
-  cursor: pointer;
-  transition: transform 0.4s, background-color 0.4s;
+.ucat-dashboard .sidebar {
+  background-color: #343a40;
+  color: white;
+  padding: 1em;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.dashboard .content .main-container:hover{
-  background-color: #343434;
-  transform: translateX(10px);
-}
-
-.dashboard .content .main-container .main{
-  
-  padding: 20px 0;
-  width: 80%;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  
-}
-
-.dashboard .content .section-title{
-  
-  width: fit-content;
-}
-
-.section-title h1{
-  font-size: 50px;
+.submit {
+  background-color: #007bff;
+  color: white;
   text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit:hover {
+  background-color: #0056b3;
+}
+
+.days-counter {
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+}
+
+.days {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  background-color: #232323;
+  padding: 1em;
+  border-top: 1px solid #ccc;
+}
+
+.logout-btn {
+  color: #007bff;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.logout-btn:hover {
+  text-decoration: underline;
 }
 
 /* .dashboard .content .main .skills-mastered{
