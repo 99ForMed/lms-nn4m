@@ -32,20 +32,29 @@ def home_view(request):
         return redirect('/authentication/login/')
 
 def dashboard_view(request):
-    if Tutor.objects.filter(user = request.user).exists():
-        return redirect('/tutors/dashboard/')
+    if request.user.is_authenticated:
+        if Tutor.objects.filter(user=request.user).exists():
+            return redirect('/tutors/dashboard/')
+        
+        if InterviewStudent.objects.filter(user=request.user).exists():
+            return redirect('/interview/')
+        
+        return dashboard_view_student(request)
+    else:
+        # Redirect to login page or handle anonymous user here
+        return redirect('/authentication/login/')
 
-    if InterviewStudent.objects.filter(user = request.user).exists():
-        return redirect('/interview/')
-
-    return dashboard_view_student(request)
 
 def dashboard_view_student(request):
     return None
 
 def dashboard_view_student(request):
     current_section = None
-    user_sections = UcatSectionInstance.objects.filter(student = UcatStudent.objects.get(user = request.user))
+    try:
+        student = UcatStudent.objects.get(user=request.user)
+        user_sections = UcatSectionInstance.objects.filter(student=student)
+    except UcatStudent.DoesNotExist:
+        user_sections = UcatSectionInstance.objects.none()  # or set to some default value
     start_dates_ordered = []
     for section in user_sections:
         start_dates_ordered.append(section.start_date)
@@ -284,3 +293,9 @@ def zoom_start_view(request):
 
     # Redirect the user back to the dashboard or another page
     return redirect('/')
+
+def coming_soon_view(request):
+    context = {
+
+    }
+    return render(request, 'coming_soon.html', context)

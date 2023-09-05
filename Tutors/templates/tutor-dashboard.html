@@ -43,7 +43,7 @@
                 {% for i in '012'|make_list %}
                     {% if forloop.counter <= amount_of_empty_classes %}
                         <div class="col-md-4 mb-4 class-slot">
-                            <div class="card add-class-card class-slot" onclick='window.location.href="/tutors/dashboard/add_class/"'>
+                            <div class="card add-class-card class-slot" onclick='alert("Please contact Rakin and Rafi.")'>
                                 <div class="card-body">
                                     <h5 class="card-title text-center">+</h5>
                                 </div>
@@ -82,7 +82,7 @@
                 {% for i in '012'|make_list %}
                     {% if forloop.counter <= amount_of_empty_interview_classes %}
                         <div class="col-md-4 mb-4 class-slot">
-                            <div class="card add-class-card class-slot" onclick='window.location.href="/tutors/dashboard/add_class/"'>
+                            <div class="card add-class-card class-slot" onclick="alert('Please contact Rakin and Rafi.')">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">+</h5>
                                 </div>
@@ -101,13 +101,13 @@
                 <div class='heading'>
                     <h3>Mentor Resources</h3>
                 </div>
-                <div class='strategy-document-link'  onclick = 'window.location.href="/tutors/dashboard/tutor-strategies/"'>
+                <div class='strategy-document-link'  onclick = 'window.location.href="{% url 'coming_soon' %}"'>
                     <div class='redirect-box'>
                         <h4>Strategy Document</h4>
                         <p>Access the latest strategy document here</p>
                     </div>
                 </div>
-                <div class='tutor-resources-link' onclick = 'window.location.href="/tutors/dashboard/tutor-resources/"'>
+                <div class='tutor-resources-link'  onclick = 'window.location.href="{% url 'coming_soon' %}"'>
                     <div class='redirect-box'>
                         <h4>Tutor Resources</h4>
                         <p>Find helpful resources for tutors here</p>
@@ -116,7 +116,7 @@
                 
                 <br/>
                 
-                <p class='submit' onclick='window.location.href="raise-issue/"'>Escalate</p>
+                <p class='submit' onclick='window.location.href="{% url 'coming_soon' %}"'>Escalate</p>
             </div>
             
         </div>

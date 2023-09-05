@@ -9,7 +9,7 @@
         <div class='content col-lg-10 col-md-10 col-sm-12 col-xs-12'>
             <h2 id='dashboard-learn-h2'>Learn:</h2>
             <div class='main-container' onclick='window.location.href="/course-page/{{current_section.id}}/"'>
-                <div class='main'>
+                <!-- <div class='main'>
                     <div class='section-title'>
                         <h1>{{current_section.section.name}}</h2>
                     </div>
@@ -18,7 +18,7 @@
                         <p class='bigger'>{{skills_mastered}}</p>
                         <p class='smaller'>out of 12</p>
                     </div>
-                </div>
+                </div> -->
                 
             </div>
             <div class='start-dates'>
@@ -83,7 +83,7 @@
                 </div> {% endcomment %}
                 <br/>
                 
-                <p class='submit' id="subBtn" onclick="window.location.href='submit-progress/'">Submit Progress</p>
+                <!-- <p class='submit' id="subBtn" onclick="window.location.href='submit-progress/'">Submit Progress</p> -->
                 <script>
                     // Get all checkboxes and the submit button
                     const checkboxes = document.querySelectorAll('.tutor-checklist input[type="checkbox"]');
@@ -108,14 +108,14 @@
                       checkbox.addEventListener('change', onCheckboxChange);
                     });
                   </script>
-                <div class='days-counter'>
+                <!-- <div class='days-counter'>
                     <span class='days'>
                         {{days_to_master}}
                     </span>
                     <h5> days to master <i>Decision Making</i></h5>
-                </div>
-                <div class='logout' style='position: absolute; bottom: 0px'>
-                <p>Logged in as {{request.user}}<span onclick='window.location.href="/logout/"' class='logout-btn'>Log out</span></p>
+                </div> -->
+                <div class='logout' style=''>
+                <p>Logged in as {{request.user}}<br/><br/><span onclick='window.location.href="/logout/"' class='logout-btn'>Log out</span></p>
                 </div>
             </div>
             
