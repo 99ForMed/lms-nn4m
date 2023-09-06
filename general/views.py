@@ -46,11 +46,8 @@ def dashboard_view(request):
         # Redirect to login page or handle anonymous user here
         return redirect('/authentication/login/')
 
-
 def dashboard_view_student(request):
-    return None
-
-def dashboard_view_student(request):
+    print('hi')
     current_section = None
     try:
         student = UcatStudent.objects.get(user=request.user)
@@ -104,7 +101,7 @@ def dashboard_view_student(request):
 
     if len(context['tasks']) == 0:
         context['no_tasks'] = True 
-
+    
     return render(request, 'dashboard.html', context)
 
 def course_page_view(request, sectionInstanceId):
@@ -116,6 +113,11 @@ def course_page_view(request, sectionInstanceId):
         videos_dict[str(video.syllabus_point)] = []
     for video in videos:
         videos_dict[str(video.syllabus_point)].append(video)
+    for syllabus_point, videos in videos_dict.items():
+        videos_dict[syllabus_point] = {
+            'videos': videos,
+            'remaining_placeholders': 6 - len(videos)
+        }
     context = {
         'videos_dict': videos_dict,
         'section_name': section.name,

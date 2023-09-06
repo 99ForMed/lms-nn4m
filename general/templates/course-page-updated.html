@@ -1,6 +1,8 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
 
 <body>
-{% extends 'base.html' %}
+
 {% load static %}
 {% block head %}
 <meta charset="utf-8">
@@ -10,6 +12,52 @@
   <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="{% static 'netflix-type-slider/package/css/swiper.min.css' %}">
   <link rel="stylesheet" href="{% static 'netflix-type-slider/css/styles.css' %}">
+  <style>
+
+    .swiper-button-prev{
+      background-color: #1e1e1e !important;
+      top: 0!important;
+      height: -webkit-fill-available!important;
+      left: 0 !important;
+    }
+
+    .swiper-button-next{
+      background-color: #1e1e1e !important;
+      top: 0!important;
+      height: -webkit-fill-available!important;
+      right: 0 !important;
+    }
+
+    .swiper-container{
+      padding: 0 0;
+    }
+
+    .placeholder-thumbnail {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+    }
+
+    .placeholder-img{
+      height: 50px;
+    }
+
+    .netflix-slider{
+      padding: 0;
+    }
+
+    .netflix-slider h2{
+      font-size: 20px;
+      margin: 0 0;
+    }
+
+    .swiper-slide{
+      border-radius: 7px;
+      margin-right: 3px !important;
+    }
+  </style>
 {% endblock %}
 {% block body %}
 
@@ -22,18 +70,29 @@
           </div>
       </div>
   </div>
+  <br/>
+  <br/>
   <!-- Swiper -->
-  {% for syllabus_point, videos in videos_dict.items %}
+  {% for syllabus_point, video_data in videos_dict.items %}
   <div class="netflix-slider">
     <h2>{{syllabus_point}}</h2>
     <div class="swiper-container">
-      
       <div class="swiper-wrapper">
-        {% for vid in videos %}
+        {% for vid in video_data.videos %}
         <div class="swiper-slide" onclick='window.location.href="video/{{vid.id}}/"'>
             <img src="https://img.youtube.com/vi/{{vid.url}}/maxresdefault.jpg" alt="{{ vid.name }}">
-            <div class="video-title">{{ vid.name }}</div> <!-- Add this line -->
+            <div class="video-title">{{ vid.name }}</div>
         </div>
+        {% endfor %}
+        
+        {% for i in video_data.remaining_placeholders|generate_range %}
+          <div class="swiper-slide">
+            <div class="placeholder-thumbnail">
+
+            
+              <img class="placeholder-img" src="{% static 'img/placeholder.png' %}" alt="Placeholder">
+            </div>  
+          </div>
         {% endfor %}
       </div>
       <!-- Add Pagination -->
@@ -42,8 +101,9 @@
       <div class="swiper-button-prev"></div>
     </div>
   </div>
-  <br/>
 {% endfor %}
+
+
 
   <!-- Swiper JS -->
   <script src="{% static 'netflix-type-slider/package/js/swiper.min.js' %}"></script>
