@@ -30,7 +30,10 @@ body{
   margin: 15px 0;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s;
+  display: flex;
   text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .ucat-dashboard .redirect-box:hover {
