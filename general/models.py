@@ -7,15 +7,14 @@ from Tutors.models import Tutor
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
+
+from django.db.models import JSONField
 # Create your models here.
 
 class UcatStudent(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE)
     enrolment_date = models.DateTimeField()
-    tasks = ArrayField(
-            models.CharField(max_length=100, blank=True),
-            default=list,  # Add this line
-        )
+    tasks_json = JSONField(default = dict)
     ucatClass = models.ManyToManyField('UcatClass', through='Enrollment')
     def __str__(self):
         return str(self.user)

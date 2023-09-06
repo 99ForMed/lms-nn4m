@@ -21,6 +21,8 @@ import os
 from django.http import HttpResponse
 from Tutors.models import Tutor
 
+import json
+
 
 # Create your views here.
 
@@ -61,9 +63,7 @@ def dashboard_view_student(request):
         if section.current:
             current_section = section
     for section in UcatSection.objects.all():
-        print()
         if len(UcatSectionInstance.objects.filter(section = section, student=UcatStudent.objects.get(user=request.user))) == 0:
-            print('here')
             student_instance = UcatStudent.objects.get(user=request.user)
             section_instance = section
 
@@ -78,10 +78,12 @@ def dashboard_view_student(request):
 
             # Save the UcatSectionInstance object to the database
             ucat_section_instance.save()
+
     context = {
         'current_section': current_section,
+        'ucat_student': UcatStudent.objects.get(user = request.user),
         'start_dates_ordered':start_dates_ordered,
-        'tasks': UcatStudent.objects.get(user = request.user).tasks,
+        'tasks': UcatStudent.objects.get(user = request.user).tasks_json,
         'date1': (UcatStudent.objects.get(user=request.user).enrolment_date).date(),
         'date2': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=30)).date(),
         'date3': (UcatStudent.objects.get(user=request.user).enrolment_date+ timedelta(days=60)).date(),
@@ -299,3 +301,19 @@ def coming_soon_view(request):
 
     }
     return render(request, 'coming_soon.html', context)
+
+def alter_ucat_task_view(request, done, ucat_task_content_exact, ucat_student_id):
+    if done.upper() == "FALSE":
+
+        bufferObj = UcatStudent.objects.get(id = ucat_student_id)
+        bufferObj.tasks_json[ucat_task_content_exact] = False
+        bufferObj.save()
+    elif done.upper() == "TRUE":
+        bufferObj = UcatStudent.objects.get(id = ucat_student_id)
+        bufferObj.tasks_json[ucat_task_content_exact] = True
+        bufferObj.save()
+
+    else:
+        raise "done is not in the correct format"
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))

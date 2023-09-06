@@ -232,7 +232,9 @@ def tutors_class_view(request, classId):
     if 'new_task' in request.GET.keys():
         if not request.GET['new_task'] == "null":
             new_obj = UcatStudent.objects.get(id = int(request.GET['task_student']))
-            new_obj.tasks.append(request.GET['new_task'])
+            updated_task_dict = new_obj.tasks_json
+            updated_task_dict[request.GET['new_task']] = False
+            new_obj.tasks_json = updated_task_dict
             new_obj.save()
 
     student = UcatStudent.objects.get(user = User.objects.get(username = "rafiStudent"))

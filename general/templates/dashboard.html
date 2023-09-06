@@ -67,14 +67,32 @@
                 <hr/>
                 <div class='tutor-checklist'>
                     <h5>Mentor tasks:</h5>
-                    {% for task in tasks %}
-                    <input type="checkbox">
-                    <label>{{task}}</label><br>
+                    {% for task, task_done in tasks.items %}
+                    {{task.id}}
+                    <input style="accent-color: darkorange;" id="{{forloop.counter}}"{% if task_done %} checked {% endif %} onchange="handleTaskCheck(this)" type="checkbox">
+                    <label id="label{{forloop.counter}}">{{task}}</label><br>
                     {% endfor %}
                     {% if no_tasks %}
                         You're all caught up.
                     {% endif %}
                 </div>
+                <script>
+                    function handleTaskCheck(obj){
+                        console.log("label"+obj.id)
+                        let task_content_exact = document.getElementById("label"+obj.id).innerHTML;
+                        let constructed_url = "";
+                        var ucat_student_id = "{{ ucat_student.id }}";  // Grabbing the Django variable
+                        if (obj.checked) {
+                            constructed_url = "/alter-ucat-task/True/" + task_content_exact + "/" + ucat_student_id + "/";
+                        } else {
+
+                            constructed_url = "/alter-ucat-task/False/" + task_content_exact + "/" + ucat_student_id + "/";
+                        }
+
+                        window.location = constructed_url;
+                        // if obj.value == "on":
+                    }
+                </script>
                 <hr/>
                 {% comment %} <div class='student-checklist'>
                     <h5>Student Checklist:</h5>
@@ -88,7 +106,7 @@
                     // Get all checkboxes and the submit button
                     const checkboxes = document.querySelectorAll('.tutor-checklist input[type="checkbox"]');
                     const submitBtn = document.getElementById("subBtn");
-                  
+
                     // Function to check if any checkbox is checked
                     function isAnyChecked() {
                       return Array.from(checkboxes).some(checkbox => checkbox.checked);

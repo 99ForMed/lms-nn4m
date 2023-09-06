@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{student.user}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Assigned Tasks:</h6>
-                            {% for task in student.tasks%}
+                            {% for task in student.tasks_json%}
                             <p class="card-text">- {{task}}</p>
                             {% endfor %}
                             <br/>
