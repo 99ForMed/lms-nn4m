@@ -20,8 +20,8 @@
                         <div class="card-body">
                             <h5 class="card-title">{{student.user}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Assigned Tasks:</h6>
-                            {% for task in student.tasks_json%}
-                            <p class="card-text">- {{task}}</p>
+                            {% for task, task_done in student.tasks_json.items %}
+                            <p class="card-text">{{task}} : {% if task_done %} Completed {% else %} Not done {% endif %}</p>
                             {% endfor %}
                             <br/>
                             
