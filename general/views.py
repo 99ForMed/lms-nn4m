@@ -105,26 +105,53 @@ def dashboard_view_student(request):
     return render(request, 'dashboard.html', context)
 
 def course_page_view(request, sectionInstanceId):
-    sectionInstance = UcatSectionInstance.objects.get(id = sectionInstanceId)
+    sectionInstance = UcatSectionInstance.objects.get(id=sectionInstanceId)
     section = sectionInstance.section
     videos_dict = {}
-    videos = UcatVideo.objects.filter(section = section, unlocked = True)
+    videos = UcatVideo.objects.filter(section=section, unlocked=True)
+
     for video in videos:
         videos_dict[str(video.syllabus_point)] = []
+        
     for video in videos:
         videos_dict[str(video.syllabus_point)].append(video)
+        
     for syllabus_point, videos in videos_dict.items():
         videos_dict[syllabus_point] = {
             'videos': videos,
             'remaining_placeholders': 6 - len(videos)
         }
+
+    # Only reorder if the section is "Decision Making"
+    if section.name == "Decision Making":
+        syllabus_order = [
+            "Pre-tutorial content", "Drawing Conclusions", "Strongest Argument",
+            "Order/ Logical Puzzles", "Venn Diagrams", "Probability", 
+            "Course Completion Videos"
+        ]
+        
+        # Create a new dictionary based on the predefined order
+        ordered_videos_dict = {}
+        for point in syllabus_order:
+            if point in videos_dict:
+                ordered_videos_dict[point] = videos_dict[point]
+
+        # Add any additional syllabus points not in the predefined order
+        for point in videos_dict.keys():
+            if point not in syllabus_order:
+                print(point)
+                ordered_videos_dict[point] = videos_dict[point]
+        
+        videos_dict = ordered_videos_dict
+
     context = {
         'videos_dict': videos_dict,
         'section_name': section.name,
-        'locked_vids': UcatVideo.objects.filter(section = section, unlocked = False)
-        
+        'locked_vids': UcatVideo.objects.filter(section=section, unlocked=False)
     }
+
     return render(request, 'course-page-updated.html', context)
+
 
 def course_video_view(request, sectionInstanceId, videoId):
     
