@@ -31,6 +31,7 @@ DEBUG = bool(os.getenv("debug"))
 
 ALLOWED_HOSTS = ['192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1']
 
+CSRF_FAILURE_VIEW = 'general.views.csrf_failure'
 
 # Application definition
 

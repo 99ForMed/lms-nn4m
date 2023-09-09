@@ -48,10 +48,11 @@ class UcatVideo(models.Model):
     description = models.TextField()
     url = models.CharField(max_length=50)
     unlocked = models.BooleanField(default=False)
+    index = models.IntegerField()
 
 
     def __str__(self):
-        return self.name
+        return "Index: "+str(self.index)+" : "+self.name
 
 class UcatClass(models.Model):
     name = models.CharField(max_length=100)

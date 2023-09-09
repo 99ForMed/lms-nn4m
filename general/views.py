@@ -47,7 +47,6 @@ def dashboard_view(request):
         return redirect('/authentication/login/')
 
 def dashboard_view_student(request):
-    print('hi')
     current_section = None
     try:
         student = UcatStudent.objects.get(user=request.user)
@@ -112,11 +111,13 @@ def course_page_view(request, sectionInstanceId):
 
     for video in videos:
         videos_dict[str(video.syllabus_point)] = []
-        
+
     for video in videos:
         videos_dict[str(video.syllabus_point)].append(video)
-        
+
+    # Sort videos by index for each syllabus_point
     for syllabus_point, videos in videos_dict.items():
+        videos.sort(key=lambda x: x.index)
         videos_dict[syllabus_point] = {
             'videos': videos,
             'remaining_placeholders': 6 - len(videos)
@@ -126,10 +127,10 @@ def course_page_view(request, sectionInstanceId):
     if section.name == "Decision Making":
         syllabus_order = [
             "Pre-tutorial content", "Drawing Conclusions", "Strongest Argument",
-            "Order/ Logical Puzzles", "Venn Diagrams", "Probability", 
+            "Order/ Logical Puzzles", "Venn Diagrams", "Probability",
             "Course Completion Videos"
         ]
-        
+
         # Create a new dictionary based on the predefined order
         ordered_videos_dict = {}
         for point in syllabus_order:
@@ -141,7 +142,7 @@ def course_page_view(request, sectionInstanceId):
             if point not in syllabus_order:
                 print(point)
                 ordered_videos_dict[point] = videos_dict[point]
-        
+
         videos_dict = ordered_videos_dict
 
     context = {
@@ -151,6 +152,7 @@ def course_page_view(request, sectionInstanceId):
     }
 
     return render(request, 'course-page-updated.html', context)
+
 
 
 def course_video_view(request, sectionInstanceId, videoId):
@@ -275,11 +277,21 @@ def maintenance_view(request):
 def sitemap_view(request):
     return render(request, 'sitemap.xml', {})
 
+
+def csrf_failure(request, reason=""):
+    # You can use HttpResponse to return a custom message or 
+    # use HttpResponseRedirect to redirect to a different page
+    print('csrf_faile')
+    return HttpResponseRedirect(request.META.HTTP_REFERER)
+
 def handler404(request, *args, **argv):
     response = render_to_response('404.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 404
     return response
+
+def handler403(request, exception=None):
+    return redirect(request.path)
 
 
 def handler500(request, *args, **argv):
