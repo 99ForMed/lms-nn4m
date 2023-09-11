@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-
+<style>
+    .comment-textarea {
+        width: 100%;
+        resize: vertical;  /* Optional: Allows vertical resizing */
+    }
+</style>
 <div class='course-video'>
     <div class='container'>
         <div class='header-area'>
@@ -33,10 +38,10 @@
                     
                     <div class="coment-bottom p-2 px-4">
                         <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                        <form id='comments-form'>
+                        <form id='comments-form' style="width: 100%">
                             {% csrf_token %}
                             <input type="hidden" name="video_id" value="{{ vid.id }}">
-                            <textarea class="form-control mr-3" rows="4" cols="100" name="content" placeholder="Add comment"></textarea>
+                            <textarea class="form-control comment-textarea" rows="4" name="content" placeholder="Add comment"></textarea>
                             <button class="btn btn-primary" type="submit" id="comment-submit">
                                 Comment
                             </button>
