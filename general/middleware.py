@@ -16,25 +16,25 @@ class ZoomTokenMiddleware:
     def __call__(self, request):
         # Code to be executed for each request before the view (and later middleware) are called.
 
-        user = request.user
-        if user.is_authenticated:
-            try:
-                interview_student = InterviewStudent.objects.get(user=user)
-                if interview_student.zoom_access_token is None:  
-                    return HttpResponseRedirect(reverse('zoom_authorize'))  # Redirect to zoom authorization page
-                elif self.access_token_has_expired(interview_student):
-                    try:
-                        new_tokens = refresh_tokens(os.getenv("APP_CLIENT_ID"), os.getenv("APP_CLIENT_SECRET"), interview_student.zoom_refresh_token)
-                        interview_student.zoom_access_token = new_tokens['access_token']
-                        interview_student.zoom_refresh_token = new_tokens['refresh_token']
-                        interview_student.zoom_token_expiration = timezone.now() + timezone.timedelta(hours=1)  # set expiration date to 1 hour from now
-                        interview_student.save()
-                    except Exception as e:
-                        # Handle token refresh error, e.g., log the error
-                        pass
-            except InterviewStudent.DoesNotExist:
-                # Handle the case when the user is not an interview student
-                pass
+        # user = request.user
+        # if user.is_authenticated:
+        #     try:
+        #         interview_student = InterviewStudent.objects.get(user=user)
+        #         if interview_student.zoom_access_token is None:  
+        #             return HttpResponseRedirect(reverse('zoom_authorize'))  # Redirect to zoom authorization page
+        #         elif self.access_token_has_expired(interview_student):
+        #             try:
+        #                 new_tokens = refresh_tokens(os.getenv("APP_CLIENT_ID"), os.getenv("APP_CLIENT_SECRET"), interview_student.zoom_refresh_token)
+        #                 interview_student.zoom_access_token = new_tokens['access_token']
+        #                 interview_student.zoom_refresh_token = new_tokens['refresh_token']
+        #                 interview_student.zoom_token_expiration = timezone.now() + timezone.timedelta(hours=1)  # set expiration date to 1 hour from now
+        #                 interview_student.save()
+        #             except Exception as e:
+        #                 # Handle token refresh error, e.g., log the error
+        #                 pass
+        #     except InterviewStudent.DoesNotExist:
+        #         # Handle the case when the user is not an interview student
+        #         pass
 
         response = self.get_response(request)
 

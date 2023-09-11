@@ -61,8 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'general.middleware.ZoomTokenMiddleware',
-    'Tutors.middleware.TutorsZoomTokenMiddleware'
+    # 'general.middleware.ZoomTokenMiddleware',
+    # 'Tutors.middleware.TutorsZoomTokenMiddleware'
 ]
 
 ROOT_URLCONF = 'nnlms.urls'
