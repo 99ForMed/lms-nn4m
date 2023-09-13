@@ -140,6 +140,46 @@ def course_page_view(request, sectionInstanceId):
         # Add any additional syllabus points not in the predefined order
         for point in videos_dict.keys():
             if point not in syllabus_order:
+                ordered_videos_dict[point] = videos_dict[point]
+
+        videos_dict = ordered_videos_dict
+    
+    # Only reorder if the section is "Abstract Reasoning"
+    
+    if section.name == "Abstract Reasoning":
+        syllabus_order = [
+            "Introductory Videos", "Strategies", "Demonstration of Strategies", "Exposure Therapy"
+        ]
+
+        # Create a new dictionary based on the predefined order
+        ordered_videos_dict = {}
+        for point in syllabus_order:
+            if point in videos_dict:
+                ordered_videos_dict[point] = videos_dict[point]
+
+        # Add any additional syllabus points not in the predefined order
+        for point in videos_dict.keys():
+            if point not in syllabus_order:
+                print(point)
+                ordered_videos_dict[point] = videos_dict[point]
+
+        videos_dict = ordered_videos_dict
+    
+    if section.name == "Quantitative Reasoning":
+        syllabus_order = [
+            "Pre-tutorial content", "Mathematical Demonstration"
+
+        ]
+
+        # Create a new dictionary based on the predefined order
+        ordered_videos_dict = {}
+        for point in syllabus_order:
+            if point in videos_dict:
+                ordered_videos_dict[point] = videos_dict[point]
+
+        # Add any additional syllabus points not in the predefined order
+        for point in videos_dict.keys():
+            if point not in syllabus_order:
                 print(point)
                 ordered_videos_dict[point] = videos_dict[point]
 

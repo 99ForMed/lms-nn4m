@@ -36,4 +36,4 @@ urlpatterns = [
 handler404 = 'general.views.handler404'
 handler500 = 'general.views.handler500'
 handler403 = 'general.views.handler403'
-CSRF_FAILURE_VIEW = 'general.views.csrf_failure'
+
