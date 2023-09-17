@@ -5,7 +5,8 @@
 {% block body %}
 <div class='dashboard container-fluid tutor-dashboard'>
     <div class="logout-container">
-        <p style='display: inline; color: #ccc; font-size: 0.8rem;'>Logged in as {{request.user}}</p> <button class='logout-btn' onclick='window.location.href="{% url 'logout' %}"'>Logout</button>
+        <!-- <p style='display: inline; color: #ccc; font-size: 0.8rem;'>Logged in as {{request.user}}</p>  -->
+        <button class='logout-btn' onclick='window.location.href="{% url 'logout' %}"'>Logout</button>
     </div>
     <div class='row'>
     
@@ -34,7 +35,7 @@
                             <a target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
                             <!-- <a href="/live_class/1/1/" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a> -->
 
-                            <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
+                            <a href="https://discord.gg/UXqMWrew" target="_blank"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
                     </div>
@@ -73,7 +74,7 @@
 
                                 <!-- Add zoom and discord links/icons here -->
                                 <a href="{% url 'create-zoom-meeting' %}" target="_blank"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
-                                <a href="discord-link" target="_blank"><i class="fab fa-discord"></i></a>
+                                <a href="https://discord.gg/UXqMWrew" target="_blank"><i class="fab fa-discord"></i></a>
                             </div>
                         </div>
                     </div>

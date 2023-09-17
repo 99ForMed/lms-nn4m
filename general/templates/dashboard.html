@@ -72,13 +72,18 @@
                 <hr/>
                 <div class='tutor-checklist'>
                     <h5>Mentor tasks:</h5>
-                    {% for task, task_done in tasks.items %}
-                    {{task.id}}
-                    <input style="accent-color: darkorange;" id="{{forloop.counter}}"{% if task_done %} checked {% endif %} onchange="handleTaskCheck(this)" type="checkbox">
-                    <label id="label{{forloop.counter}}">{{task}}</label><br>
-                    {% endfor %}
+                    <ul style="list-style: none; padding-left: 0;">
+                        {% for task, task_done in tasks.items %}
+                        <li id="task-{{task.id}}" class="d-flex align-items-center">
+                            <input style="accent-color: darkorange; margin-right: 10px;" id="{{forloop.counter}}" {% if task_done %} checked {% endif %} onchange="handleTaskCheck(this)" type="checkbox">
+                            <label id="label{{forloop.counter}}" style="flex-grow: 1;">{{task}}</label>
+                            <i class="fas fa-trash-alt" id="{{forloop.counter}}" style="cursor: pointer; color: red;" onclick="handleTaskDel(this)"></i>
+                            <hr/>
+                        </li>
+                        {% endfor %}
+                    </ul>
                     {% if no_tasks %}
-                        You're all caught up.
+                        <p>You're all caught up.</p>
                     {% endif %}
                 </div>
                 <script>
@@ -95,6 +100,18 @@
                         }
 
                         window.location = constructed_url;
+                        // if obj.value == "on":
+                    }
+                    function handleTaskDel(obj){
+
+                        let task_content_exact = document.getElementById("label"+obj.id).innerHTML;
+                        let constructed_url = "";
+                        var ucat_student_id = "{{ ucat_student.id }}";  // Grabbing the Django variable
+                        constructed_url = "/delete-ucat-task/" + task_content_exact + "/" + ucat_student_id + "/";
+                        
+
+                        window.location = constructed_url;
+                        // console.log(constructed_url)
                         // if obj.value == "on":
                     }
                 </script>

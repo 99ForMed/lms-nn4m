@@ -8,7 +8,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
 
 from .views import maintenance_view, alter_ucat_task_view
-from .views import sitemap_view, coming_soon_view
+from .views import sitemap_view, coming_soon_view, delete_ucat_task_view
 from .views import zoom_start_view, zoom_authenticated_view
 
 urlpatterns = [
@@ -30,7 +30,9 @@ urlpatterns = [
     # a lot of the endpoints are above this line because i decided 
     # To create this near the end of the project and
 
-    path('alter-ucat-task/<str:done>/<str:ucat_task_content_exact>/<str:ucat_student_id>/', alter_ucat_task_view, name = 'alter_ucat_task')
+    path('alter-ucat-task/<str:done>/<str:ucat_task_content_exact>/<str:ucat_student_id>/', alter_ucat_task_view, name = 'alter_ucat_task'),
+    path('delete-ucat-task/<str:ucat_task_content_exact>/<str:ucat_student_id>/', delete_ucat_task_view, name = 'delete_ucat_task')
+
 ]
 
 handler404 = 'general.views.handler404'

@@ -398,3 +398,10 @@ def alter_ucat_task_view(request, done, ucat_task_content_exact, ucat_student_id
         raise "done is not in the correct format"
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def delete_ucat_task_view(request, ucat_task_content_exact, ucat_student_id):
+    bufferObj = UcatStudent.objects.get(id = ucat_student_id)
+    del bufferObj.tasks_json[ucat_task_content_exact]
+    bufferObj.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
