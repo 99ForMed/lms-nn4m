@@ -77,7 +77,7 @@
                         <li id="task-{{task.id}}" class="d-flex align-items-center">
                             <input style="accent-color: darkorange; margin-right: 10px;" id="{{forloop.counter}}" {% if task_done %} checked {% endif %} onchange="handleTaskCheck(this)" type="checkbox">
                             <label id="label{{forloop.counter}}" style="flex-grow: 1;">{{task}}</label>
-                            <i class="fas fa-trash-alt" id="{{forloop.counter}}" style="cursor: pointer; color: red;" onclick="handleTaskDel(this)"></i>
+                            <i class="fas fa-trash-alt" id="{{forloop.counter}}" style="cursor: pointer; color: white;" onclick="handleTaskDel(this)"></i>
                             <hr/>
                         </li>
                         {% endfor %}
