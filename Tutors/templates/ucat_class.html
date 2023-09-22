@@ -32,7 +32,7 @@
                                         {% endif %}
                                         <label id="label{{forloop.counter}}" style="flex-grow: 1;">{{task}}</label>
                                     </span>
-                                    <i class="fas fa-trash-alt" id="{{forloop.counter}}" style="cursor: pointer; color: red;" onclick="handleTaskDel(this, '{{student.id}}')"></i>
+                                    <i class="fas fa-trash-alt" id="{{forloop.counter}}" style="cursor: pointer; color: white;" onclick="handleTaskDel(this, '{{student.id}}')"></i>
                                     <script>
                                         function handleTaskDel(obj, studentId){
 
