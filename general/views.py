@@ -401,6 +401,7 @@ def alter_ucat_task_view(request, done, ucat_task_content_exact, ucat_student_id
 
 def delete_ucat_task_view(request, ucat_task_content_exact, ucat_student_id):
     bufferObj = UcatStudent.objects.get(id = ucat_student_id)
+    print(ucat_task_content_exact)
     del bufferObj.tasks_json[ucat_task_content_exact]
     bufferObj.save()
 

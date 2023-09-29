@@ -23,32 +23,29 @@
                             <h5 class="card-title">{{student.user}}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Assigned Tasks:</h6>
                             {% for task, task_done in student.tasks_json.items %}
-                                <div class="card-text d-flex justify-content-between align-items-center" id="task-{{task.id}}">
-                                    <span>
-                                        {% if task_done %}
-                                            <i class="fas fa-check-circle" style="color: green;"></i>
-                                        {% else %}
-                                            <i class="fas fa-times-circle" style="color: orange;"></i>
-                                        {% endif %}
-                                        <label id="label{{forloop.counter}}" style="flex-grow: 1;">{{task}}</label>
-                                    </span>
-                                    <i class="fas fa-trash-alt" id="{{forloop.counter}}" style="cursor: pointer; color: white;" onclick="handleTaskDel(this, '{{student.id}}')"></i>
-                                    <script>
-                                        function handleTaskDel(obj, studentId){
-
-                                            let task_content_exact = document.getElementById("label"+obj.id).innerHTML;
-                                            let constructed_url = "";
-                                            var ucat_student_id = studentId;  // Grabbing the Django variable
-                                            constructed_url = "/delete-ucat-task/" + task_content_exact + "/" + ucat_student_id + "/";
-                                            
-                    
-                                            window.location = constructed_url;
-                                            // console.log(constructed_url)
-                                            // if obj.value == "on":
-                                        }
-                                    </script>
-                                </div>
+                            <div class="card-text d-flex justify-content-between align-items-center" id="task-{{forloop.parentloop.counter}}-{{forloop.counter}}">
+                                <span>
+                                    {% if task_done %}
+                                    <i class="fas fa-check-circle" style="color: green;"></i>
+                                    {% else %}
+                                    <i class="fas fa-times-circle" style="color: orange;"></i>
+                                    {% endif %}
+                                    <label id="label{{forloop.parentloop.counter}}-{{forloop.counter}}" style="flex-grow: 1;">{{task}}</label>
+                                </span>
+                                <i class="fas fa-trash-alt" id="icon{{forloop.parentloop.counter}}-{{forloop.counter}}" style="cursor: pointer; color: white;" onclick="handleTaskDel('{{forloop.parentloop.counter}}-{{forloop.counter}}', '{{student.id}}')"></i>
+                            </div>
                             {% endfor %}
+                            <script>
+                                function handleTaskDel(uniqueId, studentId){
+                                    let task_content_exact = document.getElementById("label" + uniqueId).innerHTML;
+                                    let constructed_url = "";
+                                    var ucat_student_id = studentId;
+                
+                                    constructed_url = "/delete-ucat-task/" + task_content_exact + "/" + ucat_student_id + "/";
+                                    
+                                    window.location = constructed_url;
+                                }
+                            </script>
                             <br/>
                             
                             <div class="dropdown">
