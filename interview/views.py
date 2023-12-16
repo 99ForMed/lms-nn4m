@@ -110,67 +110,65 @@ def zoom_callback_view(request):
 # @live_class_required
 def interview_dashboard_view(request):
     
-    sydney_tz = pytz.timezone('Australia/Sydney')
-    sydney_time = datetime.now(sydney_tz)
+    # sydney_tz = pytz.timezone('Australia/Sydney')
+    # sydney_time = datetime.now(sydney_tz)
     
-    if 5 <= sydney_time.hour < 12:
-        time_greeting = 'Good morning'
-    elif 12 <= sydney_time.hour < 18:
-        time_greeting = 'Good afternoon'
-    else:
-        time_greeting = 'Good evening'
+    # if 5 <= sydney_time.hour < 12:
+    #     time_greeting = 'Good morning'
+    # elif 12 <= sydney_time.hour < 18:
+    #     time_greeting = 'Good afternoon'
+    # else:
+    #     time_greeting = 'Good evening'
     
-    # Assuming there is a logged in user and the user has an associated InterviewStudent model
-    user = request.user
-    try:
-        interview_student = InterviewStudent.objects.get(user = user)
-    except:
-        return redirect("/")
+    # # Assuming there is a logged in user and the user has an associated InterviewStudent model
+    # user = request.user
+    # try:
+    #     interview_student = InterviewStudent.objects.get(user = user)
+    # except:
+    #     return redirect("/")
 
-    try: 
-        print(oauth_wizard(os.getenv("ZOOM_CLIENT_ID"), os.getenv("ZOOM_CLIENT_SECRET"), redirect_uri=os.getenv("ZOOM_REDIRECT_URL")))
-    except Exception as e:
-        print(e)
+    # try: 
+    #     print(oauth_wizard(os.getenv("ZOOM_CLIENT_ID"), os.getenv("ZOOM_CLIENT_SECRET"), redirect_uri=os.getenv("ZOOM_REDIRECT_URL")))
+    # except Exception as e:
+    #     print(e)
 
-    interview_student = InterviewStudent.objects.get(user = user)
-    title = 'Sir' if interview_student.gender == 'M' else 'Madam'
-    context = {
-        'day_of_week':'wednesday',
-        'time_greeting': time_greeting, 
-        'title': title,
-        'class_soon': False,
-        'class': {},
-        'REDIS_URL': os.getenv('REDIS_URL'),
-        'ws_host': os.getenv('WS_HOST', ''),
-        'tasks': interview_student.tasks,
-        'ws_route': 'interview/dashboard/'
-    }
+    # interview_student = InterviewStudent.objects.get(user = user)
+    # title = 'Sir' if interview_student.gender == 'M' else 'Madam'
+    # context = {
+    #     'day_of_week':'wednesday',
+    #     'time_greeting': time_greeting, 
+    #     'title': title,
+    #     'class_soon': False,
+    #     'class': {},
+    #     'tasks': interview_student.tasks,
+    #     'ws_route': 'interview/dashboard/'
+    # }
 
-    context['live_class'] = None
-    print(context['tasks'])
+    # context['live_class'] = None
+    # print(context['tasks'])
 
-    try:
-        # Get the interview class associated with the user
-        interview_student = InterviewStudent.objects.get(user=request.user)
-        interview_class = interview_student.interview_class
-        # Find a live class associated with the interview class and is active
-        live_class = LiveClass.objects.get(interview_class=interview_class, is_active=True)
-        # If such a live class exists, update the context
+    # try:
+    #     # Get the interview class associated with the user
+    #     interview_student = InterviewStudent.objects.get(user=request.user)
+    #     interview_class = interview_student.interview_class
+    #     # Find a live class associated with the interview class and is active
+    #     live_class = LiveClass.objects.get(interview_class=interview_class, is_active=True)
+    #     # If such a live class exists, update the context
 
-        context['live_class'] = live_class
-    except InterviewClass.DoesNotExist:
-        print("Interview class doesn't exist")
-        # Handle the case when the user is not associated with any interview class
-        pass
-    except LiveClass.DoesNotExist:
-        print("Live class doesn't exist")
-        # Handle the case when there is no active live class for the interview class
-        pass
-    context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id="+os.getenv('ZOOM_CLIENT_ID')+"Q&redirect_uri="+os.getenv("ZOOM_INITIAL_REDIRECT_SECURE")+"%3A%2F%2F"+os.getenv("host")+"%2Fzoom-start%2F"
+    #     context['live_class'] = live_class
+    # except InterviewClass.DoesNotExist:
+    #     print("Interview class doesn't exist")
+    #     # Handle the case when the user is not associated with any interview class
+    #     pass
+    # except LiveClass.DoesNotExist:
+    #     print("Live class doesn't exist")
+    #     # Handle the case when there is no active live class for the interview class
+    #     pass
+    # context['link_zoom_uri'] = "https://zoom.us/oauth/authorize?response_type=code&client_id="+os.getenv('ZOOM_CLIENT_ID')+"Q&redirect_uri="+os.getenv("ZOOM_INITIAL_REDIRECT_SECURE")+"%3A%2F%2F"+os.getenv("host")+"%2Fzoom-start%2F"
 
-    print(context['live_class'])
+    # print(context['live_class'])
     
-    return render(request, 'interview-dashboard.html', context)
+    return render(request, 'interview-dashboard.html', {})
 
 @check_live_class_active
 def live_class_view(request, live_class_id):
