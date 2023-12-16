@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp
 DEBUG = bool(os.getenv("debug"))
 
 
-ALLOWED_HOSTS = ['192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1', 'temp-6249858623c0.herokuapp.com']
 
 CSRF_FAILURE_VIEW = 'general.views.csrf_failure'
 
