@@ -101,7 +101,7 @@ def dashboard_view_student(request):
     if len(context['tasks']) == 0:
         context['no_tasks'] = True 
     
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboardv2.html', context)
 
 def course_page_view(request, sectionInstanceId):
     sectionInstance = UcatSectionInstance.objects.get(id=sectionInstanceId)
@@ -185,6 +185,10 @@ def course_page_view(request, sectionInstanceId):
 
         videos_dict = ordered_videos_dict
 
+    for topic, video_info in videos_dict.items():
+        
+        video_info['ordered_video_chunks'] = [video_info['videos'][i:i + 3] for i in range(0, len(video_info['videos']), 3)]
+        print(video_info['ordered_video_chunks'] )
     context = {
         'videos_dict': videos_dict,
         'section_name': section.name,

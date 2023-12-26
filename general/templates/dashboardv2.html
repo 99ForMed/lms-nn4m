@@ -1,0 +1,385 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="{% static '/img/favicon-light.png' %}"
+      rel="icon"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      href="{% static '/img/favicon-dark.png' %}"
+      rel="icon"
+      media="(prefers-color-scheme: dark)"
+    />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <!-- <link rel='stylesheet' type='text/css' href="static/css/style.css"/> -->
+    <!-- ****************************************************************************************************
+        
+        Head
+
+     ********************************************************************************************************-->
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/overwriting-css/overwriting-dashboard.css' %}"
+    />
+    <!-- ****************************************************************************************************
+        
+        End Head
+
+     ********************************************************************************************************-->
+  </head>
+  <body>
+    <!-- ****************************************************************************************************
+        
+        Body
+
+     ********************************************************************************************************-->
+    <div class="ucat-dashboard dashboard container-fluid">
+      <div class="row">
+        <div class="content col-lg-10 col-md-10 col-sm-12 col-xs-12">
+          <h2 id="dashboard-learn-h2">Learn:</h2>
+          <hr/>
+          <div
+            class="main-container"
+            onclick='window.location.href="/course-page/{{current_section.id}}/"'
+          >
+            <!-- <div class='main'>
+                        <div class='section-title'>
+                            <h1>{{current_section.section.name}}</h2>
+                        </div>
+                        <div class='skills-mastered'>
+                            <h3 class='heading'>Skills Mastered</h3>
+                            <p class='bigger'>{{skills_mastered}}</p>
+                            <p class='smaller'>out of 12</p>
+                        </div>
+                    </div> -->
+          </div>
+          <div class="start-dates">
+            <div class="container">
+              <div class="all-topics">
+                <div class="topic1 row">
+                  <div class="d-none d-md-block col-2 moon-img">
+                    <img src="{% static '/img/moons/phase1.png' %}" /><div class="moon-overlay"></div>
+                  </div>
+                  <div class="col-12 col-md-10 topic-heading one"  onclick="window.location.href='/course-page/{{sectionId1}}/'">
+                    <div class="overlay one">
+                      <h3>Decision Making</h3>
+                      <p class="d-none d-md-block">
+                        <!-- This section evaluates your ability to make sound
+                        decisions and judgments using complex information. It
+                        involves interpreting text, charts, tables, graphs, or
+                        diagrams to identify relevant information and apply
+                        logic to reach conclusions. Questions may require you to
+                        infer, deduce, evaluate arguments, or analyze
+                        statistical data. In a medical context, this mirrors the
+                        process of diagnosing patients or choosing the best
+                        treatment plan based on various test results and patient
+                        information. -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="topic2 row">
+                  <div class="d-none d-md-block col-2 moon-img">
+                    <img src="{% static '/img/moons/phase2.png' %}" /><div class="moon-overlay"></div>
+                    
+                  </div>
+                  <div class="col-12 col-md-10 topic-heading two"   onclick="window.location.href='/course-page/{{sectionId2}}/'">
+                    <div class="overlay">
+                      <h3>Quantitative Reasoning</h3>
+                      <p class="d-none d-md-block">
+                        <!-- This section evaluates your ability to make sound
+                        decisions and judgments using complex information. It
+                        involves interpreting text, charts, tables, graphs, or
+                        diagrams to identify relevant information and apply
+                        logic to reach conclusions. Questions may require you to
+                        infer, deduce, evaluate arguments, or analyze
+                        statistical data. In a medical context, this mirrors the
+                        process of diagnosing patients or choosing the best
+                        treatment plan based on various test results and patient
+                        information. -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="topic3 row">
+                  <div class="d-none d-md-block col-2 moon-img">
+                    <img src="{% static '/img/moons/phase3.png' %}" /><div class="moon-overlay"></div>
+                  </div>
+                  <div class="col-12 col-md-10 topic-heading three"   onclick="window.location.href='/course-page/{{sectionId3}}/'">
+                    <div class="overlay">
+                      <h3>Abstract Reasoning</h3>
+                      <p class="d-none d-md-block">
+                        <!-- Abstract reasoning assesses your ability to identify
+                        patterns and logical rules in sequences of shapes or
+                        symbols. It's a test of your ability to think critically
+                        and analytically, recognizing relationships,
+                        similarities, and differences in new information. In a
+                        medical setting, this skill is akin to spotting patterns
+                        in symptoms or test results to form a diagnosis or
+                        hypothesis. -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="topic4 row">
+                  <div class="d-none d-md-block col-2 moon-img">
+                    <img src="{% static '/img/moons/phase4.png' %}" /><div class="moon-overlay"></div>
+                  </div>
+                  <div class="col-12 col-md-10 topic-heading four"  onclick="window.location.href='/course-page/{{sectionId4}}/'">
+                    <div class="overlay">
+                      <h3>Verbal Reasoning</h3>
+                      <p class="d-none d-md-block">
+                        <!-- This section measures your ability to critically
+                        evaluate written information and draw conclusions.
+                        You'll read passages on a variety of topics and answer
+                        questions that test comprehension, inference, and
+                        deduction skills. For aspiring medical professionals,
+                        strong verbal reasoning is vital for understanding
+                        complex medical literature, patient histories, and
+                        informed consent documents. -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="topic5 row">
+                  <div class="d-none d-md-block col-2 moon-img">
+                    <img src="{% static '/img/moons/phase5.png' %}" /><div class="moon-overlay"></div>
+                  </div>
+                  <div class="col-12 col-md-10 topic-heading five"  onclick="window.location.href='/course-page/{{sectionId5}}/'">
+                    <div class="overlay five">
+                      <h3>SJT + Exam Strategy</h3>
+                      <p class="d-none d-md-block">
+                        <!-- The SJT assesses your understanding of real-world
+                        medical and ethical scenarios. It tests qualities like
+                        empathy, integrity, teamwork, and communication skills
+                        by presenting you with situations you might encounter in
+                        a medical career and asking you to judge the
+                        appropriateness of various responses. Success in this
+                        section, and the exam as a whole, also hinges on a solid
+                        exam strategy, which includes time management, question
+                        prioritization, and stress management. -->
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class='row' id='top'>
+                            
+                                <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12' onclick="window.location.href='/course-page/{{sectionId1}}/'">
+                                    
+                                    <div class='redirect-box'>
+    
+                                        <h3>Decision Making</h3>
+    
+                                    </div>
+                                </div>
+                                <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12' onclick="window.location.href='/course-page/{{sectionId2}}/'">
+                                    <div class='redirect-box'>
+                                        <h3>Quantitative Reasoning</h3>
+    
+                                    </div>
+                                </div>
+                                <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12' onclick="window.location.href='/course-page/{{sectionId3}}/'">
+                                    <div class='redirect-box'>
+                                        <h3>Abstract Reasoning</h3>
+    
+                                    </div>
+                                </div>
+                                <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12' onclick="window.location.href='/course-page/{{sectionId4}}/'">
+                                    <div class='redirect-box'>
+                                        <h3>Verbal Reasoning</h3>
+    
+                                    </div>
+                                </div>
+                                <div class='card_ col-lg-6 col-md-6 col-sm-12 col-xs-12' onclick="window.location.href='/course-page/{{sectionId5}}/'">
+                                    <div class='redirect-box'>
+                                        <h3>SJT + Exam Strategy</h3>
+    
+                                    </div>
+                                </div>
+    
+    
+                        </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="sidebar col-lg-2 col-md-2 col-sm-12 col-xs-12">
+          <div class="sidebar-content">
+            <div class="heading">
+              <h3>This week's UCAT plan:</h3>
+            </div>
+            <hr />
+            <div class="tutor-checklist">
+              <h5>Mentor tasks:</h5>
+              <ul style="list-style: none; padding-left: 0">
+                {% for task, task_done in tasks.items %}
+                <li id="task-{{task.id}}" class="d-flex align-items-center">
+                  <input
+                    style="accent-color: darkorange; margin-right: 10px"
+                    id="{{forloop.counter}}"
+                    {%
+                    if
+                    task_done
+                    %}
+                    checked
+                    {%
+                    endif
+                    %}
+                    onchange="handleTaskCheck(this)"
+                    type="checkbox"
+                  />
+                  <label id="label{{forloop.counter}}" style="flex-grow: 1"
+                    >{{task}}</label
+                  >
+                  <i
+                    class="fas fa-trash-alt"
+                    id="{{forloop.counter}}"
+                    style="cursor: pointer; color: white"
+                    onclick="handleTaskDel(this)"
+                  ></i>
+                  <hr />
+                </li>
+                {% endfor %}
+                {% if no_tasks %}
+                        <p>You're all caught up.</p>
+                {% endif %}
+              </ul>
+            </div>
+            <script>
+              function handleTaskCheck(obj) {
+                console.log("label" + obj.id);
+                let task_content_exact = document.getElementById(
+                  "label" + obj.id
+                ).innerHTML;
+                let constructed_url = "";
+                var ucat_student_id = "{{ ucat_student.id }}"; // Grabbing the Django variable
+                if (obj.checked) {
+                  constructed_url =
+                    "/alter-ucat-task/True/" +
+                    task_content_exact +
+                    "/" +
+                    ucat_student_id +
+                    "/";
+                } else {
+                  constructed_url =
+                    "/alter-ucat-task/False/" +
+                    task_content_exact +
+                    "/" +
+                    ucat_student_id +
+                    "/";
+                }
+
+                window.location = constructed_url;
+                // if obj.value == "on":
+              }
+              function handleTaskDel(obj) {
+                let task_content_exact = document.getElementById(
+                  "label" + obj.id
+                ).innerHTML;
+                let constructed_url = "";
+                var ucat_student_id = "{{ ucat_student.id }}"; // Grabbing the Django variable
+                constructed_url =
+                  "/delete-ucat-task/" +
+                  task_content_exact +
+                  "/" +
+                  ucat_student_id +
+                  "/";
+
+                window.location = constructed_url;
+                // console.log(constructed_url)
+                // if obj.value == "on":
+              }
+            </script>
+            <hr />
+            <br />
+
+            <!-- <p class='submit' id="subBtn" onclick="window.location.href='submit-progress/'">Submit Progress</p> -->
+            <script>
+              // Get all checkboxes and the submit button
+              const checkboxes = document.querySelectorAll(
+                '.tutor-checklist input[type="checkbox"]'
+              );
+              const submitBtn = document.getElementById("subBtn");
+
+              // Function to check if any checkbox is checked
+              function isAnyChecked() {
+                return Array.from(checkboxes).some(
+                  (checkbox) => checkbox.checked
+                );
+              }
+
+              // Function to handle checkbox change events
+              function onCheckboxChange() {
+                if (isAnyChecked()) {
+                  submitBtn.classList.add("flash");
+                } else {
+                  submitBtn.classList.remove("flash");
+                }
+              }
+
+              // Attach event listeners to checkboxes
+              checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener("change", onCheckboxChange);
+              });
+            </script>
+            <!-- <div class='days-counter'>
+                        <span class='days'>
+                            {{days_to_master}}
+                        </span>
+                        <h5> days to master <i>Decision Making</i></h5>
+                    </div> -->
+            <div class="logout" style="">
+              <p>
+                Logged in as Priyanshu<br /><br />
+                <button
+                  href="/logout/"
+                  class="logout-btn btn-danger"
+                  >Log out
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ****************************************************************************************************
+        
+        End Body
+
+     ********************************************************************************************************-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

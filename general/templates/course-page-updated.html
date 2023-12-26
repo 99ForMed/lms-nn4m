@@ -1,134 +1,281 @@
-{% extends 'base.html' %}
+{% load static %}
 {% load custom_filters %}
 
-<body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="{% static '/img/favicon-light.png' %}"
+      rel="icon"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      href="{% static '/img/favicon-dark.png' %}"
+      rel="icon"
+      media="(prefers-color-scheme: dark)"
+    />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-{% load static %}
-{% block head %}
-<meta charset="utf-8">
-  <title>{{section_name}}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
 
-  <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="{% static 'netflix-type-slider/package/css/swiper.min.css' %}">
-  <link rel="stylesheet" href="{% static 'netflix-type-slider/css/styles.css' %}">
-  <style>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    />
 
-    .swiper-button-prev{
-      background-color: #1e1e1e !important;
-      top: 0!important;
-      height: -webkit-fill-available!important;
-      left: 0 !important;
-    }
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <!-- ****************************************************************************************************
+        
+        Head
 
-    .swiper-button-next{
-      background-color: #1e1e1e !important;
-      top: 0!important;
-      height: -webkit-fill-available!important;
-      right: 0 !important;
-    }
+     ********************************************************************************************************-->
+    <title>Section Name</title>
 
-    .swiper-container{
-      padding: 0 20px;
+    <!-- Link Swiper's CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static '/netflix-type-slider/package/css/swiper.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static '/netflix-type-slider/css/styles.css' %}" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static '/css/overwriting-css/course-page-updated.css' %}"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
+    <!-- ****************************************************************************************************
+        
+        End Head
 
-    }
+     ********************************************************************************************************-->
+  </head>
+  <body>
+    <!-- ****************************************************************************************************
+        
+  Body
 
-    .placeholder-thumbnail {
-      aspect-ratio: 16 / 9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: black;
-    }
+********************************************************************************************************-->
 
-    .placeholder-img{
-      height: 50px;
-    }
-
-    .netflix-slider{
-      padding: 0;
-    }
-
-    .netflix-slider h2{
-      font-size: 20px;
-      margin: 0 0;
-    }
-
-    .netflix-slider{
-      border-radius: 7px;
-      margin-right: 3px !important;
-      
-    }
-
-    .netflix-slider h2{
-      margin-left: 20px;
-    }
-  </style>
-{% endblock %}
-{% block body %}
-
-<div class='course-page'>
-  <div class='container'>
-      <div class='header-area'>
-          <p style='font-size: 40px'>{{section_name}}</p>
-          <div class='nav'>
-              <p><span onclick='window.location.href="/"'>Dashboard</span> <span><strong>❭❭</strong></span> {{section_name}}</p>
+    <div class="course-page">
+      <div class="container">
+        <div class="header-area">
+          <h1>Decision Making</h1>
+          <div class="nav">
+            <span class="nav-link" onclick='window.location.href="/"'>Dashboard</span>
+            <span class="separator">❭❭</span>
+            <span class="current-page">Decision Making</span>
           </div>
+          <!-- <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+          </div> -->
+        </div>
       </div>
-  </div>
-  <br/>
-  <br/>
-  <!-- Swiper -->
-  {% for syllabus_point, video_data in videos_dict.items %}
-  <div class="netflix-slider">
-    <h2>{{syllabus_point}}</h2>
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        {% for vid in video_data.videos %}
-        <div class="swiper-slide" onclick='window.location.href="video/{{vid.id}}/"'>
-            <img src="https://img.youtube.com/vi/{{vid.url}}/maxresdefault.jpg" alt="{{ vid.name }}">
-            <div class="video-title">{{ vid.name }}</div>
+      
+      <br />
+      <br />
+      <!-- Swiper -->
+
+      <div class="d-none d-md-block netflix-slider">
+        {% for topic, videos in videos_dict.items %}
+          <h2>{{topic}}</h2>
+          <div
+            class="swiper-container swiper-container-initialized swiper-container-horizontal"
+          >
+          
+            <div
+              class="swiper-wrapper"
+              style="transform: translate3d(0px, 0px, 0px)"
+            >
+            {% for video in videos.videos %}
+              <div
+                class="swiper-slide swiper-slide-active"
+                onclick='window.location.href="video/{{video.id}}/"'
+                style="width: 105.5px; margin-right: 10px"
+              >
+                <img
+                  src="https://img.youtube.com/vi/{{video.url}}/maxresdefault.jpg"
+                  alt="{{video.name}}"
+                />
+                <div class="video-title">{{video.name}}</div>
+              </div>
+            
+            {% endfor %}
+            {% for placeholder in videos.remaining_placeholders|generate_range %}
+            <div class="swiper-slide" style="width: 151.333px; margin-right: 10px;">
+              <div class="placeholder-thumbnail">
+  
+              
+                <img class="placeholder-img" src="https://lh3.googleusercontent.com/fife/AKsag4PPaadDy51HY1fgf5bux-raAOghD2TeIeMrCiU1NR0cSfFOwvjoRdDcvmSL-ACGS7yw38c0RaE-YXnlxA24WBRRVsmgtxLcB8MSDSljBtoZpsTxAUk5p_UOEveWm9v1t4VabRD8-DWg7ITXTSzZoe9l8E6xUHCyZ-Zy__6JzJFxGS9yXMfqhMCA50vf6g7pc5AQScz52jUb6jumvjCioR_s7IpknTlid_KhZKKFqVXh72R1ljuLpddbzbxxra9syaOFJKsg6KaN4o5Km7-fWRILbX4NMxf3-AUJLCj-SEHAFvRMiKqJ3IuhnPzKmovcrvMjQ2gBV8mOBGCpzeIkao8kZ1XtiN28zkTwOtrGnyl9pyxqt8zj9AfADPcYtQw6IMjHtlbPHWuBUbAzQuL80sxKlhla0zgK2021C4GX8B36SMVGYb9bBuPU1y0ONYM2AoOBijoHiIv4_3Wh24JShvL1xCORQVmKfG4wMaqbsQlKEx4TiwTUbQOSrWF7lanlXOLrqBkBhvAHkAzWU2eeRqnAxQJy0F7aj7E0PjREnfIAx-v2K1S1JVDjbSVx6qj2IveJeJ4D160EnEOajpc_ZFbANICm0O3PKcGxWISWKAL2PA7i77xJSz6bp6gmzJ58ma4OrfNXzVn65ZxPNdQIqwxbSTUZdYZRn75qNPq0nmGRMEyztABPNM_q62Gjfi0gg9MU-icGZMPpGKGTjxL4W6PafEocs5sTvNwlcMyHQQHvYIfHlP3lFGsuVFRWNu3mztmgv1Z2w05gYj_FdRY9M3k5Tm7RsTQlWVjpaG2C2YFCzrQ_AX5rIqZMFXkc-M-gSY_jNSMo1DhQAIliN_lH6pAgXdLTBIQJzuB0vAPKaAZnFnbIN3q0wNtEgTLT8bJztt9UnMOmlH1ug-qhkLaRqgVAmd1agRL3TUP6nZJbH-_w7_auXz0f902vUjYN8oXqCmDYLJCLZP9rO2Nj6342NS5Fxn8Z9vX038C9nrg2yJtUm1l8Yg5b0XNge7mGa69UIJok5uSGa_3Lk8g49YuxC5MkqkDFU79BT5evVx0ML6hnAgMnRzOzitVXYrJeGalK5GAalHz53N2IVWe0Z1rrz9GaSWowJzteoz5-HLBywsNPjetF7XNAZUeCXrfg8H0-3ePed9PyaJzW5-QsOuCXz0eHsVIwOd5Wzc50p4mRU1CZZy8FfCk-We4ykz8HfApXfITISzLXVZEaa5_agoND0VvQ125uyn9cChQyH_7s6SICpnZ5U8f0ZhQfQC40YQNnJzdW6ygzZbX8g3Ztj6N6J9eh1gKveEIgD5Vv3KJhXrmcCVi3zvXpIp0Zw4FkS2wKMXGLFV0jA7SX6Qp2ORAQ16K1OcyEOsQqlmKumWa327DBXDRJbdBWLGAeIpEyNk3goBgNt7Ib3WIgBmEWrCh7j162CMD5MnqsZoTGNzX55eqh0KN9-UAjGZihQ_rAyQrxDjVN2P2rPOPAIMmJ3jKls5Fk6Dy_23m1XlMZG2B0f1MoZ7UAOGqhm8UzpVj9DqWJuNkgMPxpi4Z6FF7Iyc7IsKwk59En8p6p3hZfjX_1E7J4QFKvA09sEpgwOWRC=w3456-h1926" alt="Placeholder">
+              </div>  
+            </div>
+            {% endfor %}
+          </div>
+            
+            <div
+              class="swiper-button-next swiper-button-disabled"
+              tabindex="0"
+              role="button"
+              aria-label="Next slide"
+              aria-disabled="true"
+            ></div>
+            <div
+              class="swiper-button-prev swiper-button-disabled"
+              tabindex="0"
+              role="button"
+              aria-label="Previous slide"
+              aria-disabled="true"
+            ></div>
+            <span
+              class="swiper-notification"
+              aria-live="assertive"
+              aria-atomic="true"
+            ></span>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="d-none d-sm-block d-md-none">
+        {% for topic, videos in videos_dict.items %}
+        <br/>
+        <h2>{{topic}}</h2>
+        <div
+          id="carouselThreePerSlide{{forloop.counter}}"
+          class="carousel slide carouselThreePerSlide"
+          data-bs-ride="carousel"
+          data-bs-interval="false"
+        >
+          <div class="carousel-inner">
+            {% for chunk in videos.ordered_video_chunks %}
+            <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">  
+              <div class="row">
+                {% for video in chunk %}
+                <div class="col-4">
+                  <div class="board" onclick='window.location.href="video/{{video.id}}/"'>
+                    <img
+                      src="https://img.youtube.com/vi/{{video.url}}/maxresdefault.jpg"
+                      alt="{{video.name}}"
+                    />
+                    <div class="video-title">{{video.name}}</div>
+                  </div>
+                  
+                </div>
+                {% endfor %}
+              </div>
+              
+            </div>
+            {% endfor %}
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselThreePerSlide{{forloop.counter}}"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselThreePerSlide{{forloop.counter}}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        
         </div>
         {% endfor %}
-        
-        {% for i in video_data.remaining_placeholders|generate_range %}
-          <div class="swiper-slide">
-            <div class="placeholder-thumbnail">
-
-            
-              <img class="placeholder-img" src="https://lh3.googleusercontent.com/fife/AKsag4PPaadDy51HY1fgf5bux-raAOghD2TeIeMrCiU1NR0cSfFOwvjoRdDcvmSL-ACGS7yw38c0RaE-YXnlxA24WBRRVsmgtxLcB8MSDSljBtoZpsTxAUk5p_UOEveWm9v1t4VabRD8-DWg7ITXTSzZoe9l8E6xUHCyZ-Zy__6JzJFxGS9yXMfqhMCA50vf6g7pc5AQScz52jUb6jumvjCioR_s7IpknTlid_KhZKKFqVXh72R1ljuLpddbzbxxra9syaOFJKsg6KaN4o5Km7-fWRILbX4NMxf3-AUJLCj-SEHAFvRMiKqJ3IuhnPzKmovcrvMjQ2gBV8mOBGCpzeIkao8kZ1XtiN28zkTwOtrGnyl9pyxqt8zj9AfADPcYtQw6IMjHtlbPHWuBUbAzQuL80sxKlhla0zgK2021C4GX8B36SMVGYb9bBuPU1y0ONYM2AoOBijoHiIv4_3Wh24JShvL1xCORQVmKfG4wMaqbsQlKEx4TiwTUbQOSrWF7lanlXOLrqBkBhvAHkAzWU2eeRqnAxQJy0F7aj7E0PjREnfIAx-v2K1S1JVDjbSVx6qj2IveJeJ4D160EnEOajpc_ZFbANICm0O3PKcGxWISWKAL2PA7i77xJSz6bp6gmzJ58ma4OrfNXzVn65ZxPNdQIqwxbSTUZdYZRn75qNPq0nmGRMEyztABPNM_q62Gjfi0gg9MU-icGZMPpGKGTjxL4W6PafEocs5sTvNwlcMyHQQHvYIfHlP3lFGsuVFRWNu3mztmgv1Z2w05gYj_FdRY9M3k5Tm7RsTQlWVjpaG2C2YFCzrQ_AX5rIqZMFXkc-M-gSY_jNSMo1DhQAIliN_lH6pAgXdLTBIQJzuB0vAPKaAZnFnbIN3q0wNtEgTLT8bJztt9UnMOmlH1ug-qhkLaRqgVAmd1agRL3TUP6nZJbH-_w7_auXz0f902vUjYN8oXqCmDYLJCLZP9rO2Nj6342NS5Fxn8Z9vX038C9nrg2yJtUm1l8Yg5b0XNge7mGa69UIJok5uSGa_3Lk8g49YuxC5MkqkDFU79BT5evVx0ML6hnAgMnRzOzitVXYrJeGalK5GAalHz53N2IVWe0Z1rrz9GaSWowJzteoz5-HLBywsNPjetF7XNAZUeCXrfg8H0-3ePed9PyaJzW5-QsOuCXz0eHsVIwOd5Wzc50p4mRU1CZZy8FfCk-We4ykz8HfApXfITISzLXVZEaa5_agoND0VvQ125uyn9cChQyH_7s6SICpnZ5U8f0ZhQfQC40YQNnJzdW6ygzZbX8g3Ztj6N6J9eh1gKveEIgD5Vv3KJhXrmcCVi3zvXpIp0Zw4FkS2wKMXGLFV0jA7SX6Qp2ORAQ16K1OcyEOsQqlmKumWa327DBXDRJbdBWLGAeIpEyNk3goBgNt7Ib3WIgBmEWrCh7j162CMD5MnqsZoTGNzX55eqh0KN9-UAjGZihQ_rAyQrxDjVN2P2rPOPAIMmJ3jKls5Fk6Dy_23m1XlMZG2B0f1MoZ7UAOGqhm8UzpVj9DqWJuNkgMPxpi4Z6FF7Iyc7IsKwk59En8p6p3hZfjX_1E7J4QFKvA09sEpgwOWRC=w3456-h1926" alt="Placeholder">
-            </div>  
+      </div>
+      <div class="d-sm-none">
+        {% for topic, videos in videos_dict.items %}
+        <br/>
+        <h2>{{topic}}</h2>
+        <div
+          id="carouselOnePerSlide{{forloop.counter}}"
+          class="carousel slide carouselOnePerSlide"
+          data-bs-ride="carousel"
+          data-bs-interval="false"
+        >
+          <div class="carousel-inner">
+            {% for video in videos.videos %}
+            <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">  
+              <div class="row">
+                <div class="col-12">
+                  <div class="board" onclick='window.location.href="video/{{video.id}}/"'>
+                    <img
+                      src="https://img.youtube.com/vi/{{video.url}}/maxresdefault.jpg"
+                      alt="{{video.name}}"
+                    />
+                    <div class="video-title">{{video.name}}</div>
+                  </div>
+                  
+                </div>
+              </div>
+              
+            </div>
+            {% endfor %}
           </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselOnePerSlide{{forloop.counter}}"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselOnePerSlide{{forloop.counter}}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        
+        </div>
         {% endfor %}
       </div>
-      <!-- Add Pagination -->
-      <!-- <div class="swiper-pagination"></div> -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+
+      <!-- Swiper JS -->
+      <script src="{% static '/netflix-type-slider/package/js/swiper.js' %}"></script>
+
+      <!-- Initialize Swiper -->
+      <script>
+        var swiper = new Swiper(".swiper-container", {
+          slidesPerView: 6,
+          spaceBetween: 10,
+          slidesPerGroup: 2,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      </script>
     </div>
-  </div>
-{% endfor %}
+    <!-- ****************************************************************************************************
+        
+        End Body
 
-
-
-  <!-- Swiper JS -->
-  <script src="{% static 'netflix-type-slider/package/js/swiper.min.js' %}"></script>
-
-  <!-- Initialize Swiper -->
-  <script>
-    var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 6,
-      spaceBetween: 10,
-      slidesPerGroup: 2,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
-  </script>
-</div>
-{% endblock %}
+********************************************************************************************************-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

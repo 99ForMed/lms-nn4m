@@ -1352,219 +1352,219 @@ color: #fff;
 }
 
 .interview-dashboard {
-display: flex;
-flex-direction: column;
-}
-
-.interview-dashboard .container {
-display: grid;
-grid-template-columns: 1fr 1fr;
-grid-gap: 20px;
-}
-
-.interview-dashboard .clock {
-grid-column: 1;
-}
-
-.interview-dashboard #task-card {
-grid-column: 2;
-}
-
-.interview-dashboard #task-card-header {
-font-weight: bold;
-}
-
-.interview-dashboard .tasks-table {
-width: 100%;
-}
-
-.interview-dashboard .clock {
-width: 200px; /* You may need to adjust this value */
-height: 200px; /* You may need to adjust this value */
-}
-
-.interview-dashboard .row{
-width: 100%;
-
-}
-
-.interview-dashboard .row .col-md-9{
-border: solid white 2px;
-}
-
-.interview-dashboard .row .col-md-3{
-/* height: 200px;
-line-height: 200px; */
-}
-
-
-.interview-dashboard .row .greeting-container .day-of-week{
-
-}
-/* .clock-container {
-flex: 1;
-}
-*/
-.it-is {
-flex: 1;
-text-align: center;
-}/*
-
-.greeting {
-font-size: 2em;
-} */
-
-/* Greeting */
-
-.greeting-container {
-font-family: 'Montserrat', sans-serif;
-}
-
-.greeting {
-font-size: 50px;
-color: #9E9E9E; /* Or any color you prefer */
-}
-
-.it-is {
-font-size: small;
-color: grey; /* This will give it a low priority look */
-}
-
-.day-of-week {
-font-size: 40px; /* This will make it stand out a bit more */
-color: darkgrey; /* Replace with the color you want */
-}
-
-
-
-/* Colors for status box - you can add your own conditions for these in your JS */
-.second-row {
-display: flex;
-justify-content: space-between;
-padding: 20px 0;
-}
-
-/* Countdown Box */
-.countdown-box {
-background-color: #1E1E1E;
-border-radius: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 200px;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-color: #333;
-font-size: 24px;
-line-height: 1.2;
-font-weight: 500;
-padding: 0 10px;
-}
-
-/* Status Box */
-.status-box {
-background-color: #F6F6F6;
-border-radius: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 200px;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-color: #333;
-padding: 0 10px;
-}
-
-.status-box a.status {
-text-decoration: none;
-color: inherit;
-}
-
-/* Colors for status box - you can add your own conditions for these in your JS */
-.status-box.ongoing {
-background-color: #367B44; /* Green */
-}
-
-.status-box.upcoming {
-background-color: #FF9800; /* Orange */
-}
-
-.status-box.default {
-background-color: #9E9E9E; /* Grey */
-}
-
-.status-box.ongoing #statusText {
-color: #333;
-font-size: 24px;
-line-height: 1.2;
-font-weight: 500;
-}
-
-.status-box.upcoming #statusText {
-content: "Starting soon";
-}
-
-.status-box.default #statusText {
-content: "No class soon";
-}
-
-/* Video Box */
-.video-box {
-background-color: #1E1E1E;
-border-radius: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 200px;
-box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-color: #333;
-position: relative;
-padding: 0 10px;
-}
-
-.video-thumbnail {
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 20px;
-}
-
-#thumbnail {
-src: ""; /* this is a placeholder image */
-}
-
-
-/* Third Row */
-
-/* Tasks Table */
-.tasks-table {
-width: 100%;
-border-collapse: separate;
-border-spacing: 0 15px;
-}
-
-.tasks-table thead th {
-text-align: left;
-padding: 10px;
-background-color: #1E1E1E;
-color: #fff;
-}
-
-.tasks-table tbody tr {
-background-color: #333;
-color: #fff;
-border-radius: 10px;
-}
-
-.tasks-table tbody tr td {
-padding: 10px;
-vertical-align: middle;
-}
-
-.task-done {
-display: inline-block;
-height: 20px;
-width: 20px;
-cursor: pointer;
-}
+  display: flex;
+  flex-direction: column;
+  }
+  
+  .interview-dashboard .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  }
+  
+  .interview-dashboard .clock {
+  grid-column: 1;
+  }
+  
+  .interview-dashboard #task-card {
+  grid-column: 2;
+  }
+  
+  .interview-dashboard #task-card-header {
+  font-weight: bold;
+  }
+  
+  .interview-dashboard .tasks-table {
+  width: 100%;
+  }
+  
+  .interview-dashboard .clock {
+  width: 200px; /* You may need to adjust this value */
+  height: 200px; /* You may need to adjust this value */
+  }
+  
+  .interview-dashboard .row{
+  width: 100%;
+  
+  }
+  
+  .interview-dashboard .row .col-md-9{
+  border: solid white 2px;
+  }
+  
+  .interview-dashboard .row .col-md-3{
+  /* height: 200px;
+  line-height: 200px; */
+  }
+  
+  
+  .interview-dashboard .row .greeting-container .day-of-week{
+  
+  }
+  /* .clock-container {
+  flex: 1;
+  }
+  */
+  .it-is {
+  flex: 1;
+  text-align: center;
+  }/*
+  
+  .greeting {
+  font-size: 2em;
+  } */
+  
+  /* Greeting */
+  
+  .greeting-container {
+  font-family: 'Montserrat', sans-serif;
+  }
+  
+  .greeting {
+  font-size: 50px;
+  color: #9E9E9E; /* Or any color you prefer */
+  }
+  
+  .it-is {
+  font-size: small;
+  color: grey; /* This will give it a low priority look */
+  }
+  
+  .day-of-week {
+  font-size: 40px; /* This will make it stand out a bit more */
+  color: darkgrey; /* Replace with the color you want */
+  }
+  
+  
+  
+  /* Colors for status box - you can add your own conditions for these in your JS */
+  .second-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  }
+  
+  /* Countdown Box */
+  .countdown-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 0 10px;
+  }
+  
+  /* Status Box */
+  .status-box {
+  background-color: #F6F6F6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  padding: 0 10px;
+  }
+  
+  .status-box a.status {
+  text-decoration: none;
+  color: inherit;
+  }
+  
+  /* Colors for status box - you can add your own conditions for these in your JS */
+  .status-box.ongoing {
+  background-color: #367B44; /* Green */
+  }
+  
+  .status-box.upcoming {
+  background-color: #FF9800; /* Orange */
+  }
+  
+  .status-box.default {
+  background-color: #9E9E9E; /* Grey */
+  }
+  
+  .status-box.ongoing #statusText {
+  color: #333;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 500;
+  }
+  
+  .status-box.upcoming #statusText {
+  content: "Starting soon";
+  }
+  
+  .status-box.default #statusText {
+  content: "No class soon";
+  }
+  
+  /* Video Box */
+  .video-box {
+  background-color: #1E1E1E;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  position: relative;
+  padding: 0 10px;
+  }
+  
+  .video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  }
+  
+  #thumbnail {
+  src: ""; /* this is a placeholder image */
+  }
+  
+  
+  /* Third Row */
+  
+  /* Tasks Table */
+  .tasks-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  }
+  
+  .tasks-table thead th {
+  text-align: left;
+  padding: 10px;
+  background-color: #1E1E1E;
+  color: #fff;
+  }
+  
+  .tasks-table tbody tr {
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  }
+  
+  .tasks-table tbody tr td {
+  padding: 10px;
+  vertical-align: middle;
+  }
+  
+  .task-done {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  }
 
 /* Class has begun overlay */
 
