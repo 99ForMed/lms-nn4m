@@ -120,7 +120,8 @@ def course_page_view(request, sectionInstanceId):
         videos.sort(key=lambda x: x.index)
         videos_dict[syllabus_point] = {
             'videos': videos,
-            'remaining_placeholders': 6 - len(videos)
+            'remaining_placeholders': 6 - len(videos),
+            'tiled': SyllabusPoint.objects.get(name = syllabus_point).tiled
         }
 
     # Only reorder if the section is "Decision Making"
@@ -188,7 +189,8 @@ def course_page_view(request, sectionInstanceId):
     for topic, video_info in videos_dict.items():
         
         video_info['ordered_video_chunks'] = [video_info['videos'][i:i + 3] for i in range(0, len(video_info['videos']), 3)]
-        print(video_info['ordered_video_chunks'] )
+        
+
     context = {
         'videos_dict': videos_dict,
         'section_name': section.name,

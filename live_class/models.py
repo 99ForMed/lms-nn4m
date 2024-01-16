@@ -48,6 +48,7 @@ class LiveClass(models.Model):
     is_active = models.BooleanField(default=True)
     url = models.URLField(max_length=200)
     current_question = models.CharField(max_length=200, blank=True, null=True)  # stores the current question being answered
+    
 
     @property
     def scheduled_end_time(self):

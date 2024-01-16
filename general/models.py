@@ -37,7 +37,7 @@ class UcatSectionInstance(models.Model):
     
 class SyllabusPoint(models.Model):
     name = models.CharField(max_length=300)
-
+    tiled = models.BooleanField(default = False)
     def __str__(self):
         return str(self.name)
 

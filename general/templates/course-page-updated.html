@@ -95,6 +95,27 @@
       <div class="d-none d-md-block netflix-slider">
         {% for topic, videos in videos_dict.items %}
           <h2>{{topic}}</h2>
+          {% if videos.tiled %}
+          <div class="container-fluid">
+            <div class="row">
+              {% for video in videos.videos %}
+              
+                <div class="tiled-vid col-6 col-md-2">
+                  <div class="tiled-vid-thumbnail" onclick='window.location.href="video/{{video.id}}/"'>
+                    <img
+                      src="https://img.youtube.com/vi/{{video.url}}/maxresdefault.jpg"
+                      alt="{{video.name}}"
+                    />
+                    <div class="video-title">{{video.name}}</div>
+                  </div>
+                </div>
+
+              
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
+
           <div
             class="swiper-container swiper-container-initialized swiper-container-horizontal"
           >
@@ -148,12 +169,35 @@
               aria-atomic="true"
             ></span>
           </div>
+          {% endif %}
         {% endfor %}
       </div>
       <div class="d-none d-sm-block d-md-none">
         {% for topic, videos in videos_dict.items %}
+        <!-- Remember there's a desktop version and a mobile version 
+        AND a tablet version-->
         <br/>
         <h2>{{topic}}</h2>
+        {% if videos.tiled %}
+          <div class="container-fluid">
+            <div class="row">
+              {% for video in videos.videos %}
+              
+                <div class="tiled-vid col-6 col-md-2">
+                  <div class="tiled-vid-thumbnail" onclick='window.location.href="video/{{video.id}}/"'>
+                    <img
+                      src="https://img.youtube.com/vi/{{video.url}}/maxresdefault.jpg"
+                      alt="{{video.name}}"
+                    />
+                    <div class="video-title">{{video.name}}</div>
+                  </div>
+                </div>
+
+              
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
         <div
           id="carouselThreePerSlide{{forloop.counter}}"
           class="carousel slide carouselThreePerSlide"
@@ -197,20 +241,44 @@
           </button>
         
         </div>
+        {% endif %}
         {% endfor %}
       </div>
       <div class="d-sm-none">
         {% for topic, videos in videos_dict.items %}
         <br/>
         <h2>{{topic}}</h2>
+        {% if videos.tiled %}
+          <div class="container-fluid">
+            <div class="row">
+              {% for video in videos.videos %}
+              
+                <div class="tiled-vid col-6 col-md-2">
+                  <div class="tiled-vid-thumbnail" onclick='window.location.href="video/{{video.id}}/"'>
+                    <img
+                      src="https://img.youtube.com/vi/{{video.url}}/maxresdefault.jpg"
+                      alt="{{video.name}}"
+                    />
+                    <div class="video-title">{{video.name}}</div>
+                  </div>
+                </div>
+
+              
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
+        
+          {% for video in videos.videos %}
         <div
           id="carouselOnePerSlide{{forloop.counter}}"
           class="carousel slide carouselOnePerSlide"
           data-bs-ride="carousel"
           data-bs-interval="false"
         >
+          
           <div class="carousel-inner">
-            {% for video in videos.videos %}
+            
             <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">  
               <div class="row">
                 <div class="col-12">
@@ -226,8 +294,9 @@
               </div>
               
             </div>
-            {% endfor %}
           </div>
+          {% endfor %}
+          
           <button
             class="carousel-control-prev"
             type="button"
@@ -244,6 +313,7 @@
           </button>
         
         </div>
+        {% endif %}
         {% endfor %}
       </div>
 
