@@ -69,7 +69,7 @@
 }
 
 .swiper-button-next, .swiper-button-prev.swiper-button-disabled {
-  opacity: 1 !important;
+  /* opacity: 1 !important; */
 }
 
 .nav:hover ~ .swiper-wrapper .swiper-slide{
