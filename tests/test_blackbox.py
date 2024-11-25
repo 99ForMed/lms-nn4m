@@ -1,3 +1,4 @@
+import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -8,11 +9,25 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 
 class BlackBoxTesting(StaticLiveServerTestCase):
     def setUp(self):
         """Setup method to run before each test."""
+        chrome_options = Options()
+
+        # Check environment variable to determine headless mode
+        if os.getenv('ENVIRONMENT') == 'production':  # On Heroku or production environment
+            chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+            chrome_options.add_argument("--no-sandbox")  # For containerized environments like Heroku
+            chrome_options.add_argument("--disable-dev-shm-usage")  # To avoid memory issues
+        else:
+            # In development, run normally with UI
+            chrome_options.add_argument("--start-maximized")  # Open the browser maximized (optional)
+        
+        # Initialize the Chrome driver with the options
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
         # Initialize the WebDriver with the ChromeDriverManager to ensure it's always up-to-date
         self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.implicitly_wait(10)  # Wait for elements to load
