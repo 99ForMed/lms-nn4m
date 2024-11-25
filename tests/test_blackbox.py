@@ -14,24 +14,26 @@ from selenium.webdriver.chrome.options import Options
 
 class BlackBoxTesting(StaticLiveServerTestCase):
     def setUp(self):
-        """Setup method to run before each test."""
         chrome_options = Options()
 
-        # Check environment variable to determine headless mode
-        if os.getenv('ENVIRONMENT') == 'production':  # On Heroku or production environment
-            chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-            chrome_options.add_argument("--no-sandbox")  # For containerized environments like Heroku
-            chrome_options.add_argument("--disable-dev-shm-usage")  # To avoid memory issues
-        else:
-            # In development, run normally with UI
-            chrome_options.add_argument("--start-maximized")  # Open the browser maximized (optional)
-        
+        # Determine headless mode based on the environment
+        if os.getenv('ENVIRONMENT') == 'production':  # On Heroku or production
+            chrome_options.add_argument("--headless")  # Run in headless mode
+            chrome_options.add_argument("--no-sandbox")  # Required for Heroku
+            chrome_options.add_argument("--disable-dev-shm-usage")  # Prevent resource issues
+            chrome_options.binary_location = "/app/.apt/usr/bin/google-chrome"  # Heroku Chrome binary path
+            service = Service("/app/.chromedriver/bin/chromedriver")  # Heroku Chromedriver path
+        else:  # Local development
+            chrome_options.add_argument("--start-maximized")  # Optional: Start maximized
+            service = Service(ChromeDriverManager().install())  # Use WebDriverManager locally
+
         # Initialize the Chrome driver with the options
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-        # Initialize the WebDriver with the ChromeDriverManager to ensure it's always up-to-date
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        self.driver = webdriver.Chrome(service=service, options=chrome_options)
         self.driver.implicitly_wait(10)  # Wait for elements to load
-        self.driver.get("http://127.0.0.1:8000")  # Update with the correct base URL for your app
+
+        # Navigate to the base URL of your app
+        self.driver.get("http://127.0.0.1:8000")  # Replace with your app's URL
+
 
     def tearDown(self):
         """Teardown method to run after each test."""
