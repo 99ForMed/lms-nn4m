@@ -23,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("debug"))
 
 
-ALLOWED_HOSTS = ['192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1', 'temp-6249858623c0.herokuapp.com']
+ALLOWED_HOSTS = ["*", '192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1', 'temp-6249858623c0.herokuapp.com']
 
 CSRF_FAILURE_VIEW = 'general.views.csrf_failure'
 
@@ -101,6 +101,13 @@ DATABASES = {
         'PORT': os.getenv('CURRENT_DB_PORT'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
