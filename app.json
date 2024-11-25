@@ -1,0 +1,7 @@
+{
+    "name": "nn4m",
+    "scripts": {
+        "postdeploy": "python3 manage.py migrate"
+    },
+    "addons": ["heroku-postgresql"]
+}
