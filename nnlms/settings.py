@@ -14,6 +14,8 @@ from pathlib import Path
 import os 
 from dotenv import load_dotenv
 import dj_database_url
+from django.conf import settings
+import sys
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -185,3 +187,19 @@ if DEBUG == False:
     mimetypes.add_type("text/css", ".css", True)
     mimetypes.add_type("text/html", ".css", True)
     mimetypes.add_type("text/html", ".html", True)
+
+if 'test' in os.getenv('DJANGO_SETTINGS_MODULE', '') or 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('PGDATABASE', 'default_db_name'),
+            'USER': os.getenv('PGUSER', 'default_user'),
+            'PASSWORD': os.getenv('PGPASSWORD', 'default_password'),
+            'HOST': os.getenv('PGHOST', 'localhost'),
+            'PORT': os.getenv('PGPORT', '5432'),
+        }
+    }
+    # Disable database creation
+    DATABASES['default']['TEST'] = {
+        'MIRROR': 'default',
+    }
