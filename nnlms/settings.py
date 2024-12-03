@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os 
 from dotenv import load_dotenv
+import dj_database_url
+from django.conf import settings
+import sys
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,13 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=ihep)-gjq@b1ynk1c546imffs$jwld&8l99iib2)fwowjfbgp'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("debug"))
 
 
-ALLOWED_HOSTS = ['192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1', 'temp-6249858623c0.herokuapp.com']
+ALLOWED_HOSTS = ["*", '192.168.8.112','nn4m.herokuapp.com', 'localhost', 'test-server134.herokuapp.com', 'lms.99formed.com', '127.0.0.1', 'temp-6249858623c0.herokuapp.com']
 
 CSRF_FAILURE_VIEW = 'general.views.csrf_failure'
 
@@ -92,22 +95,10 @@ WSGI_APPLICATION = 'nnlms.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('CURRENT_DB_ENGINE'),
-        'NAME': os.getenv('CURRENT_DB_NAME'),
-        'USER': os.getenv('CURRENT_DB_USER'),
-        'PASSWORD': os.getenv('CURRENT_DB_PASSWORD'),
-        'HOST': os.getenv('CURRENT_DB_HOST'),
-        'PORT': os.getenv('CURRENT_DB_PORT'),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL')
+    )
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 # Password validation
@@ -196,3 +187,19 @@ if DEBUG == False:
     mimetypes.add_type("text/css", ".css", True)
     mimetypes.add_type("text/html", ".css", True)
     mimetypes.add_type("text/html", ".html", True)
+
+if 'test' in os.getenv('DJANGO_SETTINGS_MODULE', '') or 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('PGDATABASE', 'default_db_name'),
+            'USER': os.getenv('PGUSER', 'default_user'),
+            'PASSWORD': os.getenv('PGPASSWORD', 'default_password'),
+            'HOST': os.getenv('PGHOST', 'localhost'),
+            'PORT': os.getenv('PGPORT', '5432'),
+        }
+    }
+    # Disable database creation
+    DATABASES['default']['TEST'] = {
+        'MIRROR': 'default',
+    }
