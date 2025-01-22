@@ -240,12 +240,13 @@ def tutors_class_view(request, classId):
             new_obj.save()
 
     # student = UcatStudent.objects.get(user = User.objects.get(username = "rafiStudent"))
-    student = UcatStudent.objects.get(user = User.objects.all()[0])
-    problems = student.UcatProblems
+    # student = UcatStudent.objects.get(user = User.objects.all()[0])
+    # problems = student.UcatProblems
+    # unsolved_problems = []
+    # for problem in problems.all():
+    #     if not problem.solved:
+    #         unsolved_problems.append(problem)
     unsolved_problems = []
-    for problem in problems.all():
-        if not problem.solved:
-            unsolved_problems.append(problem)
     context = {
         'class': UcatClass.objects.get(id = classId),
         'unsolved_problems': unsolved_problems
