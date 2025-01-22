@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 import datetime
 
@@ -232,12 +233,28 @@ def tutors_class_view(request, classId):
         new_obj.save()
     
     if 'new_task' in request.GET.keys():
-        if not request.GET['new_task'] == "null":
-            new_obj = UcatStudent.objects.get(id = int(request.GET['task_student']))
-            updated_task_dict = new_obj.tasks_json
-            updated_task_dict[request.GET['new_task']] = False
-            new_obj.tasks_json = updated_task_dict
-            new_obj.save()
+        if request.GET['new_task'] != "null":
+            try:
+                # Fetch the student object
+                new_obj = UcatStudent.objects.get(id=int(request.GET['task_student']))
+                
+                # Ensure tasks_json is treated as a dictionary
+                updated_task_dict = new_obj.tasks_json if isinstance(new_obj.tasks_json, dict) else json.loads(new_obj.tasks_json)
+                
+                # Add the new task to the dictionary
+                updated_task_dict[request.GET['new_task']] = False
+                
+                # Update the JSON field and save
+                new_obj.tasks_json = updated_task_dict
+                new_obj.save()
+            except UcatStudent.DoesNotExist:
+                # Handle case where the student doesn't exist
+                return JsonResponse({'error': 'Student not found'}, status=404)
+            except json.JSONDecodeError:
+                # Handle invalid JSON in tasks_json field
+                return JsonResponse({'error': 'Invalid JSON format in tasks_json'}, status=400)
+
+            
 
     # student = UcatStudent.objects.get(user = User.objects.get(username = "rafiStudent"))
     # student = UcatStudent.objects.get(user = User.objects.all()[0])
